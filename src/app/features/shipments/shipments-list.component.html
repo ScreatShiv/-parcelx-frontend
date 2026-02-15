@@ -1,0 +1,64 @@
+<section class="shipments-page" *ngIf="vm() as state">
+  <header class="page-header">
+    <h2>Shipments</h2>
+
+    <p-select
+      [options]="statusOptions"
+      [(ngModel)]="selectedStatus"
+      optionLabel="label"
+      optionValue="value"
+      placeholder="Filter by status"
+      (onChange)="onStatusChange()"
+      styleClass="status-filter"
+    ></p-select>
+  </header>
+
+  <p-table
+    [value]="state.items"
+    [lazy]="true"
+    (onLazyLoad)="onLazyLoad($event)"
+    [paginator]="true"
+    [rows]="state.size"
+    [totalRecords]="state.total"
+    [loading]="state.loading"
+    [sortField]="state.sortField"
+    [sortOrder]="state.sortOrder"
+    [rowsPerPageOptions]="[10, 20, 50]"
+    dataKey="id"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="trackingNumber">
+          Tracking
+          <p-sortIcon field="trackingNumber"></p-sortIcon>
+        </th>
+        <th pSortableColumn="originHub">
+          Origin hub
+          <p-sortIcon field="originHub"></p-sortIcon>
+        </th>
+        <th pSortableColumn="destinationHub">
+          Destination hub
+          <p-sortIcon field="destinationHub"></p-sortIcon>
+        </th>
+        <th pSortableColumn="status">
+          Status
+          <p-sortIcon field="status"></p-sortIcon>
+        </th>
+        <th pSortableColumn="createdAt">
+          Created
+          <p-sortIcon field="createdAt"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-shipment>
+      <tr>
+        <td>{{ shipment.trackingNumber }}</td>
+        <td>{{ shipment.originHub }}</td>
+        <td>{{ shipment.destinationHub }}</td>
+        <td>{{ shipment.status }}</td>
+        <td>{{ shipment.createdAt | date: 'short' }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</section>

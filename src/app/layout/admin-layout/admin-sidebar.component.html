@@ -1,0 +1,13 @@
+<nav class="sidebar">
+  <div class="sidebar-logo">ParcelX Admin</div>
+
+  <ul class="sidebar-nav">
+    <li *ngFor="let item of navItems">
+      <a [routerLink]="item.route" routerLinkActive="active">
+        <i *ngIf="item.icon" [class]="item.icon"></i>
+        <span>{{ item.label }}</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+

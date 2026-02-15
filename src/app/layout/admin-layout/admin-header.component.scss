@@ -1,0 +1,40 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #ffffff;
+}
+
+.header-left h1 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-name {
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.header-right button {
+  border: none;
+  background-color: #ef4444;
+  color: #ffffff;
+  padding: 0.4rem 0.9rem;
+  border-radius: 0.375rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.header-right button:hover {
+  background-color: #dc2626;
+}
+
