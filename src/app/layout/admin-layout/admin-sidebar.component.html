@@ -1,8 +1,19 @@
 <nav class="sidebar">
-  <div class="sidebar-logo">ParcelX Admin</div>
+  <div class="sidebar-logo">Loogistic Admin</div>
 
   <ul class="sidebar-nav">
-    <li *ngFor="let item of navItems">
+    <li *ngFor="let item of mainNavItems">
+      <a [routerLink]="item.route" routerLinkActive="active">
+        <i *ngIf="item.icon" [class]="item.icon"></i>
+        <span>{{ item.label }}</span>
+      </a>
+    </li>
+  </ul>
+
+  <div class="sidebar-separator"></div>
+
+  <ul class="sidebar-nav sidebar-nav-secondary">
+    <li *ngFor="let item of secondaryNavItems">
       <a [routerLink]="item.route" routerLinkActive="active">
         <i *ngIf="item.icon" [class]="item.icon"></i>
         <span>{{ item.label }}</span>
@@ -10,4 +21,3 @@
     </li>
   </ul>
 </nav>
-

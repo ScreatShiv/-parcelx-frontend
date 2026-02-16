@@ -22,6 +22,11 @@ export class ApiHttpService {
     return this.http.get<T>(url, { params });
   }
 
+  post<TResponse, TBody>(path: string, body: TBody): Observable<TResponse> {
+    const url = this.buildUrl(path);
+    return this.http.post<TResponse>(url, body);
+  }
+
   private buildUrl(path: string): string {
     const base = this.config.apiBaseUrl.replace(/\/$/, '');
     const cleanPath = path.startsWith('/') ? path.slice(1) : path;
@@ -39,4 +44,3 @@ export class ApiHttpService {
     return httpParams;
   }
 }
-

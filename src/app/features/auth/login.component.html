@@ -1,0 +1,89 @@
+<div class="login-page">
+  <div class="login-left">
+    <div class="left-content">
+      <h1>An end-to-end logistics platform for faster e-commerce shipping</h1>
+
+      <ul class="feature-list">
+        <li>One roof solution for all your logistic needs</li>
+        <li>29000+ Pin-Codes in India &amp; 220+ Countries Worldwide</li>
+        <li>Automated shipping process &amp; Dedicated Account Manager</li>
+        <li>Zero Dashboard Fee / Zero Monthly Charges</li>
+      </ul>
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-value">25K</div>
+          <div class="stat-label">Businesses use our Superpower</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">20+</div>
+          <div class="stat-label">Courier Partners</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="login-right">
+    <div class="login-panel">
+      <div class="login-header">
+        <h2>Login</h2>
+        <div class="logo">
+          <span class="logo-mark">L</span>
+          <span class="logo-text">Loogistic</span>
+        </div>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="submit()" class="login-form">
+        <div class="form-field">
+          <label for="email">
+            Email:
+            <span class="required">*</span>
+          </label>
+          <input
+            id="email"
+            type="email"
+            pInputText
+            formControlName="email"
+            placeholder="Enter your username"
+          />
+        </div>
+
+        <div class="form-field">
+          <label for="password">
+            Password:
+            <span class="required">*</span>
+          </label>
+          <p-password
+            id="password"
+            formControlName="password"
+            [feedback]="false"
+            [toggleMask]="true"
+            placeholder="Input password"
+            styleClass="password-input"
+          ></p-password>
+        </div>
+
+        <div class="form-meta">
+          <a class="link-muted" routerLink="/auth/forgot-password">Forgot Password?</a>
+        </div>
+
+        <button
+          pButton
+          type="submit"
+          label="Submit"
+          class="submit-button"
+          [disabled]="isSubmitting"
+        ></button>
+
+        <div class="form-footer">
+          <span>Don't have an account?</span>
+          <a class="link-accent" routerLink="/auth/register">Create Account</a>
+        </div>
+
+        <div class="error-message" *ngIf="submitError">
+          {{ submitError }}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
