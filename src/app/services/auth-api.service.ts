@@ -20,6 +20,7 @@ const MOCK_USERS: Array<{ email: string; password: string; user: AuthUser }> = [
     user: {
       id: '1',
       email: 'admin@loogistic.com',
+      name: 'Shivam Sharma',
       roles: ['SUPER_ADMIN'],
     },
   },
@@ -29,6 +30,7 @@ const MOCK_USERS: Array<{ email: string; password: string; user: AuthUser }> = [
     user: {
       id: '2',
       email: 'ops@loogistic.com',
+      name: 'Ops User',
       roles: ['OPERATIONS'],
     },
   },
