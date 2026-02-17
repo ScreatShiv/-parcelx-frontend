@@ -13,7 +13,7 @@
   align-items: center;
   justify-content: center;
   padding: 2rem 2.5rem;
-  background: linear-gradient(135deg, #ff7a18, #f5515f);
+  background: linear-gradient(135deg, #9ccd7c, #86b670);
   color: #ffffff;
   overflow-y: auto;
 }
@@ -110,7 +110,7 @@
   width: 28px;
   height: 28px;
   border-radius: 0.8rem;
-  background: linear-gradient(135deg, #ff7a18, #f97316);
+  background: linear-gradient(135deg, #9ccd7c, #86b670);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -121,7 +121,7 @@
 .logo-text {
   font-weight: 700;
   font-size: 1.1rem;
-  color: #f97316;
+  color: #86b670;
 }
 
 .login-form {
@@ -168,12 +168,12 @@
 
 .submit-button {
   width: 100%;
-  background-color: #f97316;
+  background-color: #86b670;
   border: none;
 }
 
 .submit-button:enabled:hover {
-  background-color: #ea580c;
+  background-color: #6f9758;
 }
 
 .form-footer {
@@ -185,7 +185,7 @@
 }
 
 .link-accent {
-  color: #f97316;
+  color: #86b670;
   text-decoration: none;
   font-weight: 500;
 }
@@ -234,9 +234,9 @@
 .form-field input:focus,
 .form-field .p-inputtext:focus,
 .form-field ::ng-deep .p-password input:focus {
-  border-color: #f97316;
+  border-color: #86b670;
   background-color: #ffffff;
-  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+  box-shadow: 0 0 0 3px rgba(134, 182, 112, 0.1);
 }
 
 .form-field input::placeholder,
@@ -261,7 +261,7 @@
 }
 
 .form-field ::ng-deep .p-password .p-password-toggle-icon:hover {
-  color: #f97316;
+  color: #86b670;
 }
 
 // Error state
@@ -292,7 +292,7 @@
   padding: 0.875rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
-  background-color: #f97316;
+  background-color: #86b670;
   color: #ffffff;
   border: none;
   border-radius: 0.625rem;
@@ -302,14 +302,14 @@
 }
 
 .submit-button:enabled:hover {
-  background-color: #ea580c;
+  background-color: #6f9758;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+  box-shadow: 0 4px 12px rgba(134, 182, 112, 0.3);
 }
 
 .submit-button:enabled:active {
   transform: translateY(0);
-  box-shadow: 0 2px 6px rgba(249, 115, 22, 0.2);
+  box-shadow: 0 2px 6px rgba(134, 182, 112, 0.2);
 }
 
 .submit-button:disabled {
@@ -326,14 +326,14 @@
   padding: 0.875rem 1.5rem;
   font-size: 1rem;
   font-weight: 600;
-  background-color: #f97316;
+  background-color: #86b670;
   border: none;
   border-radius: 0.625rem;
 }
 
 ::ng-deep .submit-button.p-button:enabled:hover {
-  background-color: #ea580c;
-  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+  background-color: #6f9758;
+  box-shadow: 0 4px 12px rgba(134, 182, 112, 0.3);
 }
 
 ::ng-deep .submit-button.p-button:disabled {
@@ -364,9 +364,9 @@
 }
 
 .form-field ::ng-deep .p-password input.p-inputtext:focus {
-  border-color: #f97316;
+  border-color: #86b670;
   background-color: #ffffff;
-  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+  box-shadow: 0 0 0 3px rgba(134, 182, 112, 0.1);
 }
 
 .form-field ::ng-deep .p-password input.p-inputtext::placeholder {
@@ -407,7 +407,7 @@
 
 /* Hover */
 .form-field ::ng-deep .p-password-toggle-mask-icon:hover {
-  color: #f97316;
+  color: #86b670;
 }
 // Regular Input Fields
 .form-field input.p-inputtext {
@@ -423,9 +423,9 @@
 }
 
 .form-field input.p-inputtext:focus {
-  border-color: #f97316;
+  border-color: #86b670;
   background-color: #ffffff;
-  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+  box-shadow: 0 0 0 3px rgba(134, 182, 112, 0.1);
 }
 
 .form-field input.p-inputtext::placeholder {
