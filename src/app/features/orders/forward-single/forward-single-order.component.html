@@ -576,10 +576,12 @@
     </div>
   </section>
   }
-  <div class="fs-submit-row" *ngIf="activeStep === 5">
-    <button type="button" class="secondary-nav" (click)="prevStep()">
-      Back
-    </button>
-    <button type="submit" class="primary-submit">Create Order</button>
-  </div>
+  @if (activeStep === 5) {
+    <div class="fs-submit-row">
+      <button type="button" class="secondary-nav" (click)="prevStep()">
+        Back
+      </button>
+      <button type="submit" class="primary-submit">Create Order</button>
+    </div>
+  }
 </form>

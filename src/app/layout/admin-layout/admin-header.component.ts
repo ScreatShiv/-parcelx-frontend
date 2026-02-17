@@ -61,9 +61,21 @@ export class AdminHeaderComponent {
     this.userMenuOpen = !this.userMenuOpen;
   }
 
+  confirmLogoutOpen = false;
+
+  requestLogout(): void {
+    this.confirmLogoutOpen = true;
+    this.userMenuOpen = false;
+  }
+
+  cancelLogout(): void {
+    this.confirmLogoutOpen = false;
+  }
+
   logout(): void {
     this.auth.clearSession();
     this.userMenuOpen = false;
+    this.confirmLogoutOpen = false;
     this.router.navigate(['/auth/login']);
   }
 

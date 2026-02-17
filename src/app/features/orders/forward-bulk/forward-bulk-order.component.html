@@ -1,11 +1,129 @@
 <section class="bulk-order">
-  <h3>Forward Bulk Order</h3>
-  <p class="hint">
-    Upload your bulk order file or integrate with your channel partners here (mock placeholder).
-  </p>
+  <div class="bulk-layout">
+    <div class="bulk-main">
+      <div class="bulk-toolbar">
+        <label class="bulk-upload">
+          <span class="bulk-upload-icon pi pi-upload"></span>
+          <span>Click to Upload</span>
+          <input
+            #fileInput
+            class="bulk-upload-input"
+            type="file"
+            accept=".csv,.xls,.xlsx"
+            (change)="onFileSelected($event)"
+          />
+        </label>
 
-  <div class="bulk-dropzone">
-    <span>Drop CSV/XLSX file here or click to browse</span>
+        <button
+          type="button"
+          class="bulk-toolbar-button primary"
+          (click)="onPlace()"
+          [disabled]="!uploadInfo || isProcessing"
+        >
+          Place
+        </button>
+        <button
+          type="button"
+          class="bulk-toolbar-button dark"
+          (click)="onDraft()"
+          [disabled]="!uploadInfo || isProcessing"
+        >
+          Draft
+        </button>
+        <button
+          type="button"
+          class="bulk-toolbar-button ghost"
+          (click)="onReset()"
+          [disabled]="!uploadInfo && !parseError && !lastAction"
+        >
+          Reset
+        </button>
+      </div>
+
+      @if (uploadInfo) {
+        <p class="bulk-status">
+          Loaded {{ uploadInfo.fileName }} ({{ uploadInfo.rowCount }} rows)
+        </p>
+      }
+      @if (!uploadInfo && parseError) {
+        <p class="bulk-status error">
+          {{ parseError }}
+        </p>
+      }
+      @if (uploadInfo && lastAction === 'PLACE') {
+        <p class="bulk-status success">
+          Place triggered for {{ uploadInfo.rowCount }} rows (mock).
+        </p>
+      }
+      @if (uploadInfo && lastAction === 'DRAFT') {
+        <p class="bulk-status success">
+          Draft triggered for {{ uploadInfo.rowCount }} rows (mock).
+        </p>
+      }
+
+      <button type="button" class="bulk-link">
+        <span class="pi pi-download"></span>
+        <span>Download Sample File</span>
+      </button>
+
+      <div class="bulk-field">
+        <label for="expressType">Choose Express Type</label>
+        <select id="expressType">
+          <option value="">-- Select Express --</option>
+          <option value="express">Express</option>
+          <option value="surface">Surface</option>
+        </select>
+      </div>
+
+      <div class="bulk-field">
+        <label>Choose Type</label>
+        <label class="bulk-radio">
+          <input type="radio" name="bulkType" value="courier" checked />
+          <span class="bulk-radio-label">Courier Selection</span>
+        </label>
+      </div>
+
+      <h4 class="bulk-section-title">Bulk Upload Instructions</h4>
+      <ol class="bulk-instructions">
+        <li>
+          Add a warehouse by entering the pickup details to generate a warehouse
+          ID.
+        </li>
+        <li>
+          Fields marked with a star (*) are mandatory, while fields without a
+          star are optional.
+        </li>
+        <li>
+          Fill in all the relevant fields in the appropriate format and upload
+          the file in CSV format.
+        </li>
+      </ol>
+    </div>
+
+    <aside class="bulk-note">
+      <h4>Note</h4>
+      <ol>
+        <li>
+          Pickup Address Id is a numeric value that serves as the digital
+          identifier for your or your vendor's pickup address.
+        </li>
+        <li>
+          COD Amount value refers to the amount to be collected from the
+          consignee at the time of delivery. If the input value is "0", the
+          payment mode is considered to be prepaid and no amount will be
+          collected from the consignee.
+        </li>
+        <li>
+          Insurance secures your high-value invoice shipments against loss and
+          damage. Go to settings to automatically secure all shipments and input
+          "Y" under the column "Insurance (Y/N)" to secure a shipment.
+        </li>
+        <li>
+          Product Value refers to the declared amount of the shipment. If the
+          input amount is more than Rs 50,000, then uploading an Ewaybill
+          number is mandatory.
+        </li>
+      </ol>
+    </aside>
   </div>
 </section>
-

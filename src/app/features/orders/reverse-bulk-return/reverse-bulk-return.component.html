@@ -1,0 +1,82 @@
+<section class="reverse-bulk">
+  <div class="rb-layout">
+    <div class="rb-main">
+      <h3 class="rb-section-title">Upload Return Excel</h3>
+
+      <div class="rb-card">
+        <label class="rb-upload">
+          <input
+            type="file"
+            class="rb-upload-input"
+            accept=".csv,.xls,.xlsx"
+            (change)="onFileSelected($event)"
+          />
+          <div class="rb-upload-inner">
+            <span class="rb-upload-icon pi pi-upload"></span>
+            <span class="rb-upload-text">
+              @if (selectedFileName) {
+                {{ selectedFileName }}
+              } @else {
+                Click to Upload
+              }
+            </span>
+            <span class="rb-upload-hint">Upload CSV file format only</span>
+          </div>
+        </label>
+
+        <button type="button" class="rb-link">
+          <span class="pi pi-download"></span>
+          <span>Download Sample File</span>
+        </button>
+
+        <div class="rb-actions">
+          <button
+            type="button"
+            class="rb-btn primary"
+            (click)="submit()"
+            [disabled]="!selectedFileName"
+          >
+            <span class="pi pi-box"></span>
+            <span>Submit</span>
+          </button>
+
+          <button type="button" class="rb-btn ghost" (click)="reset()">
+            <span class="pi pi-refresh"></span>
+            <span>Reset</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <aside class="rb-note">
+      <h3 class="rb-note-title">Bulk Return Instructions</h3>
+
+      <p class="rb-note-intro">
+        Please read the instructions below carefully to avoid any discrepancies while uploading orders using Excel.
+      </p>
+
+      <ol class="rb-note-list">
+        <li>
+          Download Sample File here
+          <button type="button" class="rb-inline-link">Download Sample</button>
+        </li>
+        <li>
+          Please ensure that all data is in the proper format and placed in the appropriate column(s)
+          to avoid any discrepancies or errors.
+        </li>
+        <li>
+          Data Fields
+          <ul class="rb-bullets">
+            <li>Customer Name – Mandatory</li>
+            <li>Contact Number – Mandatory</li>
+            <li>Alternate Number – Not Mandatory</li>
+          </ul>
+        </li>
+        <li>
+          For Multiple Products in a Single Order, ensure each product is listed in a separate row
+          with the same consignee details.
+        </li>
+      </ol>
+    </aside>
+  </div>
+</section>

@@ -107,7 +107,7 @@
               <span>Support</span>
               <i class="pi pi-headphones"></i>
             </li>
-            <li (click)="logout()">
+            <li (click)="requestLogout()">
               <span>Log out</span>
               <i class="pi pi-sign-out"></i>
             </li>
@@ -116,4 +116,21 @@
       }
     </div>
   </div>
+
+  @if (confirmLogoutOpen) {
+    <div class="logout-backdrop">
+      <div class="logout-modal">
+        <h3 class="logout-title">Log out</h3>
+        <p class="logout-message">Are you sure you want to log out?</p>
+        <div class="logout-actions">
+          <button type="button" class="logout-btn secondary" (click)="cancelLogout()">
+            Cancel
+          </button>
+          <button type="button" class="logout-btn primary" (click)="logout()">
+            Log out
+          </button>
+        </div>
+      </div>
+    </div>
+  }
 </header>

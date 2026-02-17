@@ -1,0 +1,294 @@
+<section class="reverse-single">
+  <form class="rs-form" [formGroup]="form" (ngSubmit)="createReverseOrder()">
+    <section class="rs-section">
+      <h3 class="rs-section-title">Fetch Order Details</h3>
+
+      <div class="rs-card" formGroupName="fetch">
+        <div class="rs-row">
+          <div class="rs-field">
+            <label for="orderId">Order ID</label>
+            <input
+              id="orderId"
+              type="text"
+              formControlName="orderId"
+              placeholder="Enter Order ID"
+            />
+          </div>
+
+          <div class="rs-field">
+            <label for="awb">AWB #</label>
+            <input
+              id="awb"
+              type="text"
+              formControlName="awb"
+              placeholder="Enter AWB #"
+            />
+          </div>
+
+          <div class="rs-actions">
+            <button type="button" class="rs-btn primary" (click)="getDetails()">
+              <span class="rs-btn-icon pi pi-search"></span>
+              <span>Get Details</span>
+            </button>
+
+            <button type="button" class="rs-btn ghost" (click)="resetForm()">
+              <span class="rs-btn-icon pi pi-refresh"></span>
+              <span>Reset</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="rs-section">
+      <h3 class="rs-section-title">Pick-up Details</h3>
+
+      <div class="rs-card" formGroupName="pickup">
+        <div class="rs-row">
+          <div class="rs-field">
+            <label for="consigneeName">Consignee Name <span class="rs-required">*</span></label>
+            <input
+              id="consigneeName"
+              type="text"
+              formControlName="consigneeName"
+              placeholder="Enter Consignee Name"
+            />
+          </div>
+          <div class="rs-field">
+            <label for="mobileNumber">Mobile Number <span class="rs-required">*</span></label>
+            <input
+              id="mobileNumber"
+              type="tel"
+              formControlName="mobileNumber"
+              placeholder="Enter Consignee Mobile"
+            />
+          </div>
+          <div class="rs-field">
+            <label for="alternateNumber">Alternate Number</label>
+            <input
+              id="alternateNumber"
+              type="tel"
+              formControlName="alternateNumber"
+              placeholder="Enter Consignee Phone"
+            />
+          </div>
+          <div class="rs-field">
+            <label for="email">Consignee Email</label>
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              placeholder="Enter Consignee Email"
+            />
+          </div>
+        </div>
+
+        <div class="rs-row">
+          <div class="rs-field rs-field-full">
+            <label for="addressLine1">Consignee Address Line 1 <span class="rs-required">*</span></label>
+            <input
+              id="addressLine1"
+              type="text"
+              formControlName="addressLine1"
+              placeholder="Enter Address Line 1"
+            />
+          </div>
+        </div>
+
+        <div class="rs-row">
+          <div class="rs-field rs-field-full">
+            <label for="addressLine2">Consignee Address Line 2</label>
+            <input
+              id="addressLine2"
+              type="text"
+              formControlName="addressLine2"
+              placeholder="Enter Address Line 2"
+            />
+          </div>
+        </div>
+
+        <div class="rs-row">
+          <div class="rs-field">
+            <label for="pinCode">Pincode <span class="rs-required">*</span></label>
+            <input
+              id="pinCode"
+              type="text"
+              formControlName="pinCode"
+              placeholder="Enter Pincode"
+            />
+          </div>
+          <div class="rs-field">
+            <label for="city">City <span class="rs-required">*</span></label>
+            <input
+              id="city"
+              type="text"
+              formControlName="city"
+              placeholder="Enter City"
+            />
+          </div>
+          <div class="rs-field">
+            <label for="state">State <span class="rs-required">*</span></label>
+            <input
+              id="state"
+              type="text"
+              formControlName="state"
+              placeholder="Enter State"
+            />
+          </div>
+          <div class="rs-field">
+            <label for="country">Country <span class="rs-required">*</span></label>
+            <select id="country" formControlName="country">
+              <option value="India">India</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="rs-row">
+          <div class="rs-field">
+            <label for="addressType">Address Type <span class="rs-required">*</span></label>
+            <select id="addressType" formControlName="addressType">
+              <option value="Home">Home</option>
+              <option value="Office">Office</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="rs-section">
+      <h3 class="rs-section-title">Package Details</h3>
+
+      <div class="rs-card" formGroupName="pkg">
+        <div class="rs-row">
+          <div class="rs-field">
+            <label for="productName">Product Name <span class="rs-required">*</span></label>
+            <input
+              id="productName"
+              type="text"
+              formControlName="productName"
+              placeholder="Product Name"
+            />
+          </div>
+          <div class="rs-field">
+            <label for="quantity">Quantity <span class="rs-required">*</span></label>
+            <input
+              id="quantity"
+              type="number"
+              min="1"
+              formControlName="quantity"
+              placeholder="Qty"
+            />
+          </div>
+          <div class="rs-field">
+            <label for="productValue">Product Value <span class="rs-required">*</span></label>
+            <input
+              id="productValue"
+              type="number"
+              min="0"
+              formControlName="productValue"
+              placeholder="Value"
+            />
+          </div>
+          <div class="rs-field">
+            <label for="productCategory">Product Category</label>
+            <input
+              id="productCategory"
+              type="text"
+              formControlName="productCategory"
+              placeholder="Category"
+            />
+          </div>
+          <div class="rs-field">
+            <label for="sku">SKU</label>
+            <input
+              id="sku"
+              type="text"
+              formControlName="sku"
+              placeholder="SKU"
+            />
+          </div>
+        </div>
+
+        <div class="rs-row">
+          <div class="rs-field">
+            <label for="weightKg">Shipment Weight (KG) <span class="rs-required">*</span></label>
+            <input
+              id="weightKg"
+              type="number"
+              min="0"
+              step="0.1"
+              formControlName="weightKg"
+              placeholder="Enter Weight"
+            />
+          </div>
+          <div class="rs-field">
+            <label for="lengthCm">Shipment Length (CM) <span class="rs-required">*</span></label>
+            <input
+              id="lengthCm"
+              type="number"
+              min="0"
+              formControlName="lengthCm"
+              placeholder="Enter Length"
+            />
+          </div>
+          <div class="rs-field">
+            <label for="widthCm">Shipment Width (CM) <span class="rs-required">*</span></label>
+            <input
+              id="widthCm"
+              type="number"
+              min="0"
+              formControlName="widthCm"
+              placeholder="Enter Width"
+            />
+          </div>
+          <div class="rs-field">
+            <label for="heightCm">Shipment Height (CM) <span class="rs-required">*</span></label>
+            <input
+              id="heightCm"
+              type="number"
+              min="0"
+              formControlName="heightCm"
+              placeholder="Enter Height"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="rs-section">
+      <h3 class="rs-section-title">Return Address</h3>
+
+      <div class="rs-card rs-return-card" formGroupName="returnSection">
+        <div class="rs-row">
+          <div class="rs-field">
+            <label for="returnAddressId">Select Return Address <span class="rs-required">*</span></label>
+            <select id="returnAddressId" formControlName="returnAddressId">
+              <option value="">Select Return Address</option>
+              <option value="na">NA</option>
+            </select>
+          </div>
+
+          <div class="rs-return-preview">
+            <div class="rs-return-label">
+              <span class="rs-return-icon pi pi-map-marker"></span>
+              <span>Return</span>
+            </div>
+            <div class="rs-return-text">NA</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="rs-footer-actions">
+      <button type="submit" class="rs-cta primary">
+        <span class="pi pi-file"></span>
+        <span>Create Reverse Order</span>
+      </button>
+      <button type="button" class="rs-cta ghost" (click)="resetForm()">
+        <span class="pi pi-refresh"></span>
+        <span>Reset</span>
+      </button>
+    </div>
+  </form>
+</section>
