@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { NgForOf, NgIf } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { Sidebar } from '../../services/sidebar';
 
@@ -17,7 +16,7 @@ interface NavItem {
   templateUrl: './admin-sidebar.component.html',
   styleUrl: './admin-sidebar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterModule, NgForOf, NgIf],
+  imports: [RouterModule],
 })
 export class AdminSidebarComponent {
  private readonly sidebarService = inject(Sidebar);
@@ -35,7 +34,7 @@ export class AdminSidebarComponent {
 
   private readonly navItems: NavItem[] = [
     { label: 'Dashboard',        icon: 'pi pi-th-large',     route: '/dashboard',        section: 'main' },
-    { label: 'Add Orders',       icon: 'pi pi-plus-circle',  route: '/orders/add',       section: 'main' },
+    { label: 'Add Orders',       icon: 'pi pi-plus-circle',  route: '/orders',           section: 'main' },
     { label: 'Shipments',        icon: 'pi pi-inbox',        route: '/shipments',        section: 'main' },
     { label: 'Channel Orders',   icon: 'pi pi-link',         route: '/orders/channel',   section: 'main' },
     { label: 'Wallet',           icon: 'pi pi-wallet',       route: '/wallet',           section: 'main' },

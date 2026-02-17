@@ -28,6 +28,13 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'orders',
+        loadChildren: () =>
+          import('./features/orders/orders.routes').then(
+            (m) => m.ORDERS_ROUTES,
+          ),
+      },
+      {
         path: 'hubs',
         loadChildren: () =>
           import('./features/hubs/hubs.routes').then((m) => m.HUBS_ROUTES),

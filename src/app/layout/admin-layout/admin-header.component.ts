@@ -13,6 +13,7 @@ import { Sidebar } from '../../services/sidebar';
 export class AdminHeaderComponent {
   private readonly auth = inject(Auth);
   private readonly router = inject(Router);
+  userMenuOpen = false;
   private readonly sidebarService = inject(Sidebar);
 
   get userInitials(): string {
@@ -41,10 +42,31 @@ export class AdminHeaderComponent {
     return localPart.slice(0, 2).toUpperCase();
   }
 
+  get userName(): string {
+    const user = this.auth.currentUser;
+    if (user?.name) {
+      return user.name.toUpperCase();
+    }
+    if (user?.email) {
+      return user.email.split('@')[0].toUpperCase();
+    }
+    return 'USER';
+  }
+
+  get userEmail(): string {
+    return this.auth.currentUser?.email ?? '';
+  }
+
+  toggleUserMenu(): void {
+    this.userMenuOpen = !this.userMenuOpen;
+  }
+
   logout(): void {
     this.auth.clearSession();
+    this.userMenuOpen = false;
     this.router.navigate(['/auth/login']);
   }
+
 
   toggleMobileSidebar(): void {
     this.sidebarService.toggle();

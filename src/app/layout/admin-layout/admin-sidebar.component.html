@@ -54,32 +54,53 @@
 <div class="sidebar-backdrop" [class.visible]="mobileOpen()" (click)="closeMobile()"></div>
 
 <!-- Desktop: icon-only, expands on hover. Mobile: hidden until toggled, then full width -->
-<nav class="sidebar" [class.expanded]="isExpanded" [class.mobile-open]="mobileOpen()" (mouseenter)="isExpanded = true"
-  (mouseleave)="isExpanded = false">
+<nav
+  class="sidebar"
+  [class.expanded]="isExpanded"
+  [class.mobile-open]="mobileOpen()"
+  (mouseenter)="isExpanded = true"
+  (mouseleave)="isExpanded = false"
+>
   <div class="sidebar-logo">
     <i class="pi pi-truck logo-icon"></i>
     <span class="logo-text">Loogistic Admin</span>
   </div>
 
   <ul class="sidebar-nav">
-    <li *ngFor="let item of mainNavItems">
-      <a [routerLink]="item.route" routerLinkActive="active" (click)="closeMobile()"
-        [title]="!isExpanded ? item.label : ''">
-        <i *ngIf="item.icon" [class]="item.icon"></i>
-        <span class="nav-label">{{ item.label }}</span>
-      </a>
-    </li>
+    @for (item of mainNavItems; track item.label) {
+      <li>
+        <a
+          [routerLink]="item.route"
+          routerLinkActive="active"
+          (click)="closeMobile()"
+          [title]="!isExpanded ? item.label : ''"
+        >
+          @if (item.icon) {
+            <i [class]="item.icon"></i>
+          }
+          <span class="nav-label">{{ item.label }}</span>
+        </a>
+      </li>
+    }
   </ul>
 
   <div class="sidebar-separator"></div>
 
   <ul class="sidebar-nav sidebar-nav-secondary">
-    <li *ngFor="let item of secondaryNavItems">
-      <a [routerLink]="item.route" routerLinkActive="active" (click)="closeMobile()"
-        [title]="!isExpanded ? item.label : ''">
-        <i *ngIf="item.icon" [class]="item.icon"></i>
-        <span class="nav-label">{{ item.label }}</span>
-      </a>
-    </li>
+    @for (item of secondaryNavItems; track item.label) {
+      <li>
+        <a
+          [routerLink]="item.route"
+          routerLinkActive="active"
+          (click)="closeMobile()"
+          [title]="!isExpanded ? item.label : ''"
+        >
+          @if (item.icon) {
+            <i [class]="item.icon"></i>
+          }
+          <span class="nav-label">{{ item.label }}</span>
+        </a>
+      </li>
+    }
   </ul>
 </nav>

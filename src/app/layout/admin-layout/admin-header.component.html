@@ -73,9 +73,47 @@
       <i class="pi pi-headphones"></i>
     </button>
 
-    <button type="button" class="user-chip" (click)="logout()">
-      <span class="user-initials">{{ userInitials }}</span>
-      <i class="pi pi-chevron-down"></i>
-    </button>
+    <div class="user-menu-container">
+      <button type="button" class="user-chip" (click)="toggleUserMenu()">
+        <span class="user-initials">{{ userInitials }}</span>
+        <i class="pi pi-chevron-down"></i>
+      </button>
+
+      @if (userMenuOpen) {
+        <div class="user-menu">
+          <div class="user-menu-header">
+            <div class="user-menu-name">{{ userName }}</div>
+            <div class="user-menu-email">{{ userEmail }}</div>
+          </div>
+
+          <ul class="user-menu-list">
+            <li>
+              <span>Profile Settings</span>
+              <i class="pi pi-user"></i>
+            </li>
+            <li>
+              <span>DC Address</span>
+              <i class="pi pi-home"></i>
+            </li>
+            <li>
+              <span>Change Password</span>
+              <i class="pi pi-cog"></i>
+            </li>
+            <li>
+              <span>Term &amp; Conditions</span>
+              <i class="pi pi-file"></i>
+            </li>
+            <li>
+              <span>Support</span>
+              <i class="pi pi-headphones"></i>
+            </li>
+            <li (click)="logout()">
+              <span>Log out</span>
+              <i class="pi pi-sign-out"></i>
+            </li>
+          </ul>
+        </div>
+      }
+    </div>
   </div>
 </header>

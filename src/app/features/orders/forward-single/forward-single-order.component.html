@@ -1,0 +1,585 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="fs-order">
+  <div class="fs-tabs">
+    <button
+      type="button"
+      class="fs-tab"
+      [class.active]="activeStep === 1"
+      (click)="setStep(1)"
+    >
+      <span class="fs-tab-index">1</span>
+      <span class="fs-tab-label">Warehouse</span>
+    </button>
+    <button
+      type="button"
+      class="fs-tab"
+      [class.active]="activeStep === 2"
+      (click)="setStep(2)"
+    >
+      <span class="fs-tab-index">2</span>
+      <span class="fs-tab-label">Consignee</span>
+    </button>
+    <button
+      type="button"
+      class="fs-tab"
+      [class.active]="activeStep === 3"
+      (click)="setStep(3)"
+    >
+      <span class="fs-tab-index">3</span>
+      <span class="fs-tab-label">Invoice & Products</span>
+    </button>
+    <button
+      type="button"
+      class="fs-tab"
+      [class.active]="activeStep === 4"
+      (click)="setStep(4)"
+    >
+      <span class="fs-tab-index">4</span>
+      <span class="fs-tab-label">Order Details</span>
+    </button>
+    <button
+      type="button"
+      class="fs-tab"
+      [class.active]="activeStep === 5"
+      (click)="setStep(5)"
+    >
+      <span class="fs-tab-index">5</span>
+      <span class="fs-tab-label">Package</span>
+    </button>
+  </div>
+
+  @if (activeStep === 1) {
+  <section class="step">
+    <div class="step-sidebar">
+      <div class="step-icon">1</div>
+      <div class="step-label">Step 1</div>
+    </div>
+
+    <div class="step-content" formGroupName="warehouse">
+      <h3 class="step-title">Warehouse Address</h3>
+
+      <div class="card">
+        <div class="card-row">
+          <div class="field">
+            <label for="pickupWarehouse">Select Your Pickup</label>
+            <select id="pickupWarehouse" formControlName="pickupWarehouseId">
+              <option value="" disabled>Select pickup warehouse</option>
+              <option value="midland-1">
+                Midland microfin Ltd-01 — Radha Raman complex Rps-more road no 2...
+              </option>
+              <option value="midland-2">Midland microfin Ltd-02</option>
+            </select>
+          </div>
+
+          <div class="field toggle-field">
+            <label class="toggle-label">
+              <span>Return Address (if any)</span>
+              <input type="checkbox" formControlName="hasReturnAddress" />
+              <span class="toggle-switch">
+                <span class="toggle-knob"></span>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="address-cards">
+          <article class="address-card">
+            <header class="address-card-header">
+              <span class="badge pickup">Pickup</span>
+            </header>
+            <div class="address-card-body">
+              <h4 class="address-name">Midland Microfin Ltd-01</h4>
+              <p class="address-text">
+                Radha Raman complex Rps-more road no 2 near Arya samaj Mandir
+                Danapur patna , 801503 , PATNA Mobile: 9341506967
+              </p>
+            </div>
+          </article>
+
+          @if (form.get('warehouse.hasReturnAddress')?.value) {
+            <article class="address-card">
+              <header class="address-card-header">
+                <span class="badge return">Return</span>
+              </header>
+              <div class="address-card-body">
+                <h4 class="address-name">Midland Microfin Ltd-01</h4>
+                <p class="address-text">
+                  Radha Raman complex Rps-more road no 2 near Arya samaj Mandir
+                  Danapur patna , 801503 , PATNA Mobile: 9341506967
+                </p>
+              </div>
+            </article>
+          }
+        </div>
+      </div>
+      <div class="fs-step-actions">
+        <button type="button" class="primary-nav" (click)="nextStep()">Next</button>
+      </div>
+    </div>
+  </section>
+  } @else if (activeStep === 2) {
+  <section class="step">
+    <div class="step-sidebar">
+      <div class="step-icon">2</div>
+      <div class="step-label">Step 2</div>
+    </div>
+
+    <div class="step-content" formGroupName="destination">
+      <h3 class="step-title">Where are you sending to?</h3>
+
+      <div class="card">
+        <div class="card-row">
+          <div class="field">
+            <label for="consigneeName">Consignee Name</label>
+            <input
+              id="consigneeName"
+              type="text"
+              formControlName="consigneeName"
+              placeholder="Full Name"
+            />
+          </div>
+          <div class="field">
+            <label for="mobileNumber">Mobile Number</label>
+            <input
+              id="mobileNumber"
+              type="tel"
+              formControlName="mobileNumber"
+              placeholder="Enter 10-digit mobile number"
+            />
+          </div>
+        </div>
+
+        <div class="card-row">
+          <div class="field">
+            <label for="altContact">Enter alt contact</label>
+            <input
+              id="altContact"
+              type="tel"
+              formControlName="altContact"
+              placeholder="Enter 10-digit alternate number"
+            />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              placeholder="Email Address"
+            />
+          </div>
+        </div>
+
+        <div class="card-row">
+          <div class="field full-width">
+            <label for="addressLine1">Address Line 1</label>
+            <textarea
+              id="addressLine1"
+              rows="2"
+              formControlName="addressLine1"
+              placeholder="Address Line 1 (e.g., Apt 4B)"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="card-row">
+          <div class="field full-width">
+            <label for="addressLine2">Address Line 2</label>
+            <input
+              id="addressLine2"
+              type="text"
+              formControlName="addressLine2"
+              placeholder="Address Line 2 (e.g., Apt 4B)"
+            />
+          </div>
+        </div>
+
+        <div class="card-row">
+          <div class="field">
+            <label for="addressType">Address Type</label>
+            <select id="addressType" formControlName="addressType">
+              <option value="Home">Home</option>
+              <option value="Office">Office</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="pinCode">PIN Code</label>
+            <input
+              id="pinCode"
+              type="text"
+              formControlName="pinCode"
+              placeholder="e.g., 400001"
+            />
+          </div>
+        </div>
+
+        <div class="card-row">
+          <div class="field">
+            <label for="city">City</label>
+            <input
+              id="city"
+              type="text"
+              formControlName="city"
+              placeholder="City..."
+            />
+          </div>
+          <div class="field">
+            <label for="state">State</label>
+            <input
+              id="state"
+              type="text"
+              formControlName="state"
+              placeholder="State..."
+            />
+          </div>
+          <div class="field">
+            <label for="country">Country</label>
+            <input
+              id="country"
+              type="text"
+              formControlName="country"
+              placeholder="India"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="fs-step-actions">
+        <button type="button" class="secondary-nav" (click)="prevStep()">
+          Back
+        </button>
+        <button type="button" class="primary-nav" (click)="nextStep()">
+          Next
+        </button>
+      </div>
+    </div>
+  </section>
+  } @else if (activeStep === 3) {
+  <section class="step">
+    <div class="step-sidebar">
+      <div class="step-icon">3</div>
+      <div class="step-label">Step 3</div>
+    </div>
+
+    <div class="step-content">
+      <h3 class="step-title">Invoice & Product Details</h3>
+
+      <div class="card" formGroupName="invoice">
+        <div class="card-row">
+          <div class="field">
+            <label for="invoiceNumber">Invoice #/Ref. Id</label>
+            <input
+              id="invoiceNumber"
+              type="text"
+              formControlName="invoiceNumber"
+              placeholder="e.g., INV#12345"
+            />
+          </div>
+          <div class="field">
+            <label for="preGeneratedWaybill">Pre Generated Waybill</label>
+            <input
+              id="preGeneratedWaybill"
+              type="text"
+              formControlName="preGeneratedWaybill"
+              placeholder="Enter order number"
+            />
+          </div>
+          <div class="field">
+            <label for="isSddNdd">Is SDD/NDD?</label>
+            <select id="isSddNdd" formControlName="isSddNdd">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="card products-card">
+        <h4 class="section-subtitle">Product Details</h4>
+
+        <div formArrayName="products" class="products-array">
+          @for (group of products.controls; track $index; let i = $index) {
+            <div class="product-row" [formGroupName]="i">
+              <div class="card-row">
+                <div class="field">
+                  <label>Product Name</label>
+                  <input type="text" formControlName="name" placeholder="Product" />
+                </div>
+                <div class="field">
+                  <label>Quantity</label>
+                  <input
+                    type="number"
+                    formControlName="quantity"
+                    placeholder="Enter Quantity"
+                  />
+                </div>
+                <div class="field">
+                  <label>Value</label>
+                  <input
+                    type="number"
+                    formControlName="value"
+                    placeholder="Enter Product Value"
+                  />
+                </div>
+              </div>
+
+              <div class="card-row">
+                <div class="field">
+                  <label>SKU</label>
+                  <input type="text" formControlName="sku" placeholder="e.g., SKU12345" />
+                </div>
+                <div class="field">
+                  <label>HSN</label>
+                  <input type="text" formControlName="hsn" placeholder="HSN Code" />
+                </div>
+                <div class="field">
+                  <label>Category</label>
+                  <input type="text" formControlName="category" placeholder="Enter Category" />
+                </div>
+                <button
+                  type="button"
+                  class="link-button remove-product"
+                  (click)="removeProductRow(i)"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+
+        <button type="button" class="link-button add-more" (click)="addProductRow()">
+          + Add More
+        </button>
+      </div>
+      <div class="fs-step-actions">
+        <button type="button" class="secondary-nav" (click)="prevStep()">
+          Back
+        </button>
+        <button type="button" class="primary-nav" (click)="nextStep()">
+          Next
+        </button>
+      </div>
+    </div>
+  </section>
+
+  } @else if (activeStep === 4) {
+  <section class="step">
+    <div class="step-sidebar">
+      <div class="step-icon">4</div>
+      <div class="step-label">Step 4</div>
+    </div>
+
+    <div class="step-content" formGroupName="orderDetails">
+      <h3 class="step-title">Order Details</h3>
+
+      <div class="card">
+        <div class="card-row">
+          <div class="field">
+            <label for="paymentMode">Payment Mode</label>
+            <select id="paymentMode" formControlName="paymentMode">
+              <option value="Prepaid">Prepaid</option>
+              <option value="COD">COD</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="orderAmount">Order Amount</label>
+            <input
+              id="orderAmount"
+              type="number"
+              formControlName="orderAmount"
+              placeholder="0.00"
+            />
+          </div>
+          <div class="field">
+            <label for="gstAmount">GST Amount</label>
+            <input
+              id="gstAmount"
+              type="number"
+              formControlName="gstAmount"
+              placeholder="0.00"
+            />
+          </div>
+        </div>
+
+        <div class="card-row">
+          <div class="field">
+            <label for="extraCharges">Extra Charges (if any)</label>
+            <input
+              id="extraCharges"
+              type="number"
+              formControlName="extraCharges"
+              placeholder="Enter extra charges"
+            />
+          </div>
+          <div class="field">
+            <label for="totalAmount">Total Amount</label>
+            <input
+              id="totalAmount"
+              type="number"
+              formControlName="totalAmount"
+              placeholder="0.00"
+            />
+          </div>
+          <div class="field">
+            <label for="codAmount">Collectible COD Amt.</label>
+            <input
+              id="codAmount"
+              type="number"
+              formControlName="codAmount"
+              placeholder="0.00"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="fs-step-actions">
+        <button type="button" class="secondary-nav" (click)="prevStep()">
+          Back
+        </button>
+        <button type="button" class="primary-nav" (click)="nextStep()">
+          Next
+        </button>
+      </div>
+    </div>
+  </section>
+  } @else if (activeStep === 5) {
+  <section class="step">
+    <div class="step-sidebar">
+      <div class="step-icon">5</div>
+      <div class="step-label">Step 5</div>
+    </div>
+
+    <div class="step-content" formGroupName="package">
+      <h3 class="step-title">Package Details</h3>
+
+      <div class="card">
+        <div class="card-row weight-row">
+          <div class="field weight-options">
+            <label>Weight Slab</label>
+            <div class="weight-pills">
+              <label>
+                <input type="radio" value="0.5" formControlName="weightPreset" />
+                <span>0.5 KG</span>
+              </label>
+              <label>
+                <input type="radio" value="1" formControlName="weightPreset" />
+                <span>1 KG</span>
+              </label>
+              <label>
+                <input type="radio" value="2" formControlName="weightPreset" />
+                <span>2 KG</span>
+              </label>
+              <label>
+                <input type="radio" value="5" formControlName="weightPreset" />
+                <span>5 KG</span>
+              </label>
+              <label>
+                <input type="radio" value="OTHER" formControlName="weightPreset" />
+                <span>Others</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="mps">MPS</label>
+            <select id="mps" formControlName="mps">
+              <option value="No">No</option>
+              <option value="Yes">Yes</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="card-row">
+          <div class="field">
+            <label for="actualWeight">Actual Wt (kg)</label>
+            <input
+              id="actualWeight"
+              type="number"
+              formControlName="actualWeight"
+              placeholder="Enter number"
+            />
+          </div>
+          <div class="field">
+            <label for="length">Length (cm)</label>
+            <input
+              id="length"
+              type="number"
+              formControlName="length"
+              placeholder="Enter number"
+            />
+          </div>
+          <div class="field">
+            <label for="width">Width (cm)</label>
+            <input
+              id="width"
+              type="number"
+              formControlName="width"
+              placeholder="Enter number"
+            />
+          </div>
+          <div class="field">
+            <label for="height">Height (cm)</label>
+            <input
+              id="height"
+              type="number"
+              formControlName="height"
+              placeholder="Enter number"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="card courier-card">
+        <h4 class="section-subtitle">Select your courier partner</h4>
+
+        <div class="card-row">
+          <div class="field">
+            <label for="courierSpeed">Express</label>
+            <select id="courierSpeed" formControlName="courierSpeed">
+              <option value="Express">Express</option>
+              <option value="Standard">Standard</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="courierMode">Surface</label>
+            <select id="courierMode" formControlName="courierMode">
+              <option value="Surface">Surface</option>
+              <option value="Air">Air</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="courierSort">Sort</label>
+            <select id="courierSort" formControlName="courierSort">
+              <option value="">Sort By</option>
+              <option value="price">Price</option>
+              <option value="tat">TAT</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="courier-selection">
+          <label class="courier-pill">
+            <input
+              type="radio"
+              value="courier-selection"
+              formControlName="courierSelection"
+            />
+            <span class="courier-pill-dot"></span>
+            <span class="courier-pill-label">Courier Selection</span>
+          </label>
+        </div>
+
+        <div class="courier-total-row">
+          <span class="courier-total-label">Total (Incl. GST)</span>
+          <span class="courier-total-value">₹0.00</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  }
+  <div class="fs-submit-row" *ngIf="activeStep === 5">
+    <button type="button" class="secondary-nav" (click)="prevStep()">
+      Back
+    </button>
+    <button type="submit" class="primary-submit">Create Order</button>
+  </div>
+</form>

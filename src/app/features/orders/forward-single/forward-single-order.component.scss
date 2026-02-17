@@ -1,0 +1,405 @@
+.fs-order {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 100%;
+}
+
+.fs-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.fs-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  font-size: 0.8rem;
+  color: #4b5563;
+  cursor: pointer;
+}
+
+.fs-tab-index {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+}
+
+.fs-tab.active {
+  border-color: #f97316;
+  background-color: #fff7ed;
+  color: #111827;
+}
+
+.fs-tab.active .fs-tab-index {
+  border-color: #f97316;
+  background-color: #f97316;
+  color: #ffffff;
+}
+
+.step {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.step-sidebar {
+  width: 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0.5rem;
+}
+
+.step-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 2px solid #f97316;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: #f97316;
+  background-color: #fff7ed;
+}
+
+.step-label {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-title {
+  margin: 0 0 0.75rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.card {
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.card-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.field {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.9rem;
+}
+
+.field.full-width {
+  flex-basis: 100%;
+}
+
+.field label {
+  color: #4b5563;
+}
+
+.field input,
+.field textarea,
+.field select {
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  padding: 0.45rem 0.6rem;
+  font-size: 0.9rem;
+}
+
+.field textarea {
+  resize: vertical;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  outline: none;
+  border-color: #f97316;
+  box-shadow: 0 0 0 1px rgba(249, 115, 22, 0.2);
+}
+
+.toggle-field {
+  align-items: flex-end;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #4b5563;
+}
+
+.toggle-label input {
+  display: none;
+}
+
+.toggle-switch {
+  width: 40px;
+  height: 22px;
+  border-radius: 999px;
+  background-color: #e5e7eb;
+  position: relative;
+  transition: background-color 0.15s ease;
+}
+
+.toggle-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: transform 0.15s ease;
+}
+
+.toggle-label input:checked + .toggle-switch {
+  background-color: #f97316;
+}
+
+.toggle-label input:checked + .toggle-switch .toggle-knob {
+  transform: translateX(18px);
+}
+
+.address-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.75rem;
+}
+
+.address-card {
+  border-radius: 0.75rem;
+  border: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+  padding: 0.75rem 0.9rem;
+}
+
+.address-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.35rem;
+}
+
+.badge {
+  font-size: 0.75rem;
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.badge.pickup {
+  background-color: #f97316;
+  color: #ffffff;
+}
+
+.badge.return {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.address-name {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.address-text {
+  margin: 0.1rem 0 0;
+  font-size: 0.8rem;
+  color: #4b5563;
+}
+
+.section-subtitle {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.products-card {
+  margin-top: 0.75rem;
+}
+
+.products-array {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.product-row {
+  padding: 0.75rem 0.75rem 0.5rem;
+  border-radius: 0.6rem;
+  border: 1px dashed #e5e7eb;
+  background-color: #f9fafb;
+}
+
+.link-button {
+  border: none;
+  background: transparent;
+  color: #f97316;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0;
+}
+
+.add-more {
+  margin-top: 0.5rem;
+}
+
+.remove-product {
+  align-self: flex-end;
+}
+
+.weight-row {
+  align-items: flex-end;
+}
+
+.weight-options {
+  flex: 2 1 0;
+}
+
+.weight-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+.weight-pills label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.weight-pills input {
+  margin: 0;
+}
+
+.courier-card {
+  margin-top: 1rem;
+}
+
+.courier-selection {
+  margin-top: 0.75rem;
+}
+
+.courier-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 999px;
+  background-color: #f9fafb;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid #f97316;
+  font-size: 0.85rem;
+}
+
+.courier-pill input {
+  display: none;
+}
+
+.courier-pill-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 2px solid #f97316;
+}
+
+.courier-total-row {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.courier-total-label {
+  font-weight: 600;
+}
+
+.courier-total-value {
+  font-weight: 600;
+}
+
+.fs-submit-row {
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.fs-step-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.secondary-nav {
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
+  color: #374151;
+  font-size: 0.85rem;
+  padding: 0.45rem 1.2rem;
+  cursor: pointer;
+}
+
+.primary-nav {
+  border-radius: 999px;
+  border: none;
+  background-color: #f97316;
+  color: #ffffff;
+  font-size: 0.85rem;
+  padding: 0.45rem 1.4rem;
+  cursor: pointer;
+}
+
+.primary-submit {
+  border: none;
+  border-radius: 999px;
+  background-color: #f97316;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.6rem 1.6rem;
+  cursor: pointer;
+}
+
+.primary-submit:hover {
+  background-color: #ea580c;
+}
+

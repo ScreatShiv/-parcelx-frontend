@@ -1,0 +1,64 @@
+<section class="orders-page">
+  <header class="orders-toolbar">
+    <div class="orders-toolbar-left">
+      <span class="title">Create New Order</span>
+
+      <div class="direction-toggle">
+        <button
+          type="button"
+          class="direction-option"
+          [class.active]="direction === 'FORWARD'"
+          (click)="setDirection('FORWARD')"
+        >
+          <span class="direction-dot"></span>
+          <span>Forward</span>
+        </button>
+
+        <button
+          type="button"
+          class="direction-option"
+          [class.active]="direction === 'REVERSE'"
+          (click)="setDirection('REVERSE')"
+        >
+          <span class="direction-dot"></span>
+          <span>Reverse</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="orders-toolbar-right">
+      <div class="order-type-toggle">
+        <button
+          type="button"
+          class="order-type-pill"
+          [class.active]="orderType === 'SINGLE'"
+          (click)="setOrderType('SINGLE')"
+        >
+          Single Order
+        </button>
+        <button
+          type="button"
+          class="order-type-pill"
+          [class.active]="orderType === 'BULK'"
+          (click)="setOrderType('BULK')"
+        >
+          Bulk Order
+        </button>
+      </div>
+
+      <button type="button" class="toolbar-button secondary">
+        Warehouse/Sellers List
+      </button>
+
+      <button type="button" class="toolbar-button primary">
+        + Add Warehouse
+      </button>
+    </div>
+  </header>
+
+  @if (direction === 'FORWARD' && orderType === 'SINGLE') {
+    <app-forward-single-order />
+  } @else if (direction === 'FORWARD' && orderType === 'BULK') {
+    <app-forward-bulk-order />
+  }
+</section>

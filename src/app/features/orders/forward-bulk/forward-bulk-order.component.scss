@@ -1,0 +1,32 @@
+.bulk-order {
+  margin-top: 1.5rem;
+  max-width: 720px;
+}
+
+.bulk-order h3 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.bulk-order .hint {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.bulk-dropzone {
+  border-radius: 0.75rem;
+  border: 1.5px dashed #d1d5db;
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #6b7280;
+  background-color: #f9fafb;
+}
+
+.bulk-dropzone:hover {
+  border-color: #f97316;
+  background-color: #fff7ed;
+}
+

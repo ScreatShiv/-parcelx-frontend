@@ -80,9 +80,11 @@
           <a class="link-accent" routerLink="/auth/register">Create Account</a>
         </div>
 
-        <div class="error-message" *ngIf="submitError">
-          {{ submitError }}
-        </div>
+        @if (submitError) {
+          <div class="error-message">
+            {{ submitError }}
+          </div>
+        }
       </form>
     </div>
   </div>
