@@ -1,5 +1,49 @@
-<header class="header">
+<!-- <header class="header">
   <div class="header-left"></div>
+
+  <div class="header-right">
+    <button type="button" class="header-link">
+      <i class="pi pi-book"></i>
+      <span>Full Truck Load</span>
+    </button>
+
+    <button type="button" class="header-link">
+      <i class="pi pi-ticket"></i>
+      <span>Tickets</span>
+    </button>
+
+    <div class="wallet-pill">
+      <span class="wallet-label">FX Wallet:</span>
+      <span class="wallet-amount">₹4,698.34</span>
+    </div>
+
+    <button type="button" class="recharge-button">
+      Recharge Wallet
+    </button>
+
+    <button type="button" class="icon-button" aria-label="Notifications">
+      <i class="pi pi-bell"></i>
+    </button>
+
+    <button type="button" class="icon-button" aria-label="Contact support">
+      <i class="pi pi-headphones"></i>
+    </button>
+
+    <button type="button" class="user-chip" (click)="logout()">
+      <span class="user-initials">{{ userInitials }}</span>
+      <i class="pi pi-chevron-down"></i>
+    </button>
+  </div>
+</header> -->
+
+
+<header class="header">
+  <div class="header-left">
+    <!-- Hamburger: only visible on mobile -->
+    <button type="button" class="mobile-menu-btn" (click)="toggleMobileSidebar()" aria-label="Open menu">
+      <i class="pi pi-bars"></i>
+    </button>
+  </div>
 
   <div class="header-right">
     <button type="button" class="header-link">

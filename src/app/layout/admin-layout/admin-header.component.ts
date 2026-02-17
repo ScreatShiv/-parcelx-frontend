@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth } from '../../core/auth';
+import { Sidebar } from '../../services/sidebar';
 
 @Component({
   standalone: true,
@@ -12,6 +13,7 @@ import { Auth } from '../../core/auth';
 export class AdminHeaderComponent {
   private readonly auth = inject(Auth);
   private readonly router = inject(Router);
+  private readonly sidebarService = inject(Sidebar);
 
   get userInitials(): string {
     const user = this.auth.currentUser;
@@ -42,5 +44,9 @@ export class AdminHeaderComponent {
   logout(): void {
     this.auth.clearSession();
     this.router.navigate(['/auth/login']);
+  }
+
+  toggleMobileSidebar(): void {
+    this.sidebarService.toggle();
   }
 }
