@@ -1,21 +1,27 @@
+
+
 .login-page {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-  min-height: 100vh;
+  height: 100vh;
   background-color: #f9fafb;
+  overflow: hidden;
 }
 
 .login-left {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3rem 2.5rem;
+  padding: 2rem 2.5rem;
   background: linear-gradient(135deg, #ff7a18, #f5515f);
   color: #ffffff;
+  overflow-y: auto;
 }
 
 .left-content {
   max-width: 520px;
+  width: 100%;
+  margin: auto 0;
 }
 
 .left-content h1 {
@@ -67,7 +73,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3rem 2.5rem;
+  padding: 2rem 2.5rem;
+  overflow-y: auto;
 }
 
 .login-panel {
@@ -77,6 +84,7 @@
   padding: 2.5rem 2.25rem;
   border-radius: 1rem;
   box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+  margin: auto 0; // ADD THIS - it's crucial
 }
 
 .login-header {
@@ -195,10 +203,236 @@
 @media (max-width: 960px) {
   .login-page {
     grid-template-columns: minmax(0, 1fr);
+    height: auto; // Allow natural height on mobile
+    min-height: 100vh;
   }
 
   .login-left {
     display: none;
   }
+  
+  .login-right {
+    padding: 3rem 2.5rem; // More padding on mobile
+  }
 }
 
+// Input field styling
+.form-field input,
+.form-field .p-inputtext,
+.form-field ::ng-deep .p-password input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  background-color: #f9fafb;
+  color: #111827;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.form-field input:focus,
+.form-field .p-inputtext:focus,
+.form-field ::ng-deep .p-password input:focus {
+  border-color: #f97316;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+}
+
+.form-field input::placeholder,
+.form-field ::ng-deep .p-password input::placeholder {
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+// Password input wrapper
+.form-field ::ng-deep .p-password {
+  width: 100%;
+}
+
+.form-field ::ng-deep .p-password .p-inputtext {
+  width: 100%;
+}
+
+// Password toggle icon
+.form-field ::ng-deep .p-password .p-password-toggle-icon {
+  color: #6b7280;
+  cursor: pointer;
+}
+
+.form-field ::ng-deep .p-password .p-password-toggle-icon:hover {
+  color: #f97316;
+}
+
+// Error state
+.form-field.error input,
+.form-field.error .p-inputtext,
+.form-field.error ::ng-deep .p-password input {
+  border-color: #ef4444;
+}
+
+.form-field.error input:focus,
+.form-field.error .p-inputtext:focus,
+.form-field.error ::ng-deep .p-password input:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+// Disabled state
+.form-field input:disabled,
+.form-field .p-inputtext:disabled,
+.form-field ::ng-deep .p-password input:disabled {
+  background-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+// Submit Button
+.submit-button {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #f97316;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.625rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.submit-button:enabled:hover {
+  background-color: #ea580c;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
+
+.submit-button:enabled:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(249, 115, 22, 0.2);
+}
+
+.submit-button:disabled {
+  background-color: #d1d5db;
+  color: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+// Override PrimeNG button styles
+::ng-deep .submit-button.p-button {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background-color: #f97316;
+  border: none;
+  border-radius: 0.625rem;
+}
+
+::ng-deep .submit-button.p-button:enabled:hover {
+  background-color: #ea580c;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
+
+::ng-deep .submit-button.p-button:disabled {
+  background-color: #d1d5db;
+  opacity: 1;
+}
+
+// Password Field & Eye Icon
+.form-field ::ng-deep .p-password {
+  width: 100%;
+  display: block;
+}
+
+.form-field ::ng-deep .p-password .p-input-icon-right {
+  width: 100%;
+}
+
+.form-field ::ng-deep .p-password input.p-inputtext {
+  width: 100%;
+  padding: 0.75rem 3rem 0.75rem 1rem;
+  font-size: 0.95rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  background-color: #f9fafb;
+  color: #111827;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.form-field ::ng-deep .p-password input.p-inputtext:focus {
+  border-color: #f97316;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+}
+
+.form-field ::ng-deep .p-password input.p-inputtext::placeholder {
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+// Eye Icon Button
+.form-field ::ng-deep .p-password .p-password-toggle-icon {
+  color: #6b7280;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  font-size: 1.1rem;
+}
+/* Password Wrapper */
+.form-field ::ng-deep .p-password {
+  position: relative;
+  width: 100%;
+}
+
+/* Input padding for icon space */
+.form-field ::ng-deep .p-password input {
+  padding-right: 2.5rem;
+}
+
+/* Toggle Mask Icon */
+.form-field ::ng-deep .p-password-toggle-mask-icon {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.1rem;
+  height: 1.1rem;
+  cursor: pointer;
+  color: #6b7280;
+  transition: color 0.2s ease;
+}
+
+/* Hover */
+.form-field ::ng-deep .p-password-toggle-mask-icon:hover {
+  color: #f97316;
+}
+// Regular Input Fields
+.form-field input.p-inputtext {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  background-color: #f9fafb;
+  color: #111827;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.form-field input.p-inputtext:focus {
+  border-color: #f97316;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+}
+
+.form-field input.p-inputtext::placeholder {
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+.form-field input.p-inputtext:hover {
+  border-color: #9ca3af;
+}
