@@ -148,7 +148,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 1.25rem 1.125rem;
+  padding: 0.25rem 1.125rem;
   font-weight: 600;
   font-size: 1.05rem;
   border-bottom: 1px solid #e5e7eb;
@@ -178,17 +178,17 @@
 .sidebar-nav {
   list-style: none;
   margin: 0;
-  padding: 0.75rem 0;
+  padding: 0.5rem 0;
 }
 
 .sidebar-nav li a {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.75rem 0.90rem;
+  padding: 0.65rem 0.90rem;
   color: #374151;
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 0.75rem;
   border-radius: 999px;
   margin: 2px 8px;
   white-space: nowrap;
@@ -196,7 +196,7 @@
 }
 
 .sidebar-nav li a i {
-  font-size: 1.05rem;
+  font-size: 0.85rem;
   flex-shrink: 0;
   width: 20px;
   text-align: center;
@@ -235,7 +235,7 @@
 }
 
 .sidebar-nav-secondary {
-  margin-top: 0.25rem;
+  margin-top: 0rem;
 }
 
 /* ── Mobile overrides (≤ 768px) ── */

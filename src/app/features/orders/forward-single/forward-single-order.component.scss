@@ -179,11 +179,11 @@
   transition: transform 0.15s ease;
 }
 
-.toggle-label input:checked + .toggle-switch {
+.toggle-label input:checked+.toggle-switch {
   background-color: #CD5656;
 }
 
-.toggle-label input:checked + .toggle-switch .toggle-knob {
+.toggle-label input:checked+.toggle-switch .toggle-knob {
   transform: translateX(18px);
 }
 
@@ -403,3 +403,272 @@
   background-color: #AF3E3E;
 }
 
+.field input,
+.field textarea,
+.field select {
+  font-size: 0.75rem;
+  /* Prevents iOS zoom on focus */
+}
+
+.field select option:hover,
+.field select option:checked,
+.field select option:focus {
+  background-color: #CD5656;
+  color: #ffffff !important;
+}
+
+/* Custom dropdown overlay styles */
+.custom-dropdown-option:hover {
+  background-color: rgba(205, 86, 86, 0.1);
+  color: #CD5656;
+  cursor: pointer;
+}
+
+.custom-dropdown-option.selected {
+  background-color: #CD5656;
+  color: #ffffff;
+}
+
+/* Select base styles — matches other input boxes */
+.field select {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  padding: 0.45rem 2rem 0.45rem 0.6rem;
+  /* right padding for arrow */
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: #111827;
+  background-color: #ffffff;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* Custom dropdown arrow */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.65rem center;
+  background-size: 14px;
+
+  cursor: pointer;
+  line-height: 1.1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.field select option[value=""][disabled] {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+/* Placeholder option - smaller font */
+.field select:has(option[value=""]:checked) {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+/* Selected option - your desired font size */
+.field select:not(:has(option[value=""]:checked)) {
+  font-size: 0.85rem;
+  color: #111827;
+}
+
+/* Focus state — matches other inputs */
+.field select:focus {
+  outline: none;
+  border-color: #CD5656;
+  box-shadow: 0 0 0 1px rgba(205, 86, 86, 0.25);
+}
+
+/* Placeholder option styling */
+.field select option[value=""][disabled] {
+  color: #9ca3af;
+}
+
+/* Default selected font size */
+#addressType {
+  font-size: 0.85rem;
+  color: #111827;
+}
+
+/* Option items alignment */
+.field select option {
+  color: #111827;
+  background-color: #ffffff;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.9rem;
+  font-family: inherit;
+  white-space: normal;
+  /* Allows long text to wrap in dropdown */
+  word-break: break-word;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .field select {
+    font-size: 1rem;
+    /* Prevents iOS auto-zoom */
+    padding: 0.5rem 2rem 0.5rem 0.6rem;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .fs-tabs {
+    gap: 0.35rem;
+  }
+
+  .fs-tab {
+    padding: 0.25rem 0.65rem;
+    font-size: 0.75rem;
+  }
+
+  .fs-tab-label {
+    display: none;
+    /* Hide label text on small screens, show only number */
+  }
+
+  /* Step layout — stack sidebar + content vertically */
+  .step {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .step-sidebar {
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 0;
+  }
+
+  .step-label {
+    margin-top: 0;
+    font-size: 0.8rem;
+  }
+
+  /* Cards */
+  .card {
+    padding: 0.75rem;
+  }
+
+  /* Card rows — stack fields vertically */
+  .card-row {
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .field {
+    flex: 1 1 100%;
+  }
+
+  /* Inputs / selects */
+  .field input,
+  .field textarea,
+  .field select {
+    font-size: 0.75rem;
+    /* Prevents iOS zoom on focus */
+  }
+
+  /* Address cards */
+  .address-cards {
+    grid-template-columns: 1fr;
+  }
+
+  /* Toggle field — align to start on mobile */
+  .toggle-field {
+    align-items: flex-start;
+  }
+
+  /* Weight pills */
+  .weight-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .weight-options {
+    flex: 1 1 100%;
+  }
+
+  .weight-pills {
+    gap: 0.4rem;
+  }
+
+  .weight-pills label {
+    font-size: 0.75rem;
+    padding: 0.2rem 0.55rem;
+  }
+
+  /* Product rows */
+  .product-row {
+    padding: 0.65rem 0.65rem 0.5rem;
+  }
+
+  /* Remove button — push to right */
+  .remove-product {
+    align-self: flex-end;
+    margin-top: 0.25rem;
+  }
+
+  /* Courier card */
+  .courier-card {
+    margin-top: 0.75rem;
+  }
+
+  /* Step actions */
+  .fs-step-actions {
+    justify-content: space-between;
+  }
+
+  .secondary-nav,
+  .primary-nav {
+    flex: 1;
+    text-align: center;
+  }
+
+  /* Submit row */
+  .fs-submit-row {
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+  }
+
+  .primary-submit,
+  .fs-submit-row .secondary-nav {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Extra small screens (< 400px) */
+@media (max-width: 400px) {
+  .fs-tab {
+    padding: 0.2rem 0.5rem;
+  }
+
+  .step-icon {
+    width: 28px;
+    height: 28px;
+    font-size: 0.8rem;
+  }
+
+  .step-title {
+    font-size: 0.95rem;
+  }
+
+  /* Fix select overflow */
+  .field select {
+    width: 100%;
+    min-width: 0;
+    /* Allows it to shrink below its content size */
+    max-width: 100%;
+    /* Prevents overflow beyond parent */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-sizing: border-box;
+  }
+}
