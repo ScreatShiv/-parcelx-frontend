@@ -74,6 +74,7 @@ export class ForwardSingleOrderComponent {
 
   setStep(step: number): void {
     this.activeStep = step;
+    this.scrollStepIntoView(step);
   }
 
   nextStep(): void {
@@ -87,6 +88,20 @@ export class ForwardSingleOrderComponent {
       this.activeStep -= 1;
     }
   }
+
+  scrollStepIntoView(step: number): void {
+  setTimeout(() => {
+    const tabs = document.querySelectorAll('.fs-tab');
+    const target = tabs[step - 1] as HTMLElement;
+    if (target) {
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center'
+      });
+    }
+  }, 50);
+}
 
   addProductRow(): void {
     this.products.push(this.createProductGroup());

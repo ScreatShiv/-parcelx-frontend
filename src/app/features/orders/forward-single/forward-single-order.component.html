@@ -1,5 +1,66 @@
 <form [formGroup]="form" (ngSubmit)="submit()" class="fs-order">
   <div class="fs-tabs">
+
+  <button type="button" class="fs-tab"
+    [class.active]="activeStep === 1"
+    [class.completed]="activeStep > 1"
+    (click)="setStep(1)">
+    <div class="fs-tab-index">
+      <span class="fs-tab-index-num">1</span>
+    </div>
+    <span class="fs-tab-label">Warehouse</span>
+  </button>
+
+  <div class="fs-tab-connector" [class.filled]="activeStep > 1"></div>
+
+  <button type="button" class="fs-tab"
+    [class.active]="activeStep === 2"
+    [class.completed]="activeStep > 2"
+    (click)="setStep(2)">
+    <div class="fs-tab-index">
+      <span class="fs-tab-index-num">2</span>
+    </div>
+    <span class="fs-tab-label">Consignee</span>
+  </button>
+
+  <div class="fs-tab-connector" [class.filled]="activeStep > 2"></div>
+
+  <button type="button" class="fs-tab"
+    [class.active]="activeStep === 3"
+    [class.completed]="activeStep > 3"
+    (click)="setStep(3)">
+    <div class="fs-tab-index">
+      <span class="fs-tab-index-num">3</span>
+    </div>
+    <span class="fs-tab-label">Invoice & Products</span>
+  </button>
+
+  <div class="fs-tab-connector" [class.filled]="activeStep > 3"></div>
+
+  <button type="button" class="fs-tab"
+    [class.active]="activeStep === 4"
+    [class.completed]="activeStep > 4"
+    (click)="setStep(4)">
+    <div class="fs-tab-index">
+      <span class="fs-tab-index-num">4</span>
+    </div>
+    <span class="fs-tab-label">Order Details</span>
+  </button>
+
+  <div class="fs-tab-connector" [class.filled]="activeStep > 4"></div>
+
+  <button type="button" class="fs-tab"
+    [class.active]="activeStep === 5"
+    [class.completed]="activeStep > 5"
+    (click)="setStep(5)">
+    <div class="fs-tab-index">
+      <span class="fs-tab-index-num">5</span>
+    </div>
+    <span class="fs-tab-label">Package</span>
+  </button>
+
+</div>
+  <!-- <div class="fs-tabs">
     <button
       type="button"
       class="fs-tab"
@@ -45,14 +106,14 @@
       <span class="fs-tab-index">5</span>
       <span class="fs-tab-label">Package</span>
     </button>
-  </div>
+  </div> -->
 
   @if (activeStep === 1) {
   <section class="step">
-    <div class="step-sidebar">
+    <!-- <div class="step-sidebar">
       <div class="step-icon">1</div>
       <div class="step-label">Step 1</div>
-    </div>
+    </div> -->
 
     <div class="step-content" formGroupName="warehouse">
       <h3 class="step-title">Warehouse Address</h3>
@@ -118,10 +179,10 @@
   </section>
   } @else if (activeStep === 2) {
   <section class="step">
-    <div class="step-sidebar">
+    <!-- <div class="step-sidebar">
       <div class="step-icon">2</div>
       <div class="step-label">Step 2</div>
-    </div>
+    </div> -->
 
     <div class="step-content" formGroupName="destination">
       <h3 class="step-title">Where are you sending to?</h3>
@@ -255,10 +316,10 @@
   </section>
   } @else if (activeStep === 3) {
   <section class="step">
-    <div class="step-sidebar">
+    <!-- <div class="step-sidebar">
       <div class="step-icon">3</div>
       <div class="step-label">Step 3</div>
-    </div>
+    </div> -->
 
     <div class="step-content">
       <h3 class="step-title">Invoice & Product Details</h3>
@@ -364,10 +425,10 @@
 
   } @else if (activeStep === 4) {
   <section class="step">
-    <div class="step-sidebar">
+    <!-- <div class="step-sidebar">
       <div class="step-icon">4</div>
       <div class="step-label">Step 4</div>
-    </div>
+    </div> -->
 
     <div class="step-content" formGroupName="orderDetails">
       <h3 class="step-title">Order Details</h3>
@@ -443,10 +504,10 @@
   </section>
   } @else if (activeStep === 5) {
   <section class="step">
-    <div class="step-sidebar">
+    <!-- <div class="step-sidebar">
       <div class="step-icon">5</div>
       <div class="step-label">Step 5</div>
-    </div>
+    </div> -->
 
     <div class="step-content" formGroupName="package">
       <h3 class="step-title">Package Details</h3>

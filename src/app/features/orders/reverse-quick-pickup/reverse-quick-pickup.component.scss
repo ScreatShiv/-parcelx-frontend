@@ -1,11 +1,17 @@
 .reverse-quick {
   margin-top: 1.5rem;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
 }
 
 .rq-section {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  margin-top: 10px;
+
 }
 
 .rq-section-title {
@@ -142,4 +148,125 @@
   .rq-actions {
     margin-top: 0.75rem;
   }
+}
+
+.secondary-nav {
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  background-color: #ffffff;
+  color: #374151;
+  font-size: 0.85rem;
+  padding: 0.45rem 1.2rem;
+  cursor: pointer;
+}
+
+.primary-nav {
+  border-radius: 999px;
+  border: none;
+  background-color: #CD5656;
+  color: #ffffff;
+  font-size: 0.85rem;
+  padding: 0.45rem 1.4rem;
+  cursor: pointer;
+}
+
+.primary-submit {
+  border: none;
+  border-radius: 999px;
+  background-color: #CD5656;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.6rem 1.6rem;
+  cursor: pointer;
+}
+
+.primary-submit:hover {
+  background-color: #AF3E3E;
+}
+
+.field input,
+.field textarea,
+.field select {
+  font-size: 0.75rem;
+  /* Prevents iOS zoom on focus */
+}
+
+.field select option:hover,
+.field select option:checked,
+.field select option:focus {
+  background-color: #CD5656;
+  color: #ffffff !important;
+}
+
+/* Custom dropdown overlay styles */
+.custom-dropdown-option:hover {
+  background-color: rgba(205, 86, 86, 0.1);
+  color: #CD5656;
+  cursor: pointer;
+}
+
+.custom-dropdown-option.selected {
+  background-color: #CD5656;
+  color: #ffffff;
+}
+
+/* Select base styles — matches other input boxes */
+.field select {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  padding: 0.45rem 2rem 0.45rem 0.6rem;
+  /* right padding for arrow */
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: #111827;
+  background-color: #ffffff;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* Custom dropdown arrow */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.65rem center;
+  background-size: 14px;
+
+  cursor: pointer;
+  line-height: 1.1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.field select option[value=""][disabled] {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+/* Placeholder option - smaller font */
+.field select:has(option[value=""]:checked) {
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+/* Selected option - your desired font size */
+.field select:not(:has(option[value=""]:checked)) {
+  font-size: 0.85rem;
+  color: #111827;
+}
+
+/* Focus state — matches other inputs */
+.field select:focus {
+  outline: none;
+  border-color: #CD5656;
+  box-shadow: 0 0 0 1px rgba(205, 86, 86, 0.25);
+}
+
+/* Placeholder option styling */
+.field select option[value=""][disabled] {
+  color: #9ca3af;
 }
