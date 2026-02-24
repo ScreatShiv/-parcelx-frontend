@@ -6,6 +6,10 @@
   display: grid;
   grid-template-columns: minmax(0, 2.3fr) minmax(0, 1fr);
   gap: 1.25rem;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
 }
 
 .bulk-main {

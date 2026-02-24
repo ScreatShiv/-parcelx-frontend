@@ -2,30 +2,19 @@
   <header class="orders-toolbar">
     <div class="orders-toolbar-left">
       <span class="title">
-        @if (direction === 'FORWARD') {
-          Create New Order
-        } @else {
-          Single Return
-        }
+        {{ direction === 'FORWARD' ? 'Create New Order' :
+        direction === 'REVERSE' ? 'Single Return' : '' }}
       </span>
 
       <div class="direction-toggle">
-        <button
-          type="button"
-          class="direction-option"
-          [class.active]="direction === 'FORWARD'"
-          (click)="setDirection('FORWARD')"
-        >
+        <button type="button" class="direction-option" [class.active]="direction === 'FORWARD'"
+          (click)="setDirection('FORWARD')">
           <span class="direction-dot"></span>
           <span>Forward</span>
         </button>
 
-        <button
-          type="button"
-          class="direction-option"
-          [class.active]="direction === 'REVERSE'"
-          (click)="setDirection('REVERSE')"
-        >
+        <button type="button" class="direction-option" [class.active]="direction === 'REVERSE'"
+          (click)="setDirection('REVERSE')">
           <span class="direction-dot"></span>
           <span>Reverse</span>
         </button>
@@ -35,75 +24,55 @@
     <div class="orders-toolbar-right">
       <div class="order-type-toggle">
         @if (direction === 'FORWARD') {
-          <button
-            type="button"
-            class="order-type-pill"
-            [class.active]="forwardType === 'SINGLE'"
-            (click)="setForwardType('SINGLE')"
-          >
-            Single Order
-          </button>
-          <button
-            type="button"
-            class="order-type-pill"
-            [class.active]="forwardType === 'BULK'"
-            (click)="setForwardType('BULK')"
-          >
-            Bulk Order
-          </button>
+        <button type="button" class="order-type-pill" [class.active]="forwardType === 'SINGLE'"
+          (click)="setForwardType('SINGLE')">
+          Single Order
+        </button>
+        <button type="button" class="order-type-pill" [class.active]="forwardType === 'BULK'"
+          (click)="setForwardType('BULK')">
+          Bulk Order
+        </button>
         } @else {
-          <button
-            type="button"
-            class="order-type-pill"
-            [class.active]="reverseType === 'SINGLE_PICKUP'"
-            (click)="setReverseType('SINGLE_PICKUP')"
-          >
-            Single Pickup
-          </button>
-          <button
-            type="button"
-            class="order-type-pill"
-            [class.active]="reverseType === 'QUICK_PICKUP'"
-            (click)="setReverseType('QUICK_PICKUP')"
-          >
-            Quick Pickup
-          </button>
-          <button
-            type="button"
-            class="order-type-pill"
-            [class.active]="reverseType === 'BULK_RETURN'"
-            (click)="setReverseType('BULK_RETURN')"
-          >
-            Bulk Return
-          </button>
+        <button type="button" class="order-type-pill" [class.active]="reverseType === 'SINGLE_PICKUP'"
+          (click)="setReverseType('SINGLE_PICKUP')">
+          Single Pickup
+        </button>
+        <button type="button" class="order-type-pill" [class.active]="reverseType === 'QUICK_PICKUP'"
+          (click)="setReverseType('QUICK_PICKUP')">
+          Quick Pickup
+        </button>
+        <button type="button" class="order-type-pill" [class.active]="reverseType === 'BULK_RETURN'"
+          (click)="setReverseType('BULK_RETURN')">
+          Bulk Return
+        </button>
         }
       </div>
 
       @if (direction === 'FORWARD') {
-        <button type="button" class="toolbar-button secondary">
-          Warehouse/Sellers List
-        </button>
+      <button type="button" class="toolbar-button secondary">
+        Warehouse/Sellers List
+      </button>
 
-        <button type="button" class="toolbar-button primary">
-          + Add Warehouse
-        </button>
+      <button type="button" class="toolbar-button primary">
+        + Add Warehouse
+      </button>
       }
     </div>
   </header>
 
   @if (direction === 'FORWARD') {
-    @if (forwardType === 'SINGLE') {
-      <app-forward-single-order />
-    } @else {
-      <app-forward-bulk-order />
-    }
+  @if (forwardType === 'SINGLE') {
+  <app-forward-single-order />
   } @else {
-    @if (reverseType === 'SINGLE_PICKUP') {
-      <app-reverse-single-pickup />
-    } @else if (reverseType === 'QUICK_PICKUP') {
-      <app-reverse-quick-pickup />
-    } @else {
-      <app-reverse-bulk-return />
-    }
+  <app-forward-bulk-order />
+  }
+  } @else {
+  @if (reverseType === 'SINGLE_PICKUP') {
+  <app-reverse-single-pickup />
+  } @else if (reverseType === 'QUICK_PICKUP') {
+  <app-reverse-quick-pickup />
+  } @else {
+  <app-reverse-bulk-return />
+  }
   }
 </section>
