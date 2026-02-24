@@ -29,6 +29,7 @@
     </div>
   </header>
 
+
   <div class="shipments-table-wrapper">
     <table class="shipments-table" [class.loading]="loading">
       <thead>
@@ -44,10 +45,7 @@
       </thead>
       <tbody>
         <tr *ngIf="!items.length && !loading">
-          <td
-            class="empty-cell"
-            [attr.colspan]="columns.length + (showActionColumn ? 2 : 1)"
-          >
+          <td class="empty-cell" [attr.colspan]="columns.length + (showActionColumn ? 2 : 1)">
             No shipments
           </td>
         </tr>
@@ -165,6 +163,49 @@
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <!-- Mobile card list (hidden on desktop via CSS) -->
+  <div class="mobile-card-list">
+    <div class="mobile-shipment-card" *ngFor="let shipment of items">
+
+      <!-- Top: Order ID + Status -->
+      <div class="card-top-row">
+        <div>
+          <div class="card-order-id">Order #{{ shipment.id }}</div>
+          <div class="card-order-date">
+            {{ shipment.createdAt | date: 'dd MMM yy | h:mm a' }}
+          </div>
+        </div>
+        <span class="status-pill">{{ shipment.status }}</span>
+      </div>
+
+      <!-- Mid: Tracking + Amount -->
+      <div class="card-mid-row">
+        <div>
+          <div class="card-carrier">{{ shipment.carrier || 'Delivery' }}</div>
+          <div class="card-tracking">{{ shipment.trackingNumber }}</div>
+        </div>
+        <span class="card-amount">{{ shipment.amountDetails || '-' }}</span>
+      </div>
+
+      <!-- Bottom: Consignee + Actions -->
+      <div class="card-bottom-row">
+        <span class="card-consignee">{{ shipment.consigneeAddress || '-' }}</span>
+        <div class="card-actions" *ngIf="showActionColumn">
+          <button type="button" class="card-action-btn">
+            <span class="pi pi-eye"></span>
+          </button>
+          <button type="button" class="card-action-btn">
+            <span class="pi pi-download"></span>
+          </button>
+          <button type="button" class="card-action-btn">
+            <span class="pi pi-ellipsis-h"></span>
+          </button>
+        </div>
+      </div>
+
+    </div>
   </div>
 
   <footer class="shipments-table-footer">
