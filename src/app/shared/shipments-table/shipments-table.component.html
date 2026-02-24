@@ -1,0 +1,186 @@
+<section class="shipments-table-card">
+  <header class="shipments-table-header">
+    <div class="shipments-table-header-left">
+      <div class="shipments-table-title-row">
+        <h3 class="shipments-table-title">{{ title }}</h3>
+        <span class="shipments-table-subtitle" *ngIf="subtitle">
+          {{ subtitle }}
+        </span>
+      </div>
+    </div>
+
+    <div class="shipments-table-header-right">
+      <div class="page-size">
+        <select [value]="pageSize" (change)="onPageSizeChange($event)">
+          <option *ngFor="let size of pageSizeOptions" [value]="size">
+            {{ size }}
+          </option>
+        </select>
+      </div>
+
+      <button type="button" class="header-icon-button">
+        <span class="pi pi-upload"></span>
+        <span>Export</span>
+      </button>
+      <button type="button" class="header-icon-button">
+        <span class="pi pi-list"></span>
+        <span>Product Picklist</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="shipments-table-wrapper">
+    <table class="shipments-table" [class.loading]="loading">
+      <thead>
+        <tr>
+          <th class="select-col">
+            <input type="checkbox" />
+          </th>
+          <th *ngFor="let col of columns" [style.width]="col.width">
+            {{ col.label }}
+          </th>
+          <th class="action-col" *ngIf="showActionColumn">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="!items.length && !loading">
+          <td
+            class="empty-cell"
+            [attr.colspan]="columns.length + (showActionColumn ? 2 : 1)"
+          >
+            No shipments
+          </td>
+        </tr>
+
+        <tr *ngFor="let shipment of items">
+          <td class="select-col">
+            <input type="checkbox" />
+          </td>
+
+          <td *ngFor="let col of columns">
+            <ng-container [ngSwitch]="col.key">
+              <ng-container *ngSwitchCase="'orderDetails'">
+                <div class="cell-order">
+                  <div class="order-date">
+                    {{ shipment.createdAt | date: 'dd MMM yy | h:mm a' }}
+                  </div>
+                  <div class="order-id">
+                    Order ID {{ shipment.id }}
+                  </div>
+                </div>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'tracking'">
+                <div class="cell-tracking">
+                  <span class="carrier">{{ shipment.carrier || 'Delivery' }}</span>
+                  <span class="tracking-number">
+                    {{ shipment.trackingNumber }}
+                  </span>
+                </div>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'invoice'">
+                <span class="text-main">
+                  {{ shipment.invoiceRef || '-' }}
+                </span>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'product'">
+                <span class="text-main">
+                  {{ shipment.productDetails || '-' }}
+                </span>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'amount'">
+                <span class="amount-pill">
+                  {{ shipment.amountDetails || '-' }}
+                </span>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'pickup'">
+                <span class="text-main">
+                  {{ shipment.pickupAddress || '-' }}
+                </span>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'consignee'">
+                <span class="text-main">
+                  {{ shipment.consigneeAddress || '-' }}
+                </span>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'userContact'">
+                <span class="text-main">
+                  {{ shipment.userContact || '-' }}
+                </span>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'status'">
+                <span class="status-pill">
+                  {{ shipment.status }}
+                </span>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'weight'">
+                <span class="text-main">
+                  {{ shipment.weightDetails || '-' }}
+                </span>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'others'">
+                <span class="text-main">
+                  {{ shipment.otherDetails || '-' }}
+                </span>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'failureReason'">
+                <span class="text-main">
+                  {{ shipment.failureReason || '-' }}
+                </span>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'reorder'">
+                <button type="button" class="reorder-button">
+                  <span class="pi pi-arrow-right"></span>
+                </button>
+              </ng-container>
+
+              <ng-container *ngSwitchDefault>
+                -
+              </ng-container>
+            </ng-container>
+          </td>
+
+          <td class="action-col" *ngIf="showActionColumn">
+            <button type="button" class="row-icon-button">
+              <span class="pi pi-eye"></span>
+            </button>
+            <button type="button" class="row-icon-button">
+              <span class="pi pi-download"></span>
+            </button>
+            <button type="button" class="row-icon-button">
+              <span class="pi pi-ellipsis-h"></span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer class="shipments-table-footer">
+    <div class="page-info">
+      Showing: {{ items.length }} of {{ total }} orders
+    </div>
+    <div class="pagination">
+      <button type="button" class="pager-btn" (click)="onPrev()">
+        <span class="pi pi-angle-left"></span>
+      </button>
+      <span class="pager-page">
+        {{ page + 1 }}
+      </span>
+      <button type="button" class="pager-btn" (click)="onNext()">
+        <span class="pi pi-angle-right"></span>
+      </button>
+    </div>
+  </footer>
+</section>

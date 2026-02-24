@@ -1,0 +1,140 @@
+<div class="date-range">
+  <div class="date-range-trigger" (click)="open($event)">
+    <span class="trigger-value">
+      {{ displayRange || 'Select date range' }}
+    </span>
+    <span class="pi pi-chevron-down"></span>
+  </div>
+
+  <p-popover #popover appendTo="body" styleClass="date-range-panel">
+    <div class="date-range-card">
+      <div class="date-range-container">
+        <aside class="preset-list">
+        <button
+          type="button"
+          class="preset-item"
+          [class.active]="activePreset === 'TODAY'"
+          (click)="selectPreset('TODAY')"
+        >
+          Today
+        </button>
+        <button
+          type="button"
+          class="preset-item"
+          [class.active]="activePreset === 'YESTERDAY'"
+          (click)="selectPreset('YESTERDAY')"
+        >
+          Yesterday
+        </button>
+        <button
+          type="button"
+          class="preset-item"
+          [class.active]="activePreset === 'LAST_7'"
+          (click)="selectPreset('LAST_7')"
+        >
+          Last 7 Days
+        </button>
+        <button
+          type="button"
+          class="preset-item"
+          [class.active]="activePreset === 'LAST_30'"
+          (click)="selectPreset('LAST_30')"
+        >
+          Last 30 Days
+        </button>
+        <button
+          type="button"
+          class="preset-item"
+          [class.active]="activePreset === 'THIS_MONTH'"
+          (click)="selectPreset('THIS_MONTH')"
+        >
+          This Month
+        </button>
+        <button
+          type="button"
+          class="preset-item"
+          [class.active]="activePreset === 'LAST_MONTH'"
+          (click)="selectPreset('LAST_MONTH')"
+        >
+          Last Month
+        </button>
+        <button
+          type="button"
+          class="preset-item"
+          [class.active]="activePreset === 'CUSTOM'"
+          (click)="selectPreset('CUSTOM')"
+        >
+          Custom Range
+        </button>
+        </aside>
+
+        <section class="range-pickers">
+        <div class="range-col">
+          <div class="range-label">From Date</div>
+          <input
+            class="range-input"
+            type="text"
+            [value]="fromDate ? (fromDate | date: 'dd-MM-yyyy  h:mm a') : ''"
+            readonly
+          />
+          <div class="range-grid">
+            <p-datepicker [(ngModel)]="fromDate" [inline]="true"></p-datepicker>
+            <div class="time-selectors">
+              <select [(ngModel)]="fromHour" class="time-select">
+                @for (h of hours; track h) {
+                  <option [value]="h">{{ h | number: '2.0' }}</option>
+                }
+              </select>
+              <span class="time-separator">:</span>
+              <select [(ngModel)]="fromMinute" class="time-select">
+                @for (m of minutes; track m) {
+                  <option [value]="m">{{ m | number: '2.0' }}</option>
+                }
+              </select>
+              <select [(ngModel)]="fromAmPm" class="time-select">
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="range-col">
+          <div class="range-label">To Date</div>
+          <input
+            class="range-input"
+            type="text"
+            [value]="toDate ? (toDate | date: 'dd-MM-yyyy  h:mm a') : ''"
+            readonly
+          />
+          <div class="range-grid">
+            <p-datepicker [(ngModel)]="toDate" [inline]="true"></p-datepicker>
+            <div class="time-selectors">
+              <select [(ngModel)]="toHour" class="time-select">
+                @for (h of hours; track h) {
+                  <option [value]="h">{{ h | number: '2.0' }}</option>
+                }
+              </select>
+              <span class="time-separator">:</span>
+              <select [(ngModel)]="toMinute" class="time-select">
+                @for (m of minutes; track m) {
+                  <option [value]="m">{{ m | number: '2.0' }}</option>
+                }
+              </select>
+              <select [(ngModel)]="toAmPm" class="time-select">
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        </section>
+
+        <footer class="range-actions">
+          <button type="button" class="range-apply" (click)="applyRange()">Apply</button>
+          <button type="button" class="range-cancel" (click)="cancel()">Cancel</button>
+        </footer>
+      </div>
+    </div>
+  </p-popover>
+</div>
