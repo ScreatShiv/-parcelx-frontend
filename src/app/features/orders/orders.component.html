@@ -53,7 +53,7 @@
         Warehouse/Sellers List
       </button>
 
-      <button type="button" class="toolbar-button primary">
+      <button type="button" class="toolbar-button primary" (click)="showAddWarehouse()">
         + Add Warehouse
       </button>
       }
@@ -75,4 +75,10 @@
   <app-reverse-bulk-return />
   }
   }
+
+  <app-add-warehouse
+    [(visible)]="displayAddWarehouseModal"
+    (save)="onSaveWarehouse($event)"
+    (cancel)="onCancelAddWarehouse()"
+  ></app-add-warehouse>
 </section>

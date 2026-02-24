@@ -1,0 +1,167 @@
+<div class="channel-orders-page">
+  <header class="page-header">
+    <div class="header-left">
+      <span class="title">Channel Orders</span>
+      <div class="header-tabs">
+        <button 
+          *ngFor="let tab of tabs" 
+          class="tab-btn" 
+          [class.active]="tab.active"
+          (click)="onTabChange(tab)"
+        >
+          {{ tab.label }}
+        </button>
+      </div>
+    </div>
+    <div class="header-right">
+      <button class="manifest-btn">
+        <span class="pi pi-sync"></span>
+        Shipping Manifest
+      </button>
+    </div>
+  </header>
+
+  @if (tabs[0].active) {
+  <section class="filters-section">
+    <div class="filter-row">
+      <div class="filter-group">
+        <label>Date Type</label>
+        <p-select [options]="dateTypes" [(ngModel)]="selectedDateType" placeholder="Select Date Type" overlayStyleClass="custom-select-overlay"></p-select>
+      </div>
+
+      <div class="filter-group">
+        <label>Select Date</label>
+        <p-datepicker 
+          [(ngModel)]="dates" 
+          selectionMode="range" 
+          [readonlyInput]="true" 
+          showIcon="true"
+          placeholder="Select Date Range"
+        ></p-datepicker>
+      </div>
+
+      <div class="filter-group">
+        <label>Search Type</label>
+        <div class="search-type-input">
+          <p-select [options]="searchTypes" [(ngModel)]="selectedSearchType" overlayStyleClass="custom-select-overlay"></p-select>
+          <input type="text" pInputText placeholder="XXXXXXXXXXXX" />
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>Advance Filter</label>
+        <p-select [options]="advanceFilters" [(ngModel)]="selectedAdvanceFilter" placeholder="Select additional filter" overlayStyleClass="custom-select-overlay"></p-select>
+      </div>
+
+      <div class="filter-group">
+        <label>Search By Tag</label>
+        <p-select [options]="[]" placeholder="Select tags" overlayStyleClass="custom-select-overlay"></p-select>
+      </div>
+
+      <div class="filter-actions">
+        <button class="search-btn">
+          <span class="pi pi-search"></span>
+          Search
+        </button>
+        <button class="reset-btn">
+          <span class="pi pi-refresh"></span>
+          Reset
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="status-tabs-section">
+    <div class="status-tabs">
+      <button 
+        *ngFor="let tab of statusTabs" 
+        class="status-tab-btn" 
+        [class.active]="tab.active"
+        (click)="onStatusTabChange(tab)"
+      >
+        {{ tab.label }}
+      </button>
+    </div>
+  </section>
+
+  <section class="table-section">
+    <div class="table-header-actions">
+      @for (tab of statusTabs; track tab.id) {
+        @if (tab.active) {
+          <h3 class="table-title">{{ tab.label }} Orders</h3>
+        }
+      }
+      <div class="table-right-actions">
+        <button class="export-btn">
+          <span class="pi pi-upload"></span>
+          Export
+        </button>
+        <p-select [options]="processTypes" placeholder="Process" styleClass="process-dropdown" overlayStyleClass="custom-select-overlay"></p-select>
+      </div>
+    </div>  
+
+    <app-customtable
+      [columns]="columns"
+      [items]="orders"
+      [total]="orders.length"
+      [showActionColumn]="false"
+    >
+      <ng-template #cell let-item let-column="column">
+        <ng-container [ngSwitch]="column.key">
+          <div *ngSwitchCase="'orderDetails'" class="cell-order">
+            <div class="text-main">{{ item.orderDetails.id }}</div>
+            <div class="text-muted">{{ item.orderDetails.date | date: 'dd MMM yy' }}</div>
+            <div class="text-tag">{{ item.orderDetails.source }}</div>
+          </div>
+
+          <div *ngSwitchCase="'storeDetails'" class="cell-store">
+            <div class="text-main">{{ item.storeDetails.name }}</div>
+            <div class="text-muted">{{ item.storeDetails.location }}</div>
+          </div>
+
+          <div *ngSwitchCase="'productDetails'" class="cell-product">
+            <div class="text-main">{{ item.productDetails.name }}</div>
+            <div class="text-muted">SKU: {{ item.productDetails.sku }}</div>
+            <div class="text-muted">Qty: {{ item.productDetails.qty }}</div>
+          </div>
+
+          <div *ngSwitchCase="'amountDetails'" class="cell-amount">
+            <div class="text-main">₹{{ item.amountDetails.total }}</div>
+            <div class="status-pill" [class.paid]="item.amountDetails.status === 'Paid'">
+              {{ item.amountDetails.status }}
+            </div>
+          </div>
+
+          <div *ngSwitchCase="'address'" class="cell-address">
+            <div class="text-main">{{ item.address.consignee }}</div>
+            <div class="text-muted">{{ item.address.city }}, {{ item.address.pincode }}</div>
+          </div>
+
+          <div *ngSwitchCase="'communications'" class="cell-comm">
+            <div class="comm-icons">
+              <span class="pi pi-envelope" [class.active]="item.communications.email === 'sent'"></span>
+              <span class="pi pi-mobile" [class.active]="item.communications.sms === 'sent'"></span>
+            </div>
+          </div>
+
+          <div *ngSwitchCase="'action'" class="cell-actions">
+            <button class="action-btn"><span class="pi pi-ellipsis-v"></span></button>
+          </div>
+        </ng-container>
+      </ng-template>
+
+      <div class="empty-state">
+        @for (tab of statusTabs; track tab.id) {
+          @if (tab.active) {
+            No {{ tab.label }} orders found. Try adjusting filters or syncing orders.
+          }
+        }
+      </div>
+    </app-customtable>
+  </section>
+  } @else if (tabs[1].active) {
+    <app-channel-list></app-channel-list>
+  } @else if (tabs[2].active) {
+    <app-add-channel></app-add-channel>
+  }
+</div>

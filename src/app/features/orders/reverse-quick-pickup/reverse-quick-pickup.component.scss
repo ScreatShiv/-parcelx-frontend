@@ -59,8 +59,8 @@
 
 .rq-field input:focus {
   outline: none;
-  border-color: #CD5656;
-  box-shadow: 0 0 0 1px rgba(205, 86, 86, 0.25);
+  border-color: #86b670;
+  box-shadow: 0 0 0 1px rgba(134, 182, 112, 0.25);
 }
 
 .rq-actions {
@@ -81,8 +81,8 @@
 }
 
 .rq-btn.primary {
-  background-color: #CD5656;
-  border-color: #CD5656;
+  background-color: #86b670;
+  border-color: #86b670;
   color: #ffffff;
 }
 
@@ -163,7 +163,7 @@
 .primary-nav {
   border-radius: 999px;
   border: none;
-  background-color: #CD5656;
+  background-color: #86b670;
   color: #ffffff;
   font-size: 0.85rem;
   padding: 0.45rem 1.4rem;
@@ -173,7 +173,7 @@
 .primary-submit {
   border: none;
   border-radius: 999px;
-  background-color: #CD5656;
+  background-color: #86b670;
   color: #ffffff;
   font-size: 0.9rem;
   font-weight: 500;
@@ -182,7 +182,7 @@
 }
 
 .primary-submit:hover {
-  background-color: #AF3E3E;
+  background-color: #6f9b5a;
 }
 
 .field input,
@@ -195,19 +195,19 @@
 .field select option:hover,
 .field select option:checked,
 .field select option:focus {
-  background-color: #CD5656;
+  background-color: #86b670;
   color: #ffffff !important;
 }
 
 /* Custom dropdown overlay styles */
 .custom-dropdown-option:hover {
-  background-color: rgba(205, 86, 86, 0.1);
-  color: #CD5656;
+  background-color: rgba(134, 182, 112, 0.1);
+  color: #86b670;
   cursor: pointer;
 }
 
 .custom-dropdown-option.selected {
-  background-color: #CD5656;
+  background-color: #86b670;
   color: #ffffff;
 }
 
@@ -262,8 +262,8 @@
 /* Focus state — matches other inputs */
 .field select:focus {
   outline: none;
-  border-color: #CD5656;
-  box-shadow: 0 0 0 1px rgba(205, 86, 86, 0.25);
+  border-color: #86b670;
+  box-shadow: 0 0 0 1px rgba(134, 182, 112, 0.25);
 }
 
 /* Placeholder option styling */

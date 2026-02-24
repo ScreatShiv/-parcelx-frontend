@@ -67,8 +67,8 @@
 }
 
 .direction-option.active .direction-dot {
-  border-color: #CD5656;
-  box-shadow: 0 0 0 2px rgba(205, 86, 86, 0.25);
+  border-color: #86b670;
+  box-shadow: 0 0 0 2px rgba(134, 182, 112, 0.25);
 }
 
 .direction-option.active span:last-child {
@@ -100,8 +100,8 @@
 }
 
 .shipments-manifest-btn {
-  background-color: #CD5656;
-  border-color: #CD5656;
+  background-color: #86b670;
+  border-color: #86b670;
   color: #ffffff;
 }
 
@@ -194,9 +194,14 @@
 }
 
 .primary-search {
-  background-color: #CD5656;
-  border-color: #CD5656;
+  background-color: #86b670;
+  border-color: #86b670;
   color: #ffffff;
+}
+
+.primary-search:hover {
+  background-color: #6f9b5a;
+  border-color: #6f9b5a;
 }
 
 .ghost-search {
@@ -229,8 +234,8 @@
 }
 
 .status-tab.active {
-  border-color: #CD5656;
-  background-color: rgba(205, 86, 86, 0.08);
+  border-color: #86b670;
+  background-color: rgba(134, 182, 112, 0.08);
   color: #111827;
   font-weight: 500;
 }

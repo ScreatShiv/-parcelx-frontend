@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Shipment } from '../../models/shipment.model';
 
@@ -25,8 +25,10 @@ export class CustomTableComponent {
   @Input() total = 0;
   @Input() loading = false;
   @Input() columns: CustomTableColumn[] = [];
-  @Input() items: Shipment[] = [];
+  @Input() items: any[] = [];
   @Input() showActionColumn = true;
+
+  @ContentChild('cell') cellTemplate: TemplateRef<any> | null = null;
 
   @Output() pageChange = new EventEmitter<{ page: number; size: number }>();
 

@@ -1,0 +1,40 @@
+<div class="warehouse-list-page">
+  <header class="warehouse-list-header">
+    <div class="header-left">
+      <h2 class="page-title">Warehouse List</h2>
+    </div>
+    <div class="header-right">
+      <button
+        type="button"
+        class="add-warehouse-btn"
+        (click)="showAddWarehouse()"
+      >
+        <span class="pi pi-plus"></span>
+        <span>Add Warehouse</span>
+      </button>
+    </div>
+  </header>
+
+  <section class="warehouse-list-content">
+    <app-customtable
+      title="Warehouses"
+      [subtitle]="'Showing: ' + warehouses.length + ' warehouses'"
+      [pageSizeOptions]="[10, 20, 50]"
+      [pageSize]="10"
+      [page]="0"
+      [total]="warehouses.length"
+      [loading]="false"
+      [columns]="columns"
+      [items]="warehouses"
+      [showActionColumn]="false"
+    >
+      <!-- Define custom templates for rows if needed -->
+    </app-customtable>
+  </section>
+
+  <app-add-warehouse
+    [(visible)]="displayAddModal"
+    (save)="onSaveWarehouse($event)"
+    (cancel)="onCancel()"
+  ></app-add-warehouse>
+</div>

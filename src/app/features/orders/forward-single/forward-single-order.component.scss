@@ -47,7 +47,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: #CD5656;
+    background: #86b670;
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.4s ease;
@@ -93,7 +93,7 @@
     position: absolute;
     inset: -6px;
     border-radius: 50%;
-    border: 2px solid #CD5656;
+    border: 2px solid #86b670;
     opacity: 0;
     transform: scale(0.8);
     transition: all 0.3s ease;
@@ -112,8 +112,8 @@
 // COMPLETED state
 .fs-tab.completed {
   .fs-tab-index {
-    background: #CD5656;
-    border-color: #CD5656;
+    background: #86b670;
+    border-color: #86b670;
     color: #fff;
 
     .fs-tab-index-num {
@@ -127,17 +127,17 @@
   }
 
   .fs-tab-label {
-    color: #CD5656;
+    color: #86b670;
   }
 }
 
 // ACTIVE state
 .fs-tab.active {
   .fs-tab-index {
-    background: #CD5656;
-    border-color: #CD5656;
+    background: #86b670;
+    border-color: #86b670;
     color: #fff;
-    box-shadow: 0 0 0 6px rgba(205, 86, 86, 0.15);
+    box-shadow: 0 0 0 6px rgba(134, 182, 112, 0.15);
 
     &::before {
       opacity: 1;
@@ -147,7 +147,7 @@
   }
 
   .fs-tab-label {
-    color: #CD5656;
+    color: #86b670;
     font-weight: 600;
   }
 }
@@ -221,8 +221,8 @@
 .field textarea:focus,
 .field select:focus {
   outline: none;
-  border-color: #CD5656;
-  box-shadow: 0 0 0 1px rgba(205, 86, 86, 0.25);
+  border-color: #86b670;
+  box-shadow: 0 0 0 1px rgba(134, 182, 112, 0.25);
 }
 
 .toggle-field {
@@ -263,7 +263,7 @@
 }
 
 .toggle-label input:checked+.toggle-switch {
-  background-color: #CD5656;
+  background-color: #86b670;
 }
 
 .toggle-label input:checked+.toggle-switch .toggle-knob {
@@ -300,7 +300,7 @@
 }
 
 .badge.pickup {
-  background-color: #CD5656;
+  background-color: #86b670;
   color: #ffffff;
 }
 
@@ -347,7 +347,7 @@
 .link-button {
   border: none;
   background: transparent;
-  color: #CD5656;
+  color: #86b670;
   font-size: 0.85rem;
   cursor: pointer;
   padding: 0;
@@ -406,7 +406,7 @@
   border-radius: 999px;
   background-color: #f9fafb;
   padding: 0.45rem 0.9rem;
-  border: 1px solid #CD5656;
+  border: 1px solid #86b670;
   font-size: 0.85rem;
 }
 
@@ -418,7 +418,7 @@
   width: 10px;
   height: 10px;
   border-radius: 999px;
-  border: 2px solid #CD5656;
+  border: 2px solid #86b670;
 }
 
 .courier-total-row {
@@ -464,7 +464,7 @@
 .primary-nav {
   border-radius: 999px;
   border: none;
-  background-color: #CD5656;
+  background-color: #86b670;
   color: #ffffff;
   font-size: 0.85rem;
   padding: 0.45rem 1.4rem;
@@ -474,7 +474,7 @@
 .primary-submit {
   border: none;
   border-radius: 999px;
-  background-color: #CD5656;
+  background-color: #86b670;
   color: #ffffff;
   font-size: 0.9rem;
   font-weight: 500;
@@ -483,7 +483,7 @@
 }
 
 .primary-submit:hover {
-  background-color: #AF3E3E;
+  background-color: #6f9b5a;
 }
 
 .field input,
@@ -496,19 +496,19 @@
 .field select option:hover,
 .field select option:checked,
 .field select option:focus {
-  background-color: #CD5656;
+  background-color: #86b670;
   color: #ffffff !important;
 }
 
 /* Custom dropdown overlay styles */
 .custom-dropdown-option:hover {
-  background-color: rgba(205, 86, 86, 0.1);
-  color: #CD5656;
+  background-color: rgba(134, 182, 112, 0.1);
+  color: #86b670;
   cursor: pointer;
 }
 
 .custom-dropdown-option.selected {
-  background-color: #CD5656;
+  background-color: #86b670;
   color: #ffffff;
 }
 
@@ -563,8 +563,8 @@
 /* Focus state — matches other inputs */
 .field select:focus {
   outline: none;
-  border-color: #CD5656;
-  box-shadow: 0 0 0 1px rgba(205, 86, 86, 0.25);
+  border-color: #86b670;
+  box-shadow: 0 0 0 1px rgba(134, 182, 112, 0.25);
 }
 
 /* Placeholder option styling */

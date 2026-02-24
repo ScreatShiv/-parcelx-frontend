@@ -167,8 +167,8 @@
 
 .reorder-button {
   border-radius: 999px;
-  border: 1px solid #fb923c;
-  background-color: #f97316;
+  border: 1px solid #86b670;
+  background-color: #86b670;
   color: #ffffff;
   width: 32px;
   height: 32px;
@@ -176,6 +176,43 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+}
+
+.warehouse-actions {
+  display: flex;
+  gap: 0.5rem;
+
+  .action-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    border: 1px solid #e5e7eb;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+
+    &.view {
+      color: #3b82f6;
+      &:hover { background-color: #eff6ff; border-color: #3b82f6; }
+    }
+    &.edit {
+      color: #10b981;
+      &:hover { background-color: #ecfdf5; border-color: #10b981; }
+    }
+    &.delete {
+      color: #ef4444;
+      &:hover { background-color: #fef2f2; border-color: #ef4444; }
+    }
+  }
+}
+
+.text-wrap {
+  white-space: normal;
+  line-height: 1.4;
 }
 
 .shipments-table-footer {

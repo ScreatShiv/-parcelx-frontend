@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, HostListener, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Auth } from '../../core/auth';
 import { Sidebar } from '../../services/sidebar';
@@ -13,8 +13,16 @@ import { Sidebar } from '../../services/sidebar';
 export class AdminHeaderComponent {
   private readonly auth = inject(Auth);
   private readonly router = inject(Router);
+  private readonly el = inject(ElementRef);
   userMenuOpen = false;
   private readonly sidebarService = inject(Sidebar);
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    if (!this.el.nativeElement.contains(event.target)) {
+      this.userMenuOpen = false;
+    }
+  }
 
   get userInitials(): string {
     const user = this.auth.currentUser;

@@ -58,6 +58,11 @@
           </td>
 
           <td *ngFor="let col of columns">
+            <ng-container *ngIf="cellTemplate; else defaultCell">
+              <ng-container *ngTemplateOutlet="cellTemplate; context: { $implicit: shipment, column: col }"></ng-container>
+            </ng-container>
+
+            <ng-template #defaultCell>
             <ng-container [ngSwitch]="col.key">
               <ng-container *ngSwitchCase="'orderDetails'">
                 <div class="cell-order">
@@ -121,6 +126,40 @@
                 </span>
               </ng-container>
 
+              <ng-container *ngSwitchCase="'id'">
+                <span class="text-main">{{ shipment.id }}</span>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'businessName'">
+                <span class="text-main">{{ shipment.businessName }}</span>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'contactPerson'">
+                <span class="text-main">{{ shipment.contactPerson }}</span>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'phone'">
+                <span class="text-main">{{ shipment.phone }}</span>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'address'">
+                <span class="text-main text-wrap">{{ shipment.address }}</span>
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'action'">
+                <div class="warehouse-actions">
+                  <button type="button" class="action-btn view" title="View">
+                    <span class="pi pi-eye"></span>
+                  </button>
+                  <button type="button" class="action-btn edit" title="Edit">
+                    <span class="pi pi-pencil"></span>
+                  </button>
+                  <button type="button" class="action-btn delete" title="Delete">
+                    <span class="pi pi-trash"></span>
+                  </button>
+                </div>
+              </ng-container>
+
               <ng-container *ngSwitchCase="'weight'">
                 <span class="text-main">
                   {{ shipment.weightDetails || '-' }}
@@ -149,6 +188,7 @@
                 -
               </ng-container>
             </ng-container>
+            </ng-template>
           </td>
 
           <td class="action-col" *ngIf="showActionColumn">

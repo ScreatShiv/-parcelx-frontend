@@ -1,0 +1,140 @@
+.add-warehouse-form-container {
+
+  .add-warehouse-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 1.25rem;
+
+    .form-field {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      &.full-width {
+        flex: 0 0 100%;
+      }
+
+      label {
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: #374151;
+      }
+
+      input, textarea {
+        padding: 0.625rem 0.875rem;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 0.875rem;
+        color: #111827;
+        background-color: #ffffff;
+        width: 100%;
+        transition: border-color 0.2s, box-shadow 0.2s;
+
+        &::placeholder {
+          color: #9ca3af;
+        }
+
+        &:focus {
+        border-color: #86b670;
+        box-shadow: 0 0 0 2px rgba(134, 182, 112, 0.1);
+        outline: none;
+      }
+
+        &.ng-invalid.ng-touched {
+          border-color: #ef4444;
+        }
+      }
+
+      .error-msg {
+        font-size: 0.75rem;
+        color: #ef4444;
+      }
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1rem;
+
+    button {
+      padding: 0.625rem 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: opacity 0.2s;
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+
+    .save-btn {
+      background-color: #86b670;
+      color: #ffffff;
+      border: none;
+
+      &:hover:not(:disabled) {
+        background-color: #6f9b5a;
+      }
+    }
+
+    .reset-btn {
+      background-color: #ffffff;
+      color: #374151;
+      border: 1px solid #d1d5db;
+
+      &:hover:not(:disabled) {
+        background-color: #f9fafb;
+      }
+    }
+  }
+}
+
+:host ::ng-deep {
+  .p-dialog-mask {
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+    z-index: 1101;
+  }
+
+  .p-dialog {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    border: none;
+
+    .p-dialog-header {
+      border-bottom: 1px solid #f3f4f6;
+      padding: 1.25rem 1.5rem;
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #111827;
+
+      .p-dialog-header-close {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 999px;
+        color: #6b7280;
+
+        &:hover {
+          background-color: #f3f4f6;
+          color: #111827;
+        }
+      }
+    }
+
+    .p-dialog-content {
+      padding: 1.5rem;
+    }
+  }
+}

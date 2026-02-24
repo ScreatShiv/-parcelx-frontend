@@ -56,8 +56,8 @@
 }
 
 .direction-option.active .direction-dot {
-  border-color: #CD5656;
-  box-shadow: 0 0 0 2px rgba(205, 86, 86, 0.25);
+  border-color: #86b670;
+  box-shadow: 0 0 0 2px rgba(134, 182, 112, 0.25);
 }
 
 .direction-option.active span:last-child {
@@ -94,24 +94,28 @@
 
 .toolbar-button {
   border-radius: 999px;
-  border: 1px solid #CD5656;
+  border: 1px solid #86b670;
   padding: 0.4rem 1.1rem;
   font-size: 0.8rem;
   cursor: pointer;
 }
 
 .toolbar-button.primary {
-  background-color: #CD5656;
+  background-color: #86b670;
   color: #ffffff;
 }
 
 .toolbar-button.primary:hover {
-  background-color: #AF3E3E;
+  background-color: #6f9b5a;
 }
 
 .toolbar-button.secondary {
   background-color: #ffffff;
-  color: #CD5656;
+  color: #86b670;
+}
+
+.toolbar-button.secondary:hover {
+  background-color: rgba(134, 182, 112, 0.05);
 }
 
 

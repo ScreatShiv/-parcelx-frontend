@@ -35,6 +35,13 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'channel-orders',
+        loadChildren: () =>
+          import('./features/channel-orders/channel-orders.routes').then(
+            (m) => m.CHANNEL_ORDERS_ROUTES,
+          ),
+      },
+      {
         path: 'hubs',
         loadChildren: () =>
           import('./features/hubs/hubs.routes').then((m) => m.HUBS_ROUTES),
@@ -49,6 +56,13 @@ export const routes: Routes = [
         loadChildren: () =>
           import('./features/pricing/pricing.routes').then(
             (m) => m.PRICING_ROUTES,
+          ),
+      },
+      {
+        path: 'config',
+        loadChildren: () =>
+          import('./features/config/config.routes').then(
+            (m) => m.configRoutes,
           ),
       },
     ],
