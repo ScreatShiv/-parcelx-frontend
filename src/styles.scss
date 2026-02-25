@@ -12,6 +12,13 @@ body {
 
 }
 
+/* Global overlay styling for p-dialog mask */
+.p-dialog-mask {
+  background-color: rgba(0, 0, 0, 0.4) !important;
+  backdrop-filter: blur(2px);
+  z-index: 9999 !important;
+}
+
 /* Global overlay styling for p-select */
 .custom-select-overlay,
 .p-select-overlay {

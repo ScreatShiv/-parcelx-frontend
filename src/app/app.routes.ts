@@ -65,6 +65,20 @@ export const routes: Routes = [
             (m) => m.configRoutes,
           ),
       },
+      {
+        path: 'wallet',
+        loadChildren: () =>
+          import('./features/wallet/wallet.routes').then(
+            (m) => m.WALLET_ROUTES,
+          ),
+      },
+      {
+        path: 'reports',
+        loadChildren: () =>
+          import('./features/reports/reports.routes').then(
+            (m) => m.REPORTS_ROUTES,
+          ),
+      },
     ],
   },
   {

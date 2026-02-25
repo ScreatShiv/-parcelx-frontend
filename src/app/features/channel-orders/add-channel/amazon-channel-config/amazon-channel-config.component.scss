@@ -1,0 +1,160 @@
+::ng-deep .amazon-config-dialog {
+  background-color: #ffffff !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  .p-dialog-header {
+    background-color: #ffffff !important;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+  }
+  
+  .p-dialog-content {
+    background-color: #ffffff !important;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+  }
+}
+
+.dialog-header-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  
+  .dialog-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #1f2937;
+  }
+}
+
+.dialog-content {
+  display: flex;
+  gap: 3rem;
+  padding-top: 1rem;
+
+  .left-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      color: #111827;
+    }
+
+    .config-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+
+      .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        label {
+          font-size: 0.875rem;
+          color: #374151;
+          font-weight: 500;
+          
+          .required {
+            color: #ef4444;
+          }
+        }
+
+        input {
+          width: 100%;
+          padding: 0.625rem 0.75rem;
+          border-radius: 6px;
+          border: 1px solid #d1d5db;
+          
+          &.readonly-input {
+            background-color: #f3f4f6;
+            color: #9ca3af;
+          }
+        }
+        
+        ::ng-deep .p-select {
+          width: 100%;
+        }
+      }
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 1rem;
+      margin-top: auto;
+
+      button {
+        padding: 0.625rem 1.5rem;
+        border-radius: 6px;
+        font-weight: 500;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .close-btn {
+        background-color: #ffffff;
+        border: 1px solid #d1d5db;
+        color: #374151;
+
+        &:hover {
+          background-color: #f9fafb;
+        }
+      }
+
+      .connect-btn {
+        background-color: #ff6600; /* Amazon Orange */
+        border: none;
+        color: #ffffff;
+
+        &:hover {
+          background-color: #e65c00;
+        }
+      }
+    }
+  }
+
+  .right-section {
+    flex: 1;
+    padding-left: 2rem;
+    border-left: 1px solid #e5e7eb;
+
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      color: #111827;
+    }
+
+    .steps-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+
+      li {
+        font-size: 0.875rem;
+        line-height: 1.5;
+        color: #4b5563;
+        
+        strong {
+          color: #111827;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}

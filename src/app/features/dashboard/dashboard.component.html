@@ -1,4 +1,344 @@
-<section class="dashboard-page">
-  <h2>Dashboard</h2>
-  <p>Welcome to the Loogistic Super Admin dashboard.</p>
-</section>
+<div class="dashboard-page">
+  <!-- Notification Banner -->
+  <div class="notification-banner">
+    <i class="pi pi-megaphone"></i>
+    <span>This is to inform you that the pricing for Bluedart AND Delhivery B2B 10CFT have been revised with effect from 29 January 2026. We appreciate your understanding and cooperation.</span>
+  </div>
+
+  <!-- Filters & Tabs -->
+  <div class="dashboard-header">
+    <div class="dashboard-tabs">
+      <button 
+        *ngFor="let tab of tabs" 
+        class="tab-btn" 
+        [class.active]="activeTab.id === tab.id"
+        (click)="onTabChange(tab)">
+        {{ tab.label }}
+      </button>
+    </div>
+    
+    <div class="header-actions">
+      <div class="date-picker-wrapper">
+        <p-datepicker 
+          [(ngModel)]="dateRange" 
+          selectionMode="range" 
+          [readonlyInput]="true" 
+          showIcon="true"
+          placeholder="28-Jan-2026 12:00 am - 28-Feb-2026 11:59 pm">
+        </p-datepicker>
+      </div>
+      <button class="action-btn"><i class="pi pi-filter"></i> Filters</button>
+      <button class="action-btn"><i class="pi pi-upload"></i> Export</button>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="stats-grid">
+    <div *ngFor="let card of statsCards" class="stat-card" [ngClass]="card.color">
+      <div class="card-icon">
+        <i [class]="card.icon"></i>
+      </div>
+      <div class="card-content">
+        <span class="stat-label">{{ card.label }}</span>
+        <span class="stat-count">{{ card.count }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="charts-grid">
+    <!-- Shipment Status (Doughnut) -->
+    <div class="chart-card status-chart">
+      <div class="card-header">
+        <h3>Shipment Status <i class="pi pi-info-circle"></i></h3>
+        <span class="total-count">10</span>
+      </div>
+      <div class="chart-container">
+        <canvas baseChart
+          [data]="doughnutChartData"
+          [options]="doughnutChartOptions"
+          [type]="doughnutChartType">
+        </canvas>
+      </div>
+      <div class="chart-legend">
+        <div class="legend-item">
+          <span class="dot green"></span>
+          <span class="label">Delivered</span>
+          <span class="value">7</span>
+          <span class="percentage">70%</span>
+        </div>
+        <div class="legend-item">
+          <span class="dot yellow"></span>
+          <span class="label">Live Shipments</span>
+          <span class="value">2</span>
+          <span class="percentage">20%</span>
+        </div>
+        <div class="legend-item">
+          <span class="dot red"></span>
+          <span class="label">RTO</span>
+          <span class="value">1</span>
+          <span class="percentage">10%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shipment Count (Line) -->
+    <div class="chart-card count-chart">
+      <div class="card-header">
+        <h3>Shipment Count <i class="pi pi-info-circle"></i></h3>
+        <div class="chart-filter">
+          <span>Days</span> <i class="pi pi-chevron-down"></i>
+        </div>
+      </div>
+      <div class="chart-container line-chart-container">
+        <canvas baseChart
+          [data]="lineChartData"
+          [options]="lineChartOptions"
+          [type]="lineChartType">
+        </canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Row 2 -->
+  <div class="charts-grid-secondary">
+    <!-- Shipment Type Chart -->
+    <div class="chart-card shipment-type-chart">
+      <div class="card-header">
+        <h3>Shipment Type <i class="pi pi-info-circle"></i></h3>
+        <span class="total-count">10</span>
+      </div>
+      <div class="chart-container">
+        <canvas baseChart
+          [data]="shipmentTypeChartData"
+          [options]="shipmentTypeChartOptions"
+          [type]="doughnutChartType">
+        </canvas>
+      </div>
+      <div class="chart-legend">
+        <div class="legend-item">
+          <span class="dot blue-dark"></span>
+          <span class="label">Prepaid</span>
+          <span class="value">10</span>
+          <span class="percentage">100%</span>
+        </div>
+        <div class="legend-item">
+          <span class="dot blue"></span>
+          <span class="label">COD</span>
+          <span class="value">0</span>
+          <span class="percentage">0%</span>
+        </div>
+        <div class="legend-item">
+          <span class="dot blue-light"></span>
+          <span class="label">Reverse</span>
+          <span class="value">0</span>
+          <span class="percentage">0%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAT Chart -->
+    <div class="chart-card tat-chart">
+      <div class="card-header">
+        <h3>TAT <i class="pi pi-info-circle"></i></h3>
+        <span class="total-count">7</span>
+      </div>
+      <div class="chart-container tat-container">
+        <canvas baseChart
+          [data]="tatChartData"
+          [options]="tatChartOptions"
+          [type]="doughnutChartType">
+        </canvas>
+        <div class="tat-percentage">85.71%</div>
+      </div>
+      <div class="chart-legend">
+        <div class="legend-item">
+          <span class="dot green"></span>
+          <span class="label">WITHIN TAT</span>
+          <span class="value">6</span>
+        </div>
+        <div class="legend-item">
+          <span class="dot gray"></span>
+          <span class="label">OUTSIDE TAT</span>
+          <span class="value">1</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- NDR Report Chart -->
+    <div class="chart-card ndr-chart">
+      <div class="card-header">
+        <h3>NDR Report <i class="pi pi-info-circle"></i></h3>
+        <div class="chart-legend-top">
+          <span class="dot green"></span> Delivered
+          <span class="dot red"></span> RTO
+        </div>
+      </div>
+      
+      <div class="ndr-stats">
+        <div class="ndr-stat-box">
+          <div class="ndr-label">NDR Count</div>
+          <div class="ndr-value">0</div>
+          <i class="pi pi-clone icon-bg"></i>
+        </div>
+        <div class="ndr-stat-box">
+          <div class="ndr-label">NDR Initiated</div>
+          <div class="ndr-value">0</div>
+          <i class="pi pi-truck icon-bg"></i>
+        </div>
+      </div>
+
+      <div class="chart-container ndr-container">
+        <canvas baseChart
+          [data]="ndrChartData"
+          [options]="ndrChartOptions"
+          [type]="ndrChartType">
+        </canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Row 3: Zone Wise Shipments -->
+  <div class="charts-row-full">
+    <div class="chart-card zone-chart">
+      <div class="card-header">
+        <h3>Zone Wise Shipments</h3>
+      </div>
+      <div class="chart-container zone-container">
+        <canvas baseChart
+          [data]="zoneChartData"
+          [options]="zoneChartOptions"
+          [type]="zoneChartType">
+        </canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Row 4: Order Distribution -->
+  <div class="charts-row-full">
+    <div class="chart-card order-distribution-chart">
+      <div class="card-header">
+        <h3>Order Distribution <i class="pi pi-info-circle"></i></h3>
+        <div class="header-actions">
+            <div class="legend-badges">
+                <span class="badge gray">1-2</span>
+                <span class="badge black">2-3</span>
+                <span class="badge orange">3-2</span>
+            </div>
+            <button class="filter-btn">Top 10 Pin-Codes <i class="pi pi-chevron-down"></i></button>
+        </div>
+      </div>
+      <div class="chart-container">
+        <canvas baseChart
+          [data]="orderDistributionChartData"
+          [options]="orderDistributionChartOptions"
+          [type]="orderDistributionChartType">
+        </canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Row 5: Revenue & Top Lists -->
+  <div class="charts-grid-tertiary">
+    <!-- Total Revenue Chart -->
+    <div class="chart-card revenue-chart">
+      <div class="card-header">
+        <div class="header-left">
+          <h3>Total Revenue <i class="pi pi-info-circle"></i></h3>
+          <div class="total-revenue-value">₹2,517</div>
+        </div>
+        <button class="filter-btn">Month <i class="pi pi-chevron-down"></i></button>
+      </div>
+      <div class="chart-container">
+        <canvas baseChart
+          [data]="revenueChartData"
+          [options]="revenueChartOptions"
+          [type]="revenueChartType">
+        </canvas>
+      </div>
+      <div class="chart-legend-right">
+        <div class="legend-item"><span class="square blue"></span> COD</div>
+        <div class="legend-item"><span class="square blue-dark"></span> Prepaid</div>
+      </div>
+    </div>
+
+    <!-- Top 05 Products -->
+    <div class="chart-card top-products">
+      <div class="card-header">
+        <h3>Top 05 Products <i class="pi pi-info-circle"></i></h3>
+      </div>
+      <div class="data-table">
+        <div class="table-header">
+          <div class="col-name">Product Name</div>
+          <div class="col-val">Order</div>
+          <div class="col-val">Revenue</div>
+        </div>
+        <div class="table-row" *ngFor="let item of topProducts">
+          <div class="col-name">{{ item.name }}</div>
+          <div class="col-val">{{ item.order }}</div>
+          <div class="col-val">{{ item.revenue }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Top 05 Customers -->
+    <div class="chart-card top-customers">
+      <div class="card-header">
+        <h3>Top 05 Customers <i class="pi pi-info-circle"></i></h3>
+      </div>
+      <div class="data-table">
+        <div class="table-header">
+          <div class="col-name">Customer Name</div>
+          <div class="col-val">Order</div>
+          <div class="col-val">Revenue</div>
+        </div>
+        <div class="table-row" *ngFor="let item of topCustomers">
+          <div class="col-name">{{ item.name }}</div>
+          <div class="col-val">{{ item.order }}</div>
+          <div class="col-val">{{ item.revenue }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Logistics Wise Distributions -->
+  <div class="logistics-distributions">
+    <div class="card-header">
+      <h3>Logistics wise Distributions <i class="pi pi-info-circle"></i></h3>
+      <div class="legend">
+        <span class="legend-item"><span class="square blue-dark"></span> Prepaid</span>
+        <span class="legend-item"><span class="square blue"></span> COD</span>
+      </div>
+    </div>
+
+    <div class="distributions-table">
+      <div class="table-header-row">
+        <div class="col-progress"></div>
+        <div class="col-courier">Courier Name</div>
+        <div class="col-stat">Total Shipment</div>
+        <div class="col-stat">Picked</div>
+        <div class="col-stat">In - Transit</div>
+        <div class="col-stat">NDR</div>
+        <div class="col-stat">Delivered</div>
+        <div class="col-stat">RTO</div>
+      </div>
+
+      <div class="table-row" *ngFor="let item of logisticsData">
+        <div class="col-progress">
+          <div class="progress-bar-container">
+            <div class="progress-bar blue-dark" [style.width.%]="item.prepaidPercentage">
+              {{ item.prepaidPercentage }}%
+            </div>
+          </div>
+        </div>
+        <div class="col-courier">{{ item.courierName }}</div>
+        <div class="col-stat">{{ item.totalShipment.value }} <span class="percentage">| {{ item.totalShipment.percentage }}%</span></div>
+        <div class="col-stat blue-text">{{ item.picked.value }} <span class="percentage">| {{ item.picked.percentage }}%</span></div>
+        <div class="col-stat yellow-text">{{ item.inTransit.value }} <span class="percentage">| {{ item.inTransit.percentage }}%</span></div>
+        <div class="col-stat red-text">{{ item.ndr.value }} <span class="percentage">| {{ item.ndr.percentage }}%</span></div>
+        <div class="col-stat green-text">{{ item.delivered.value }} <span class="percentage">| {{ item.delivered.percentage }}%</span></div>
+        <div class="col-stat orange-text">{{ item.rto.value }} <span class="percentage">| {{ item.rto.percentage }}%</span></div>
+      </div>
+    </div>
+  </div>
+</div>

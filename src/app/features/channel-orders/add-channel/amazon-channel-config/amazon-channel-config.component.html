@@ -1,0 +1,68 @@
+<p-dialog 
+  [(visible)]="visible" 
+  [modal]="true" 
+  [style]="{width: '900px'}"
+  [header]="' '"
+  (onHide)="onClose()"
+  styleClass="amazon-config-dialog"
+  [draggable]="false"
+  [resizable]="false">
+  
+  <ng-template pTemplate="header">
+    <div class="dialog-header-content">
+      <span class="pi pi-amazon" style="color: #000; font-size: 1.2rem; font-weight: bold;"></span>
+      <span class="dialog-title">Manage Amazon Channel</span>
+    </div>
+  </ng-template>
+
+  <div class="dialog-content">
+    <div class="left-section">
+      <h3 class="section-title">Add Amazon Channel</h3>
+      
+      <form [formGroup]="configForm" class="config-form">
+        <div class="form-field">
+          <label>Channel Name</label>
+          <input type="text" pInputText formControlName="channelName" readonly class="readonly-input" />
+        </div>
+
+        <div class="form-field">
+          <label>Shop Name <span class="required">*</span></label>
+          <input type="text" pInputText formControlName="shopName" placeholder="Enter shop name" />
+        </div>
+
+        <div class="form-field">
+          <label>Merchant Auth Token</label>
+          <input type="text" pInputText formControlName="merchantAuthToken" placeholder="Paste merchant auth token" />
+        </div>
+
+        <div class="form-field">
+          <label>Default Pick Address</label>
+          <p-select 
+            [options]="pickupAddresses" 
+            formControlName="pickupAddress" 
+            placeholder="Select pick address"
+            styleClass="w-full"
+            appendTo="body">
+          </p-select>
+        </div>
+      </form>
+
+      <div class="form-actions">
+        <button class="close-btn" (click)="onClose()">Close</button>
+        <button class="connect-btn" (click)="onConnect()">Connect</button>
+      </div>
+    </div>
+
+    <div class="right-section">
+      <h3 class="section-title">How to Connect Amazon?</h3>
+      
+      <ul class="steps-list">
+        <li><strong>Step 1:</strong> Follow below steps to generate Amazon Merchant Token.</li>
+        <li><strong>Step 2:</strong> Login to your Amazon seller account using registered email with Amazon and corresponding password.</li>
+        <li><strong>Step 3:</strong> Settings > Account Info > Business Information, and then click on Merchant Token.</li>
+        <li><strong>Step 4:</strong> Click on Connect to establish connection of Parcelx with your Amazon account.</li>
+        <li><strong>Step 5:</strong> Once connection is successful click on Save and next to update necessary fulfillment details.</li>
+      </ul>
+    </div>
+  </div>
+</p-dialog>

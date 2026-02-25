@@ -1,0 +1,183 @@
+<div class="reports-page">
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="select-all">
+      <label class="checkbox-label">
+        Select All
+        <p-checkbox [(ngModel)]="selectAll" [binary]="true"></p-checkbox>
+      </label>
+    </div>
+    <div class="top-actions">
+      <button class="action-btn icon-only"><i class="pi pi-download"></i></button>
+      <button class="action-btn icon-text"><i class="pi pi-upload"></i> Upload</button>
+      <button class="action-btn submit-btn">Submit</button>
+      <button class="action-btn filter-toggle-btn" (click)="toggleAdvanceFilters()">
+        <i class="pi pi-filter-slash"></i> 
+        {{ showAdvanceFilters ? 'Hide Advance Filters' : 'Show Advance Filters' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Advance Filters Section -->
+  <div class="advance-filters-grid" *ngIf="showAdvanceFilters">
+    <!-- Weight Details -->
+    <div class="filter-card weight-card">
+      <h3>Weight Details</h3>
+      <div class="filter-list">
+        <label *ngFor="let item of weightDetails" class="filter-item">
+          {{ item.label }}
+          <p-checkbox [(ngModel)]="item.checked" [binary]="true"></p-checkbox>
+        </label>
+      </div>
+    </div>
+
+    <!-- Master / Child Details -->
+    <div class="filter-card master-card">
+      <h3>Master / Child details</h3>
+      <div class="filter-list">
+        <label *ngFor="let item of masterChildDetails" class="filter-item">
+          {{ item.label }}
+          <p-checkbox [(ngModel)]="item.checked" [binary]="true"></p-checkbox>
+        </label>
+      </div>
+    </div>
+
+    <!-- Shipment Event Dates -->
+    <div class="filter-card dates-card">
+      <h3>Shipment event Dates</h3>
+      <div class="filter-list">
+        <label *ngFor="let item of shipmentEventDates" class="filter-item">
+          {{ item.label }}
+          <p-checkbox [(ngModel)]="item.checked" [binary]="true"></p-checkbox>
+        </label>
+      </div>
+    </div>
+
+    <!-- Others -->
+    <div class="filter-card others-card">
+      <h3>Others</h3>
+      <div class="filter-list">
+        <label *ngFor="let item of others" class="filter-item">
+          {{ item.label }}
+          <p-checkbox [(ngModel)]="item.checked" [binary]="true"></p-checkbox>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Filters Bar -->
+  <div class="search-filters-bar">
+    <div class="filter-field date-type">
+      <label>Date Type</label>
+      <p-select [options]="dateTypes" [(ngModel)]="selectedDateType" optionLabel="label" optionValue="value"></p-select>
+    </div>
+
+    <div class="filter-field date-range">
+      <label>Select Date</label>
+      <p-datepicker 
+        [(ngModel)]="dateRange" 
+        selectionMode="range" 
+        [readonlyInput]="true" 
+        showIcon="true"
+        placeholder="26 Feb, 2026 12:00 Am - 26 Feb, 2026 01:43 Am">
+      </p-datepicker>
+    </div>
+
+    <div class="filter-field">
+      <label>Express Type</label>
+      <p-select [options]="expressTypes" [(ngModel)]="selectedExpressType" optionLabel="label" placeholder="Select"></p-select>
+    </div>
+
+    <div class="filter-field">
+      <label>Shipment Type</label>
+      <p-select [options]="shipmentTypes" [(ngModel)]="selectedShipmentType" optionLabel="label" placeholder="Select"></p-select>
+    </div>
+
+    <div class="filter-field">
+      <label>Insurance</label>
+      <p-select [options]="insuranceOptions" [(ngModel)]="selectedInsurance" optionLabel="label" placeholder="Select"></p-select>
+    </div>
+
+    <div class="filter-field search-group">
+      <label>Search Type</label>
+      <div class="search-inputs">
+        <p-select [options]="searchTypes" [(ngModel)]="selectedSearchType" optionLabel="label" optionValue="value"></p-select>
+        <input type="text" pInputText [(ngModel)]="searchValue" placeholder="Search Here" />
+      </div>
+    </div>
+
+    <div class="filter-actions">
+      <button class="search-btn"><i class="pi pi-search"></i> Search</button>
+      <button class="reset-btn"><i class="pi pi-refresh"></i> Reset</button>
+    </div>
+  </div>
+
+  <!-- Status Tabs -->
+  <div class="status-tabs">
+    <button 
+      *ngFor="let status of statuses" 
+      class="status-tab" 
+      [class.active]="status.active"
+      (click)="onTabClick(status)">
+      {{ status.label }} ({{ status.count }})
+    </button>
+  </div>
+
+  <!-- Content Section -->
+  <div class="content-section">
+    <div class="section-header">
+      <h2>All</h2>
+      <div class="header-actions">
+        <input type="text" pInputText [(ngModel)]="searchRecords" placeholder="Search records..." class="search-records" />
+        <button class="export-btn"><i class="pi pi-upload"></i> Export</button>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-container">
+      <div class="items-per-page">
+        <span>Item Per Page:</span>
+        <p-select [options]="itemsPerPageOptions" [(ngModel)]="itemsPerPage"></p-select>
+      </div>
+
+      <p-table [value]="reportData" [tableStyle]="{ 'min-width': '100%' }">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Order Details <i class="pi pi-sort-alt"></i></th>
+            <th>Tracking Details <i class="pi pi-sort-alt"></i></th>
+            <th>Product Details</th>
+            <th>Amount Detail <i class="pi pi-sort-alt"></i></th>
+            <th>Status <i class="pi pi-sort-alt"></i></th>
+            <th>Pickup Address <i class="pi pi-sort-alt"></i></th>
+            <th>Consignee Address</th>
+            <th>Contact</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <!-- Placeholder for data rows -->
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="8" class="empty-message">
+              No records found. Try adjusting filters.
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <div class="pagination-container">
+        <div class="items-per-page-bottom">
+          <span>Item Per Page:</span>
+          <p-select [options]="itemsPerPageOptions" [(ngModel)]="itemsPerPage"></p-select>
+        </div>
+        <div class="page-controls">
+          <button class="page-btn"><i class="pi pi-chevron-left"></i></button>
+          <button class="page-btn active">1</button>
+          <button class="page-btn"><i class="pi pi-chevron-right"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
