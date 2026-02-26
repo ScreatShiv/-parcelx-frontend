@@ -10,7 +10,7 @@
     </div>
 
     <div class="shipments-table-header-right">
-      <div class="page-size">
+      <div class="page-size ">
         <select [value]="pageSize" (change)="onPageSizeChange($event)">
           <option *ngFor="let size of pageSizeOptions" [value]="size">
             {{ size }}

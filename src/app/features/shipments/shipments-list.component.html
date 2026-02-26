@@ -40,43 +40,64 @@
     </div>
   </header>
 
-  <section class="shipments-filters">
-    <form class="shipments-filters-form" (ngSubmit)="onSearch()">
+ <section class="shipments-filters">
+  <form class="shipments-filters-form" (ngSubmit)="onSearch()">
+
+    <!-- ── Row 1: always visible ── -->
+    <div class="filters-row">
+
+      <div class="filter-field">
+        <label for="dateType">Date Type</label>
+        <select id="dateType" [(ngModel)]="dateType" name="dateType">
+          <option value="PLACED_DATE">Placed Date</option>
+          <option value="DELIVERED_DATE">Delivered Date</option>
+        </select>
+      </div>
+
+      <div class="filter-field filter-date-range">
+        <label>Select Date</label>
+        <app-date-range (apply)="onDateRangeApply($event)"></app-date-range>
+      </div>
+
+      <div class="filter-field">
+        <label for="searchType">Search Type</label>
+        <select id="searchType" [(ngModel)]="searchType" name="searchType">
+          <option value="TRACKING">Tracking ID</option>
+          <option value="ORDER_ID">Order ID</option>
+          <option value="INVOICE_NUMBER">Invoice Number</option>
+          <option value="CHANNEL_ORDER_NUMBER">Channel Order number</option>
+          <option value="PRODUCT_NAME">Product Name</option>
+          <option value="PRODUCT_SKU">Product SKU</option>
+          <option value="CONSIGNEE_NAME">Consignee Name</option>
+          <option value="CONSIGNEE_MOBILE">Consignee Mobile Number</option>
+          <option value="CONSIGNEE_EMAIL">Consignee Email</option>
+        </select>
+      </div>
+
+      <div class="filter-field">
+        <label for="searchText">Search</label>
+        <input id="searchText" type="text" [(ngModel)]="searchText"
+               name="searchText" placeholder="Enter value" />
+      </div>
+
+      <!-- Show actions here when extra filters are hidden -->
+      @if (!showFilters) {
+        <div class="filter-actions">
+          <button type="submit" class="btn-primary">
+            <span class="pi pi-search"></span> Search
+          </button>
+          <button type="button" class="btn-ghost" (click)="resetFilters()">
+            Reset
+          </button>
+        </div>
+      }
+
+    </div>
+
+    <!-- ── Row 2: extra filters + actions (shown when showFilters = true) ── -->
+    @if (showFilters) {
       <div class="filters-row">
-        <div class="filter-field">
-          <label for="dateType">Date Type</label>
-          <select id="dateType" [(ngModel)]="dateType" name="dateType">
-            <option value="PLACED_DATE">Placed Date</option>
-            <option value="DELIVERED_DATE">Delivered Date</option>
-          </select>
-        </div>
 
-        <div class="filter-field filter-date-range">
-          <label>Select Date</label>
-          <app-date-range (apply)="onDateRangeApply($event)"></app-date-range>
-        </div>
-
-        <div class="filter-field">
-          <label for="searchType">Search Type</label>
-          <select id="searchType" [(ngModel)]="searchType" name="searchType">
-            <option value="TRACKING">Tracking ID</option>
-            <option value="ORDER_ID">Order ID</option>
-            <option value="INVOICE_NUMBER">Invoice Number</option>
-            <option value="CHANNEL_ORDER_NUMBER">Channel Order number</option>
-            <option value="PRODUCT_NAME">Product Name</option>
-            <option value="PRODUCT_SKU">Product SKU</option>
-            <option value="CONSIGNEE_NAME">Consignee Name</option>
-            <option value="CONSIGNEE_MOBILE">Consignee Mobile Number</option>
-            <option value="CONSIGNEE_EMAIL">Consignee Email</option>
-          </select>
-        </div>
-
-        <div class="filter-field">
-          <label for="searchText">Search</label>
-          <input id="searchText" type="text" [(ngModel)]="searchText" name="searchText" placeholder="Enter value" />
-        </div>
-
-        @if (showFilters) {
         <div class="filter-field">
           <label for="expressType">Express Type</label>
           <select id="expressType" [(ngModel)]="expressType" name="expressType">
@@ -89,9 +110,11 @@
         <div class="filter-field filter-order-range">
           <label>Order Value</label>
           <div class="filter-order-range-inputs">
-            <input type="number" [(ngModel)]="minOrderValue" name="minOrderValue" placeholder="Min" />
-            <span class="order-range-separator">|</span>
-            <input type="number" [(ngModel)]="maxOrderValue" name="maxOrderValue" placeholder="Max" />
+            <input type="number" [(ngModel)]="minOrderValue"
+                   name="minOrderValue" placeholder="Min" />
+            <span class="range-sep">|</span>
+            <input type="number" [(ngModel)]="maxOrderValue"
+                   name="maxOrderValue" placeholder="Max" />
           </div>
         </div>
 
@@ -107,20 +130,22 @@
             <option value="F">Zone F</option>
           </select>
         </div>
-        }
 
+        <!-- Actions always in the same row as last group of fields -->
         <div class="filter-actions">
-          <button type="submit" class="primary-search">
-            <span class="pi pi-search"></span>
-            <span>Search</span>
+          <button type="submit" class="btn-primary">
+            <span class="pi pi-search"></span> Search
           </button>
-          <button type="button" class="ghost-search" (click)="resetFilters()">
+          <button type="button" class="btn-ghost" (click)="resetFilters()">
             Reset
           </button>
         </div>
+
       </div>
-    </form>
-  </section>
+    }
+
+  </form>
+</section>
 
   @if (viewType === 'PROCESSED') {
   <section class="shipments-status-section">
