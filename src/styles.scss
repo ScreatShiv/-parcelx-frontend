@@ -12,51 +12,877 @@ body {
 
 }
 
-/* Global overlay styling for p-dialog mask */
-.p-dialog-mask {
-  background-color: rgba(0, 0, 0, 0.4) !important;
-  backdrop-filter: blur(2px);
-  z-index: 9999 !important;
+
+// =================================================================
+//  DATE RANGE PICKER — GLOBAL STYLES
+//  Paste this entire block into your project's styles.scss
+//
+//  WHY global? PrimeNG renders <p-popover> in <body>, outside
+//  the component. Angular's encapsulation scoping doesn't reach
+//  it, so these MUST live in global styles, NOT the component scss.
+// =================================================================
+
+// ── Variables ─────────────────────────────────────────────────
+$dr-primary:    #CD5656;
+$dr-accent:     #CD5656;
+$dr-surface:    #ffffff;
+$dr-bg:         #f9fafb;
+$dr-border:     #d1d5db;
+$dr-border-2:   #e5e7eb;
+$dr-text:       #111827;
+$dr-muted:      #6b7280;
+$dr-light:      #9ca3af;
+$dr-primary-lt: #dbeafe;
+$dr-radius:     0.5rem;
+
+// Breakpoints
+$bp-mobile: 600px;   // single column everything
+$bp-tablet: 780px;   // two calendars side by side, presets on top
+
+// =================================================================
+// 1. POPOVER SHELL
+// =================================================================
+.date-range-panel.p-popover {
+  padding: 0 !important;
+  background: $dr-surface !important;
+  border: 1px solid $dr-border-2 !important;
+  border-radius: 0.75rem !important;
+  box-shadow: 0 20px 50px -12px rgba(0,0,0,.18),
+              0 8px 20px  -8px rgba(0,0,0,.10) !important;
+  overflow: hidden;
+  // Desktop: sidebar + two calendars
+  width: min(860px, 98vw) !important;
+  max-width: 98vw !important;
+
+  &::before,
+  &::after { display: none !important; }
+
+  .p-popover-content {
+    padding: 0 !important;
+    background: $dr-surface !important;
+  }
 }
 
-/* Global overlay styling for p-select */
-.custom-select-overlay,
-.p-select-overlay {
-  background-color: #ffffff !important;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  z-index: 10000; /* Ensure it's above other elements */
+// =================================================================
+// 2. CARD + CONTAINER
+// =================================================================
+.date-range-card {
+  background: $dr-surface;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
 
-  .p-select-list-container {
-      background-color: #ffffff !important;
+// Desktop: [preset sidebar | From col | To col]
+//          [footer spans full width]
+.date-range-container {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  grid-template-rows: auto auto;
+
+  > .preset-list   { grid-column: 1; grid-row: 1; }
+  > .range-pickers { grid-column: 2; grid-row: 1; }
+  > .range-actions { grid-column: 1 / -1; grid-row: 2; }
+}
+
+// =================================================================
+// 3. PRESET LIST — vertical sidebar on desktop
+// =================================================================
+.preset-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem 0.625rem;
+  background: #f3f4f6;
+  border-right: 1px solid $dr-border-2;
+  // keep aligned with pickers height
+  align-self: stretch;
+}
+
+.preset-item {
+  padding: 0.42rem 0.7rem;
+  text-align: left;
+  border: 1px solid $dr-border-2;
+  background: $dr-surface;
+  border-radius: $dr-radius;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: $dr-muted;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+
+  &:hover {
+    background: $dr-primary-lt;
+    border-color: $dr-primary;
+    color: $dr-primary;
   }
 
-  .p-select-list {
-    padding: 0.5rem 0;
-    background-color: #ffffff !important;
-    border-radius: 8px;
+  &.active {
+    background: $dr-primary;
+    border-color: $dr-primary;
+    color: $dr-surface;
+  }
+}
+
+// =================================================================
+// 4. RANGE PICKERS — two columns on desktop
+// =================================================================
+.range-pickers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  align-items: start;
+}
+
+.range-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: $dr-surface;
+  border: 1px solid $dr-border-2;
+  border-radius: 0.6rem;
+  padding: 0.6rem;
+  overflow: hidden;
+  min-width: 0; // prevent overflow in tight grids
+}
+
+.range-label {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: $dr-muted;
+}
+
+.range-input {
+  width: 100%;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid $dr-border;
+  border-radius: $dr-radius;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.82rem;
+  color: $dr-text;
+  background: $dr-bg;
+  outline: none;
+  cursor: default;
+  box-sizing: border-box;
+}
+
+.range-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 1px solid $dr-border-2;
+  border-radius: 0.6rem;
+  padding: 0.5rem;
+  background: $dr-bg;
+}
+
+// =================================================================
+// 5. TIME SELECTORS
+// =================================================================
+.time-selectors {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.time-select {
+  padding: 0.35rem 0.5rem;
+  border: 1px solid $dr-border;
+  border-radius: $dr-radius;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.8rem;
+  background: $dr-surface;
+  color: $dr-text;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s;
+
+  &:focus { border-color: $dr-primary; }
+}
+
+.time-separator {
+  font-size: 1rem;
+  color: $dr-muted;
+  line-height: 1;
+}
+
+// =================================================================
+// 6. FOOTER
+// =================================================================
+.range-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.875rem;
+  border-top: 1px solid $dr-border-2;
+  background: $dr-bg;
+}
+
+.range-apply,
+.range-cancel {
+  padding: 0.42rem 1.1rem;
+  border-radius: 999px;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: all 0.15s;
+}
+
+.range-apply {
+  background: $dr-accent;
+  border-color: $dr-accent;
+  color: $dr-surface;
+  font-weight: 600;
+  &:hover { background: #CD5656; border-color: #CD5656; }
+}
+
+.range-cancel {
+  background: $dr-surface;
+  border-color: $dr-border;
+  color: $dr-text;
+  &:hover { border-color: #94a3b8; }
+}
+
+// =================================================================
+// 7. PRIMENG INLINE CALENDAR OVERRIDES
+// =================================================================
+.date-range-panel .p-datepicker {
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  padding: 0.4rem 0 !important;
+  width: 100% !important;
+  box-shadow: none !important;
+  font-family: 'DM Sans', system-ui, sans-serif !important;
+}
+
+.date-range-panel .p-datepicker-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 0 0 0.45rem !important;
+  margin-bottom: 0.35rem;
+  border-bottom: 1px solid $dr-border-2 !important;
+  background: transparent !important;
+}
+
+.date-range-panel .p-datepicker-prev,
+.date-range-panel .p-datepicker-next {
+  width: 26px !important;
+  height: 26px !important;
+  border-radius: 6px !important;
+  border: 1px solid $dr-border !important;
+  background: $dr-surface !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: $dr-muted !important;
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &:hover {
+    border-color: $dr-primary !important;
+    color: $dr-primary !important;
+  }
+}
+
+.date-range-panel .p-datepicker-title {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.35rem !important;
+}
+
+.date-range-panel .p-datepicker-title select,
+.date-range-panel .p-datepicker-month,
+.date-range-panel .p-datepicker-year {
+  padding: 0.18rem 0.45rem !important;
+  border-radius: 6px !important;
+  border: 1px solid $dr-border !important;
+  font-size: 0.76rem !important;
+  font-family: inherit !important;
+  font-weight: 600 !important;
+  background: $dr-surface !important;
+  color: $dr-text !important;
+  cursor: pointer;
+  outline: none;
+  appearance: auto;
+}
+
+.date-range-panel .p-datepicker-calendar th {
+  font-size: 0.63rem !important;
+  font-weight: 600 !important;
+  color: $dr-light !important;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0 0 0.3rem !important;
+}
+
+.date-range-panel .p-datepicker-calendar td {
+  padding: 1px !important;
+  text-align: center;
+}
+
+.date-range-panel .p-datepicker-calendar td > span,
+.date-range-panel .p-datepicker-calendar td > a {
+  width: 1.9rem !important;
+  height: 1.9rem !important;
+  border-radius: 6px !important;
+  font-size: 0.76rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: background 0.12s, color 0.12s;
+}
+
+.date-range-panel .p-datepicker-calendar td:not(.p-disabled) > span:hover {
+  background: $dr-primary-lt !important;
+  color: $dr-primary !important;
+}
+
+.date-range-panel .p-datepicker-calendar td.p-highlight > span,
+.date-range-panel .p-datepicker-calendar td.p-highlight > a {
+  background: $dr-primary !important;
+  color: $dr-surface !important;
+  font-weight: 600 !important;
+}
+
+.date-range-panel .p-datepicker-calendar td.p-datepicker-today > span {
+  border: 1.5px solid $dr-primary;
+  font-weight: 700;
+}
+
+// =================================================================
+// 8. RESPONSIVE
+// =================================================================
+
+// ── Tablet: presets move to top row, two calendars side by side ──
+@media (max-width: $bp-tablet) {
+  .date-range-panel.p-popover {
+    width: 98vw !important;
+    // allow panel to scroll vertically if needed
+    max-height: 92vh;
+    overflow-y: auto;
   }
 
-  .p-select-option {
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-    color: #374151;
-    transition: background-color 0.2s;
+  // Flip to single column: presets on top, pickers below, footer last
+  .date-range-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
 
-    &:hover {
-      background-color: #f3f4f6 !important;
-      color: #111827 !important;
+    > .preset-list   { grid-column: 1; grid-row: 1; }
+    > .range-pickers { grid-column: 1; grid-row: 2; }
+    > .range-actions { grid-column: 1; grid-row: 3; }
+  }
+
+  // Presets become a horizontal pill scroll row
+  .preset-list {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    border-right: none;
+    border-bottom: 1px solid $dr-border-2;
+    padding: 0.5rem 0.75rem;
+    gap: 0.375rem;
+    background: #f3f4f6;
+
+    &::-webkit-scrollbar { display: none; }
+  }
+
+  .preset-item {
+    flex-shrink: 0;
+    border-radius: 999px;
+    padding: 0.3rem 0.85rem;
+    font-size: 0.8rem;
+  }
+
+  // Two calendars still side by side on tablet
+  .range-pickers {
+    grid-template-columns: 1fr 1fr;
+    padding: 0.625rem;
+    gap: 0.625rem;
+  }
+}
+
+// ── Mobile: everything single column, smaller calendar cells ──
+@media (max-width: $bp-mobile) {
+  .date-range-panel.p-popover {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    border-radius: 0.75rem !important;
+    // position the panel flush or near bottom on small screens
+    left: 0 !important;
+    right: 0 !important;
+  }
+
+  // Single column for calendars too
+  .range-pickers {
+    grid-template-columns: 1fr;
+    padding: 0.5rem;
+    gap: 0.5rem;
+  }
+
+  // Tighten calendar cell sizes so they fit narrow screens
+  .date-range-panel .p-datepicker-calendar td > span,
+  .date-range-panel .p-datepicker-calendar td > a {
+    width: 1.65rem !important;
+    height: 1.65rem !important;
+    font-size: 0.72rem !important;
+  }
+
+  .date-range-panel .p-datepicker-calendar th {
+    font-size: 0.6rem !important;
+  }
+
+  .range-col {
+    padding: 0.5rem;
+  }
+
+  .range-input {
+    font-size: 0.78rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .time-select {
+    padding: 0.28rem 0.4rem;
+    font-size: 0.76rem;
+  }
+
+  .range-actions {
+    padding: 0.5rem 0.625rem;
+  }
+}
+
+
+/* =================================================================
+   GLOBAL FORM STYLES
+   Based on your date-range-picker component styles.
+   Add this to styles.scss (root global stylesheet)
+================================================================= */
+
+// ── Variables (matching your component exactly) ───────────────
+$primary:   #CD5656;
+$surface:   #ffffff;
+$bg:        #f9fafb;
+$border:    #d1d5db;
+$border-2:  #e5e7eb;
+$text:      #494d58;
+$muted:     #6b7280;
+$light:     #94a3b8;
+$radius:    0.5rem;
+$shadow-sm: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.05);
+
+$input-height: 2.15rem;
+$input-px:     0.75rem;
+$input-font:   0.875rem;
+
+// ─────────────────────────────────────────────────────────────
+// 1. BASE RESET — every input / select / textarea
+// ─────────────────────────────────────────────────────────────
+input,
+select,
+textarea {
+  font-family:        inherit;
+  font-size:          $input-font;
+  font-weight:        500;
+  color:              $text;
+  background:         $surface;
+  border:             1.5px solid $border;
+  border-radius:      $radius;
+  outline:            none;
+  box-sizing:         border-box;
+  box-shadow:         $shadow-sm;
+  transition:         border-color 0.2s, box-shadow 0.2s;
+  appearance:         none;
+  -webkit-appearance: none;
+  width:              100%;
+}
+
+// ─────────────────────────────────────────────────────────────
+// 2. CONSISTENT HEIGHT & PADDING
+// ─────────────────────────────────────────────────────────────
+input[type='text'],
+input[type='number'],
+input[type='email'],
+input[type='password'],
+input[type='tel'],
+input[type='search'],
+input[type='date'],
+input[type='time'],
+select {
+  height:  $input-height;
+  padding: 0 $input-px;
+}
+
+textarea {
+  height:      auto;
+  padding:     0.55rem $input-px;
+  line-height: 1.5;
+  resize:      vertical;
+}
+
+// ─────────────────────────────────────────────────────────────
+// 3. PLACEHOLDER
+// ─────────────────────────────────────────────────────────────
+input::placeholder,
+textarea::placeholder {
+  color:       #9ca3af;
+  font-weight: 400;
+}
+
+// ─────────────────────────────────────────────────────────────
+// 4. HOVER
+// ─────────────────────────────────────────────────────────────
+input:hover,
+select:hover,
+textarea:hover {
+  border-color: #ffcccc;
+}
+
+// ─────────────────────────────────────────────────────────────
+// 5. FOCUS
+// ─────────────────────────────────────────────────────────────
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: $primary;
+  box-shadow:   0 0 0 3px rgba(205, 86, 86, 0.15);
+}
+
+// ─────────────────────────────────────────────────────────────
+// 6. SELECT — custom chevron, remove native arrow
+// ─────────────────────────────────────────────────────────────
+select {
+  padding-right:       2rem;
+  background-image:    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat:   no-repeat;
+  background-position: right 0.7rem center;
+  cursor:              pointer;
+}
+
+select option:first-child:not([value]),
+select option[value='null'],
+select option[value=''] {
+  color: #9ca3af;
+}
+
+// ─────────────────────────────────────────────────────────────
+// 7. REMOVE NUMBER SPINNERS
+// ─────────────────────────────────────────────────────────────
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+// ─────────────────────────────────────────────────────────────
+// 8. LABEL
+// ─────────────────────────────────────────────────────────────
+label {
+  display:        block;
+  font-size:      0.72rem;
+  font-weight:    600;
+  letter-spacing: 0.06em;
+  color:          $muted;
+  white-space:    nowrap;
+  margin-bottom:  0.3rem;
+}
+
+// =================================================================
+// FILTER FIELD WRAPPER
+// =================================================================
+.filter-field {
+  display:        flex;
+  flex-direction: column;
+  gap:            0.3rem;
+  min-width:      0;
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+  }
+}
+
+// =================================================================
+// FILTERS ROW LAYOUT
+// IMPORTANT: Put .filter-actions as the LAST child in the row div.
+// Use two separate .filters-row divs (row1 + row2) in your HTML
+// so actions are always in the same flex line as other fields.
+// =================================================================
+.filters-row {
+  display:     flex;
+  flex-wrap:   wrap;
+  gap:         0.75rem;
+  align-items: flex-end;
+}
+
+.filters-row .filter-field                           { flex: 1 1 160px; }
+.filters-row .filter-field.filter-date-range         { flex: 2 1 240px; }
+.filters-row .filter-field.filter-order-range        { flex: 1 1 190px; }
+
+.filter-actions {
+  flex:        0 0 auto;
+  display:     flex;
+  align-items: center;
+  gap:         0.5rem;
+  margin-left: auto;
+}
+
+// =================================================================
+// ORDER VALUE RANGE  (Min | Max)
+// =================================================================
+.filter-order-range-inputs {
+  display:       flex;
+  align-items:   center;
+  height:        $input-height;
+  background:    $surface;
+  border:        1.5px solid $border;
+  border-radius: $radius;
+  box-shadow:    $shadow-sm;
+  overflow:      hidden;
+  box-sizing:    border-box;
+  width:         100%;
+  transition:    border-color 0.2s, box-shadow 0.2s;
+
+  &:hover:not(:focus-within) { border-color: #ffcccc; }
+
+  &:focus-within {
+    border-color: $primary;
+    box-shadow:   0 0 0 3px rgba(205, 86, 86, 0.15);
+  }
+
+  input[type='number'] {
+    flex:          1;
+    min-width:     0;
+    width:         auto;
+    height:        100%;
+    border:        none !important;
+    box-shadow:    none !important;
+    border-radius: 0    !important;
+    background:    transparent;
+    padding:       0 0.6rem;
+    font-size:     $input-font;
+    font-weight:   500;
+    color:         $text;
+    outline:       none;
+
+    &:hover,
+    &:focus {
+      border-color: transparent !important;
+      box-shadow:   none        !important;
     }
 
-    &.p-select-option-selected {
-      background-color: rgba(134, 182, 112, 0.1) !important;
-      color: #86b670 !important;
-      font-weight: 500;
+    &::placeholder {
+      color:       #9ca3af;
+      font-weight: 400;
     }
-    
-    &.p-focus {
-        background-color: #f3f4f6 !important;
+  }
+}
+
+.order-range-separator,
+.range-sep {
+  color:       $border;
+  font-size:   1rem;
+  flex-shrink: 0;
+  line-height: 1;
+  padding:     0 0.1rem;
+  user-select: none;
+}
+
+// =================================================================
+// DATE RANGE — host + trigger must match select height exactly
+// app-date-range is a custom component; its host element renders
+// as a block with its own size. We force it to match $input-height.
+// =================================================================
+
+// Force the custom component host to be exactly the same height
+// as every other input in the row — no more, no less.
+app-date-range,
+app-date-range-picker {
+  display:    block;
+  width:      100%;
+  height:     $input-height;  // lock height to match selects
+  flex-shrink: 0;
+}
+
+// The .dr-wrap / root div inside the component also must not add height
+app-date-range .dr-wrap,
+app-date-range-picker .dr-wrap {
+  height: 100%;
+}
+
+// =================================================================
+// DATE RANGE TRIGGER BUTTON
+// =================================================================
+.date-range-trigger {
+  display:       inline-flex;
+  align-items:   center;
+  gap:           0.5rem;
+  width:         100%;
+  height:        $input-height;  // same as all selects & inputs
+  padding:       0 $input-px;
+  background:    $surface;
+  border:        1.5px solid $border;
+  border-radius: $radius;
+  font-family:   inherit;
+  font-size:     $input-font;    // same font size as other inputs
+  font-weight:   500;
+  color:         $text;
+  box-shadow:    $shadow-sm;
+  cursor:        pointer;
+  box-sizing:    border-box;
+  transition:    border-color 0.2s, box-shadow 0.2s;
+
+  &:hover { border-color: #ffcccc; }
+
+  &.open {
+    border-color: $primary;
+    box-shadow:   0 0 0 3px rgba(205, 86, 86, 0.15);
+  }
+
+  .pi-calendar { color: $muted; font-size: 0.85rem; flex-shrink: 0; }
+
+  .trigger-value {
+    flex:          1;
+    overflow:      hidden;
+    text-overflow: ellipsis;
+    white-space:   nowrap;
+    font-size:     $input-font;
+    font-weight:   500;
+    color:         $text;
+
+    &:empty::before {
+      content:     'Select date range';
+      color:       #9ca3af;
+      font-weight: 400;
     }
+  }
+
+  .chevron {
+    color:       $muted;
+    font-size:   0.75rem;
+    flex-shrink: 0;
+    transition:  transform 0.25s;
+  }
+
+  &.open .chevron { transform: rotate(180deg); }
+}
+
+// =================================================================
+// FILTER FIELD — ensure label + input stack is uniform height
+// align-items: flex-end on .filters-row aligns all inputs at
+// the bottom regardless of whether the label wraps to 2 lines.
+// =================================================================
+.filter-field {
+  // The label sits above, the control sits below.
+  // We don't set a fixed height on the field itself so
+  // labels can wrap naturally without clipping.
+  label {
+    line-height: 1.3;  // allow 2-line labels without extra gap
+  }
+
+  // Every direct control child gets the exact input height
+  > select,
+  > input,
+  > .filter-order-range-inputs,
+  > app-date-range,
+  > app-date-range-picker {
+    height: $input-height;
+  }
+}
+
+// =================================================================
+// BUTTONS  (Search / Reset) — same height as inputs
+// =================================================================
+.btn-primary,
+.primary-search {
+  height:           $input-height;
+  padding:          0 1.1rem;
+  border-radius:    999px;
+  border:           1.5px solid $primary;
+  background-color: $primary;
+  color:            $surface;
+  font-family:      inherit;
+  font-size:        0.82rem;
+  font-weight:      500;
+  line-height:      1;   // ✅ ADD THIS
+  cursor:           pointer;
+  display:          inline-flex;
+  align-items:      center;
+  justify-content:  center;
+  gap:              0.35rem;
+  white-space:      nowrap;
+  transition:       background-color 0.15s, border-color 0.15s;
+
+  &:hover { 
+    background-color: #b84444; 
+    border-color: #b84444; 
+  }
+}
+
+.btn-ghost,
+.ghost-search {
+  height:           $input-height;
+  padding:          0 1.1rem;
+  border-radius:    999px;
+  border:           1.5px solid $border;
+  background-color: $surface;
+  color:            $text;
+  font-family:      inherit;
+  font-size:        0.82rem;
+  font-weight:      500;
+  cursor:           pointer;
+  display:          inline-flex;
+  align-items:      center;
+  justify-content:  center;
+  gap:              0.35rem;
+  white-space:      nowrap;
+  transition:       border-color 0.15s;
+  &:hover { border-color: #94a3b8; }
+}
+
+// =================================================================
+// RESPONSIVE
+// =================================================================
+@media (max-width: 900px) {
+  .filters-row .filter-field                   { flex: 1 1 140px; }
+  .filters-row .filter-field.filter-date-range { flex: 2 1 200px; }
+}
+
+@media (max-width: 640px) {
+  .filters-row {
+    flex-direction: column;
+    gap:            0.6rem;
+  }
+
+  .filters-row .filter-field,
+  .filters-row .filter-field.filter-date-range,
+  .filters-row .filter-field.filter-order-range {
+    flex: 1 1 100%; width: 100%; min-width: 0;
+  }
+
+  .filter-order-range-inputs { width: 100%; }
+
+  .filter-actions {
+    width: 100%; margin-left: 0;
+  }
+
+  .btn-primary, .btn-ghost,
+  .primary-search, .ghost-search {
+    flex: 1; justify-content: center;
   }
 }

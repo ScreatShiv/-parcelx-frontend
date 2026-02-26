@@ -9,6 +9,11 @@
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  background-color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .shipments-toolbar-left {
@@ -39,7 +44,7 @@
   font-weight: 500;
 }
 
- .direction-toggle {
+.direction-toggle {
   display: inline-flex;
   gap: 0.75rem;
   font-size: 0.85rem;
@@ -108,7 +113,11 @@
 .shipments-filters {
   padding: 0.75rem 0.9rem;
   border-radius: 0.75rem;
-  background-color: #f9fafb;
+  background-color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .shipments-filters-form {
@@ -274,3 +283,273 @@
     align-items: flex-start;
   }
 }
+
+
+@media (max-width: 768px) {
+
+  /* Toolbar */
+  .shipments-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .shipments-toolbar-left {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    width: 100%;
+  }
+
+  .shipments-toolbar-right {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  /* Main tabs */
+  .shipments-main-tabs {
+    width: 100%;
+    display: flex;
+  }
+
+  .shipments-main-tab {
+    flex: 1;
+    text-align: center;
+    padding: 0.4rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  /* Direction toggle */
+  .direction-toggle {
+    width: 100%;
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .direction-option {
+    flex: 1;
+    text-align: center;
+    padding: 0.4rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  /* Toolbar right buttons */
+  .shipments-filter-toggle,
+  .shipments-manifest-btn {
+    flex: 1;
+    text-align: center;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.78rem;
+  }
+
+  /* Filters form */
+  .shipments-filters-form {
+    width: 100%;
+  }
+
+  .filters-row {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .filter-field {
+    width: 100%;
+  }
+
+  .filter-field select,
+  .filter-field input[type="text"],
+  .filter-field input[type="number"] {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .filter-date-range {
+    width: 100%;
+  }
+
+  /* Order value range */
+  .filter-order-range-inputs {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .filter-order-range-inputs input {
+    flex: 1;
+  }
+
+  /* Filter actions */
+  .filter-actions {
+    display: flex;
+    gap: 0.6rem;
+    width: 100%;
+  }
+
+  .primary-search,
+  .ghost-search {
+    flex: 1;
+    text-align: center;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.78rem;
+  }
+
+  /* Status tabs */
+  .shipments-status-section {
+    overflow-x: auto;
+  }
+
+  .status-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 0.4rem;
+    margin-bottom: 10px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .status-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .status-tab {
+    white-space: nowrap;
+    padding: 0.35rem 0.6rem;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .status-summary {
+    font-size: 0.75rem;
+    margin-top: 0.4rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .shipments-main-tab {
+    font-size: 0.72rem;
+    padding: 0.35rem 0.4rem;
+  }
+
+  .direction-toggle {
+    gap: 0.4rem;
+    font-size: 0.78rem;
+  }
+
+  .direction-option {
+    font-size: 0.72rem;
+  }
+
+  .filter-field label {
+    font-size: 0.78rem;
+  }
+}
+
+
+@media (max-width: 768px) {
+
+  /* ── Toolbar left: tabs + direction in a column ── */
+  .shipments-toolbar-left {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+    width: 100%;
+  }
+
+  /* ── Main tabs: equal width, no overflow ── */
+  .shipments-main-tabs {
+    width: 100%;
+    display: flex;
+  }
+
+  .shipments-main-tab {
+    flex: 1;
+    text-align: center;
+    padding: 0.4rem 0.5rem;
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+
+  /* ── Direction toggle: full width, evenly spaced ── */
+  .direction-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0;         /* remove the 4px desktop offset */
+  }
+
+  .direction-option {
+    flex: 1;
+    justify-content: center;   /* center dot + label together */
+    font-size: 0.78rem;
+    padding: 0.3rem 0;
+  }
+
+  /* ── Toolbar right: filter + manifest side by side ── */
+  .shipments-toolbar-right {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .shipments-filter-toggle {
+    flex: 1;
+    justify-content: center;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.78rem;
+  }
+
+  .shipments-manifest-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.78rem;
+  }
+
+  /* ── Filter actions: search + reset side by side ── */
+  .filter-actions {
+    width: 100%;
+    margin-left: 0;           /* remove desktop auto margin */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .primary-search,
+  .ghost-search {
+    flex: 1;
+    justify-content: center;  /* centers icon + text inside button */
+    padding: 0.45rem 0.75rem;
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .shipments-main-tab {
+    font-size: 0.7rem;
+    padding: 0.35rem 0.25rem;
+  }
+
+  .direction-option {
+    font-size: 0.7rem;
+  }
+
+  .shipments-filter-toggle,
+  .shipments-manifest-btn {
+    font-size: 0.72rem;
+    padding: 0.35rem 0.5rem;
+  }
+
+  .primary-search,
+  .ghost-search {
+    font-size: 0.75rem;
+  }
+
+  .filter-field label {
+    font-size: 0.72rem;
+  }
+}
+

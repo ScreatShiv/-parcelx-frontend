@@ -1,193 +1,176 @@
 @if (vm(); as state) {
-  <section class="shipments-page">
-    <header class="shipments-toolbar">
-      <div class="shipments-toolbar-left">
-        <div class="shipments-main-tabs">
-          <button
-            type="button"
-            class="shipments-main-tab"
-            [class.active]="viewType === 'PROCESSED'"
-            (click)="setViewType('PROCESSED')"
-          >
-            Processed Order
-          </button>
-          <button
-            type="button"
-            class="shipments-main-tab"
-            [class.active]="viewType === 'FAILED'"
-            (click)="setViewType('FAILED')"
-          >
-            Failed Orders
-          </button>
-        </div>
-
-        <div class="direction-toggle">
-          <button
-            type="button"
-            class="direction-option"
-            [class.active]="direction === 'FORWARD'"
-            (click)="setDirection('FORWARD')"
-          >
-            <span class="direction-dot"></span>
-            <span>Forward</span>
-          </button>
-
-          <button
-            type="button"
-            class="direction-option"
-            [class.active]="direction === 'REVERSE'"
-            (click)="setDirection('REVERSE')"
-          >
-            <span class="direction-dot"></span>
-            <span>Reverse</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="shipments-toolbar-right">
-        <button type="button" class="shipments-filter-toggle" (click)="toggleFilters()">
-          <span class="pi pi-sliders-h"></span>
-          <span>{{ showFilters ? 'Hide Filter' : 'Show Filter' }}</span>
+<section class="shipments-page">
+  <header class="shipments-toolbar">
+    <div class="shipments-toolbar-left">
+      <div class="shipments-main-tabs">
+        <button type="button" class="shipments-main-tab" [class.active]="viewType === 'PROCESSED'"
+          (click)="setViewType('PROCESSED')">
+          Processed Order
         </button>
-
-        <button type="button" class="shipments-manifest-btn">
-          Shipping Manifest
+        <button type="button" class="shipments-main-tab" [class.active]="viewType === 'FAILED'"
+          (click)="setViewType('FAILED')">
+          Failed Orders
         </button>
       </div>
-    </header>
 
-    <section class="shipments-filters">
-      <form class="shipments-filters-form" (ngSubmit)="onSearch()">
-        <div class="filters-row">
-          <div class="filter-field">
-            <label for="dateType">Date Type</label>
-            <select id="dateType" [(ngModel)]="dateType" name="dateType">
-              <option value="PLACED_DATE">Placed Date</option>
-              <option value="DELIVERED_DATE">Delivered Date</option>
-            </select>
-          </div>
+      <div class="direction-toggle">
+        <button type="button" class="direction-option" [class.active]="direction === 'FORWARD'"
+          (click)="setDirection('FORWARD')">
+          <span class="direction-dot"></span>
+          <span>Forward</span>
+        </button>
 
-          <div class="filter-field filter-date-range">
-            <label>Select Date</label>
-            <app-date-range (apply)="onDateRangeApply($event)"></app-date-range>
-          </div>
+        <button type="button" class="direction-option" [class.active]="direction === 'REVERSE'"
+          (click)="setDirection('REVERSE')">
+          <span class="direction-dot"></span>
+          <span>Reverse</span>
+        </button>
+      </div>
+    </div>
 
-          <div class="filter-field">
-            <label for="searchType">Search Type</label>
-            <select id="searchType" [(ngModel)]="searchType" name="searchType">
-              <option value="TRACKING">Tracking ID</option>
-              <option value="ORDER_ID">Order ID</option>
-              <option value="INVOICE_NUMBER">Invoice Number</option>
-              <option value="CHANNEL_ORDER_NUMBER">Channel Order number</option>
-              <option value="PRODUCT_NAME">Product Name</option>
-              <option value="PRODUCT_SKU">Product SKU</option>
-              <option value="CONSIGNEE_NAME">Consignee Name</option>
-              <option value="CONSIGNEE_MOBILE">Consignee Mobile Number</option>
-              <option value="CONSIGNEE_EMAIL">Consignee Email</option>
-            </select>
-          </div>
+    <div class="shipments-toolbar-right">
+      <button type="button" class="shipments-filter-toggle" (click)="toggleFilters()">
+        <span class="pi pi-sliders-h"></span>
+        <span>{{ showFilters ? 'Hide Filter' : 'Show Filter' }}</span>
+      </button>
 
-          <div class="filter-field">
-            <label for="searchText">Search</label>
-            <input
-              id="searchText"
-              type="text"
-              [(ngModel)]="searchText"
-              name="searchText"
-              placeholder="Enter value"
-            />
-          </div>
+      <button type="button" class="shipments-manifest-btn">
+        Shipping Manifest
+      </button>
+    </div>
+  </header>
 
-          @if (showFilters) {
-            <div class="filter-field">
-              <label for="expressType">Express Type</label>
-              <select
-                id="expressType"
-                [(ngModel)]="expressType"
-                name="expressType"
-              >
-                <option [ngValue]="null">Select</option>
-                <option value="AIR">Air</option>
-                <option value="SURFACE">Surface</option>
-              </select>
-            </div>
+ <section class="shipments-filters">
+  <form class="shipments-filters-form" (ngSubmit)="onSearch()">
 
-            <div class="filter-field filter-order-range">
-              <label>Order Value</label>
-              <div class="filter-order-range-inputs">
-                <input
-                  type="number"
-                  [(ngModel)]="minOrderValue"
-                  name="minOrderValue"
-                  placeholder="Min"
-                />
-                <span class="order-range-separator">|</span>
-                <input
-                  type="number"
-                  [(ngModel)]="maxOrderValue"
-                  name="maxOrderValue"
-                  placeholder="Max"
-                />
-              </div>
-            </div>
+    <!-- ── Row 1: always visible ── -->
+    <div class="filters-row">
 
-            <div class="filter-field">
-              <label for="zone">Select Zone</label>
-              <select id="zone" [(ngModel)]="zone" name="zone">
-                <option [ngValue]="null">Select</option>
-                <option value="A">Zone A</option>
-                <option value="B">Zone B</option>
-                <option value="C">Zone C</option>
-                <option value="D">Zone D</option>
-                <option value="E">Zone E</option>
-                <option value="F">Zone F</option>
-              </select>
-            </div>
-          }
+      <div class="filter-field">
+        <label for="dateType">Date Type</label>
+        <select id="dateType" [(ngModel)]="dateType" name="dateType">
+          <option value="PLACED_DATE">Placed Date</option>
+          <option value="DELIVERED_DATE">Delivered Date</option>
+        </select>
+      </div>
 
-          <div class="filter-actions">
-            <button type="submit" class="primary-search">
-              <span class="pi pi-search"></span>
-              <span>Search</span>
-            </button>
-            <button type="button" class="ghost-search" (click)="resetFilters()">
-              Reset
-            </button>
-          </div>
+      <div class="filter-field filter-date-range">
+        <label>Select Date</label>
+        <app-date-range (apply)="onDateRangeApply($event)"></app-date-range>
+      </div>
+
+      <div class="filter-field">
+        <label for="searchType">Search Type</label>
+        <select id="searchType" [(ngModel)]="searchType" name="searchType">
+          <option value="TRACKING">Tracking ID</option>
+          <option value="ORDER_ID">Order ID</option>
+          <option value="INVOICE_NUMBER">Invoice Number</option>
+          <option value="CHANNEL_ORDER_NUMBER">Channel Order number</option>
+          <option value="PRODUCT_NAME">Product Name</option>
+          <option value="PRODUCT_SKU">Product SKU</option>
+          <option value="CONSIGNEE_NAME">Consignee Name</option>
+          <option value="CONSIGNEE_MOBILE">Consignee Mobile Number</option>
+          <option value="CONSIGNEE_EMAIL">Consignee Email</option>
+        </select>
+      </div>
+
+      <div class="filter-field">
+        <label for="searchText">Search</label>
+        <input id="searchText" type="text" [(ngModel)]="searchText"
+               name="searchText" placeholder="Enter value" />
+      </div>
+
+      <!-- Show actions here when extra filters are hidden -->
+      @if (!showFilters) {
+        <div class="filter-actions">
+          <button type="submit" class="btn-primary">
+            <span class="pi pi-search"></span> Search
+          </button>
+          <button type="button" class="btn-ghost" (click)="resetFilters()">
+            Reset
+          </button>
         </div>
-      </form>
-    </section>
+      }
 
-    @if (viewType === 'PROCESSED') {
-      <section class="shipments-status-section">
-        <div class="status-tabs">
-          @for (option of visibleStatusTabs; track option.value) {
-            <button
-              type="button"
-              class="status-tab"
-              [class.active]="selectedStatus === option.value"
-              (click)="selectStatusTab(option.value)"
-            >
-              {{ option.label }}
-            </button>
-          }
+    </div>
+
+    <!-- ── Row 2: extra filters + actions (shown when showFilters = true) ── -->
+    @if (showFilters) {
+      <div class="filters-row">
+
+        <div class="filter-field">
+          <label for="expressType">Express Type</label>
+          <select id="expressType" [(ngModel)]="expressType" name="expressType">
+            <option [ngValue]="null">Select</option>
+            <option value="AIR">Air</option>
+            <option value="SURFACE">Surface</option>
+          </select>
         </div>
 
-        <div class="status-summary">
-          <span>Showing {{ state.items.length }} of {{ state.total }} shipments</span>
+        <div class="filter-field filter-order-range">
+          <label>Order Value</label>
+          <div class="filter-order-range-inputs">
+            <input type="number" [(ngModel)]="minOrderValue"
+                   name="minOrderValue" placeholder="Min" />
+            <span class="range-sep">|</span>
+            <input type="number" [(ngModel)]="maxOrderValue"
+                   name="maxOrderValue" placeholder="Max" />
+          </div>
         </div>
-      </section>
+
+        <div class="filter-field">
+          <label for="zone">Select Zone</label>
+          <select id="zone" [(ngModel)]="zone" name="zone">
+            <option [ngValue]="null">Select</option>
+            <option value="A">Zone A</option>
+            <option value="B">Zone B</option>
+            <option value="C">Zone C</option>
+            <option value="D">Zone D</option>
+            <option value="E">Zone E</option>
+            <option value="F">Zone F</option>
+          </select>
+        </div>
+
+        <!-- Actions always in the same row as last group of fields -->
+        <div class="filter-actions">
+          <button type="submit" class="btn-primary">
+            <span class="pi pi-search"></span> Search
+          </button>
+          <button type="button" class="btn-ghost" (click)="resetFilters()">
+            Reset
+          </button>
+        </div>
+
+      </div>
     }
 
-    <app-customtable
-      [title]="
+  </form>
+</section>
+
+  @if (viewType === 'PROCESSED') {
+  <section class="shipments-status-section">
+    <div class="status-tabs">
+      @for (option of visibleStatusTabs; track option.value) {
+      <button type="button" class="status-tab" [class.active]="selectedStatus === option.value"
+        (click)="selectStatusTab(option.value)">
+        {{ option.label }}
+      </button>
+      }
+    </div>
+
+    <!-- <div class="status-summary">
+      <span>Showing {{ state.items.length }} of {{ state.total }} shipments</span>
+    </div> -->
+  </section>
+  }
+
+  <app-customtable [title]="
         viewType === 'FAILED'
           ? 'Orders'
           : selectedStatus
             ? selectedStatus
             : 'All Orders'
-      "
-      [subtitle]="
+      " [subtitle]="
         viewType === 'FAILED'
           ? 'Showing: ' +
             failedForwardOrders.length +
@@ -199,20 +182,12 @@
             ' of ' +
             state.total +
             ' orders'
-      "
-      [pageSizeOptions]="[10, 20, 50]"
-      [pageSize]="state.size"
-      [page]="state.page"
-      [total]="viewType === 'FAILED' ? failedForwardOrders.length : state.total"
-      [loading]="state.loading"
-      [columns]="visibleColumns"
-      [items]="
+      " [pageSizeOptions]="[10, 20, 50]" [pageSize]="state.size" [page]="state.page"
+    [total]="viewType === 'FAILED' ? failedForwardOrders.length : state.total" [loading]="state.loading"
+    [columns]="visibleColumns" [items]="
         viewType === 'FAILED' && direction === 'FORWARD'
           ? failedForwardOrders
           : state.items
-      "
-      [showActionColumn]="viewType === 'PROCESSED'"
-      (pageChange)="onTablePageChange($event)"
-    ></app-customtable>
-  </section>
+      " [showActionColumn]="viewType === 'PROCESSED'" (pageChange)="onTablePageChange($event)"></app-customtable>
+</section>
 }

@@ -1,234 +1,264 @@
-.date-range {
-  width: 100%;
+// ── Variables ─────────────────────────────────────────────────
+$primary:    #CD5656;
+$accent:     #CD5656;
+$surface:    #ffffff;
+$bg:         #f9fafb;
+$border:     #d1d5db;
+$border-2:   #e5e7eb;
+$text:       #494d58;
+$muted:      #6b7280;
+$light:      #94a3b8;
+$radius:     0.5rem;
+$shadow-sm:  0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.05);
+
+// ── Host ──────────────────────────────────────────────────────
+:host {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  display: block;
 }
 
+// ── Filter row (Date Type + Date Range side by side) ──────────
+.filter-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+// ── Generic filter field ──────────────────────────────────────
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+
+  label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: $muted;
+    white-space: nowrap;
+  }
+
+  // Native <select> inside filter-field (Date Type)
+  select {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 0.55rem 2rem 0.55rem 0.75rem;
+    background: $surface url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E") no-repeat right 0.7rem center;
+    border: 1.5px solid $border;
+    border-radius: $radius;
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $text;
+    cursor: pointer;
+    box-shadow: $shadow-sm;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &:hover { border-color: #93c5fd; }
+    &:focus {
+      border-color: $primary;
+      box-shadow: 0 0 0 3px rgba(0,123,255,.12);
+    }
+  }
+
+  // Date Type: fixed width
+  &:first-child { flex: 0 0 160px; }
+
+  // Date Range: grows
+  &.date-range { flex: 1 1 260px; }
+}
+
+@media (max-width: 480px) {
+  .filter-field,
+  .filter-field.date-range { flex: 1 1 100%; }
+}
+
+// ── Date Range trigger ────────────────────────────────────────
 .date-range-trigger {
   display: inline-flex;
   align-items: center;
-  justify-content: space-between;
   gap: 0.5rem;
-  padding: 0.35rem 0.6rem;
-  border-radius: 0.5rem;
-  border: 1px solid #d1d5db;
-  background-color: #ffffff;
+  padding: 0.32rem 0.65rem;
+  background: $surface;
+  border: 1.5px solid $border;
+  border-radius: $radius;
   cursor: pointer;
+  font-size: 0.875rem;
+  color: $text;
+  box-shadow: $shadow-sm;
+  transition: border-color 0.2s, box-shadow 0.2s;
   width: 100%;
-  box-sizing: border-box;
+
+  &:hover { border-color: #93c5fd; }
+
+  &.open {
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba(0,123,255,.12);
+  }
+
+  .pi-calendar { color: $muted; font-size: 0.85rem; flex-shrink: 0; }
+
+  .trigger-value {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 500;
+    font-size: 0.75rem;
+    color: $text;
+
+    &:empty::before,
+    &.placeholder { color: $muted; font-weight: 400; }
+  }
+
+  .chevron {
+    color: $muted;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    transition: transform 0.25s;
+  }
+
+  &.open .chevron { transform: rotate(180deg); }
 }
 
-.date-range-trigger .trigger-value {
-  font-size: 0.8rem;
-  color: #111827;
-  overflow: hidden;
-  text-overflow: ellipsis;
+/* =================================================================
+   FILTER FIELDS — consistent style across all inputs
+   Paste into your component SCSS or global styles as needed
+================================================================= */
+
+/* ── Shared field wrapper ─────────────────────────────────────── */
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+.filter-field label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7280;
   white-space: nowrap;
 }
 
-:host ::ng-deep .date-range-panel {
-  width: 780px;
-  padding: 0.75rem;
-  background-color: transparent;
-  border-radius: 0.75rem;
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
-}
-
-.date-range-card {
-  background-color: #ffffff;
-  border-radius: 0.9rem;
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);
-  padding: 0.75rem;
-  margin-top: 0.5rem;
-}
-
-.date-range-container {
-  display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 0.75rem;
-}
-
-.preset-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  background-color: #f3f4f6;
-  border-radius: 0.65rem;
-  padding: 0.35rem;
-}
-
-.preset-item {
-  padding: 0.4rem 0.6rem;
-  text-align: left;
-  border: 1px solid #e5e7eb;
-  background-color: #ffffff;
+/* ── Shared input / select base style ────────────────────────── */
+.filter-field select,
+.filter-field input[type="number"],
+.filter-field input[type="text"] {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  background: #ffffff;
+  border: 1.5px solid #d1d5db;
   border-radius: 0.5rem;
-  font-size: 0.85rem;
-  cursor: pointer;
-  color: #4b5563;
-  transition:
-    background-color 0.15s ease-out,
-    border-color 0.15s ease-out,
-    color 0.15s ease-out;
-}
-
-.preset-item.active {
-  background-color: #007bff;
-  border-color: #007bff;
-  color: #ffffff;
+  font-family: inherit;
+  font-size: 0.875rem;
   font-weight: 500;
+  color: #111827;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+  line-height: 1.4;
 }
 
-.range-pickers {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
+/* Remove native number arrows */
+.filter-field input[type="number"]::-webkit-inner-spin-button,
+.filter-field input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.filter-field input[type="number"] {
+  -moz-appearance: textfield;
 }
 
-.range-col {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  background-color: #ffffff;
-  border-radius: 0.75rem;
-  border: 1px solid #e5e7eb;
-  padding: 0.75rem;
+/* Hover */
+.filter-field select:hover,
+.filter-field input[type="number"]:hover,
+.filter-field input[type="text"]:hover {
+  border-color: #ffcccc;
 }
 
-.range-label {
-  font-size: 0.8rem;
-  color: #6b7280;
+/* Focus */
+.filter-field select:focus,
+.filter-field input[type="number"]:focus,
+.filter-field input[type="text"]:focus {
+  border-color: #CD5656;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.12);
 }
 
-.range-input {
-  width: 100%;
-  padding: 0.5rem 0.8rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.5rem;
-  font-size: 0.8rem;
-  background-color: #f9fafb;
-}
-
-.range-grid {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 0.5rem;
-  align-items: start;
-  border: 1px solid #e5e7eb;
-  border-radius: 0.75rem;
-  padding: 0.5rem;
-  background-color: #ffffff;
-}
-
-:host ::ng-deep p-datepicker .p-datepicker {
-  border: 1px solid #d1d5db !important;
-  border-radius: 0.5rem !important;
-  background-color: #f9fafb !important;
-  padding: 0.5rem 0.75rem !important;
-}
-
-:host ::ng-deep p-datepicker .p-datepicker-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-:host ::ng-deep p-datepicker .p-datepicker-prev,
-:host ::ng-deep p-datepicker .p-datepicker-next {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 0.5rem !important;
-  border: 1px solid #e5e7eb !important;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
-:host ::ng-deep p-datepicker .p-datepicker-title {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-:host ::ng-deep p-datepicker .p-datepicker-title select {
-  padding: 0.25rem 0.75rem !important;
-  border-radius: 999px !important;
-  border: 1px solid #d1d5db !important;
-  font-size: 0.8rem;
-  background-color: #ffffff !important;
-}
-
-:host ::ng-deep p-datepicker .p-datepicker-calendar {
-  width: 100%;
-}
-
-:host ::ng-deep p-datepicker .p-datepicker-calendar th {
-  font-size: 0.7rem;
-  font-weight: 600 !important;
-  color: #6b7280 !important;
-  padding-bottom: 0.35rem;
-}
-
-:host ::ng-deep p-datepicker .p-datepicker-calendar td > span {
-  width: 2rem;
-  height: 2rem;
-  line-height: 2rem;
-  border-radius: 0.25rem !important;
-}
-
-:host ::ng-deep p-datepicker .p-datepicker-calendar td.p-highlight > span {
-  background-color: #0b78ff !important;
-  color: #ffffff !important;
-}
-
-:host ::ng-deep p-datepicker .p-datepicker-calendar td.p-highlight-range > span {
-  background-color: #e2f0ff !important;
-  color: #111827 !important;
-}
-
-.time-selectors {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.time-select {
-  padding: 0.4rem 0.8rem;
-  border: 1px solid #d1d5db;
-  border-radius: 0.5rem;
-  font-size: 0.8rem;
-  background-color: #ffffff;
-}
-
-.time-separator {
-  font-size: 1rem;
-  color: #6b7280;
-}
-
-.range-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.range-apply,
-.range-cancel {
-  padding: 0.45rem 0.9rem;
-  border-radius: 999px;
-  border: 1px solid transparent;
-  font-size: 0.85rem;
+/* Custom chevron on <select> — hides native arrow, adds SVG */
+.filter-field select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 2rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center;
   cursor: pointer;
 }
 
-.range-apply {
-  background-color: #ff7a00;
-  border-color: #ff7a00;
-  color: #ffffff;
+/* Placeholder / null option dimmed */
+.filter-field select option[value=""] ,
+.filter-field select option:first-child:not([value]) {
+  color: #9ca3af;
 }
 
-.range-cancel {
-  background-color: #ffffff;
-  border-color: #d1d5db;
+/* ── Order Value range field ──────────────────────────────────── */
+.filter-order-range-inputs {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 1.5px solid #d1d5db;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* When either input inside is focused, highlight the wrapper */
+.filter-order-range-inputs:focus-within {
+  border-color: #CD5656;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.12);
+}
+
+.filter-order-range-inputs input[type="number"] {
+  flex: 1;
+  min-width: 0;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent;
+  padding: 0.55rem 0.65rem;
+  font-size: 0.875rem;
+  font-weight: 500;
   color: #111827;
+  outline: none;
+}
+
+.filter-order-range-inputs input[type="number"]:hover,
+.filter-order-range-inputs input[type="number"]:focus {
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Placeholder style */
+.filter-order-range-inputs input[type="number"]::placeholder {
+  color: #9ca3af;
+  font-weight: 400;
+}
+
+.order-range-separator {
+  font-size: 1rem;
+  color: #d1d5db;
+  flex-shrink: 0;
+  line-height: 1;
+  padding: 0 0.1rem;
+  user-select: none;
 }
