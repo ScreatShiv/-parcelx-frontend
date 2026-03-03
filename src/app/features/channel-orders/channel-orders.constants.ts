@@ -48,6 +48,12 @@ export const PROCESS_TYPE = [
     {label: 'Merge Order', value: 'merge_order'}
 ] as const;
 
+export const BY_TAG = [
+    {label: 'Process Bulk Order', value: 'process_bulk_order'},
+    {label: 'Process selected Order', value: 'process_selected_order'},
+    {label: 'Merge Order', value: 'merge_order'}
+] as const;
+
 export const AVAILABLE_CHANNELS = [
   {
     id: 'shopify',

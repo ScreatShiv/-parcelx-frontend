@@ -23,8 +23,8 @@ body {
 // =================================================================
 
 // ── Variables ─────────────────────────────────────────────────
-$dr-primary:    #CD5656;
-$dr-accent:     #CD5656;
+$dr-primary:    #6f9b5a;
+$dr-accent:     #6f9b5a;
 $dr-surface:    #ffffff;
 $dr-bg:         #f9fafb;
 $dr-border:     #d1d5db;
@@ -242,7 +242,7 @@ $bp-tablet: 780px;   // two calendars side by side, presets on top
   border-color: $dr-accent;
   color: $dr-surface;
   font-weight: 600;
-  &:hover { background: #CD5656; border-color: #CD5656; }
+  &:hover { background: #6f9b5a; border-color: #6f9b5a; }
 }
 
 .range-cancel {
@@ -471,7 +471,7 @@ $bp-tablet: 780px;   // two calendars side by side, presets on top
 ================================================================= */
 
 // ── Variables (matching your component exactly) ───────────────
-$primary:   #CD5656;
+$primary:   #6f9b5a;
 $surface:   #ffffff;
 $bg:        #f9fafb;
 $border:    #d1d5db;
@@ -829,8 +829,8 @@ app-date-range-picker .dr-wrap {
   transition:       background-color 0.15s, border-color 0.15s;
 
   &:hover { 
-    background-color: #b84444; 
-    border-color: #b84444; 
+    background-color: #6f9b5a; 
+    border-color: #6f9b5a; 
   }
 }
 

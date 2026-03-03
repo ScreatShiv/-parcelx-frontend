@@ -1,5 +1,3 @@
-
-
 .channel-orders-page {
   display: flex;
   flex-direction: column;
@@ -89,7 +87,7 @@
     padding: 1.5rem;
     border-radius: 12px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    margin-bottom: 1.5rem;
+    // margin-bottom: 1.5rem;
 
     .filter-row {
       display: flex;
@@ -114,17 +112,17 @@
           .p-select {
             width: 100%;
             border-radius: 8px;
-            
+
             .p-select-label {
               font-size: 0.875rem;
               padding: 0.5rem 0.75rem;
             }
           }
-          
+
           .p-datepicker {
             width: 100%;
             border-radius: 8px;
-            
+
             .p-inputtext {
               border-radius: 8px;
             }
@@ -195,7 +193,7 @@
   }
 
   .status-tabs-section {
-    margin-bottom: 1.5rem;
+    // margin-bottom: 1.5rem;
 
     .status-tabs {
       display: flex;
@@ -204,21 +202,19 @@
       padding-bottom: 0.5rem;
 
       .status-tab-btn {
-        padding: 0.5rem 1rem;
+        padding: 0.35rem 0.85rem;
+        border-radius: 999px;
         border: 1px solid #e5e7eb;
         background-color: #ffffff;
-        border-radius: 8px;
-        font-size: 0.875rem;
-        font-weight: 500;
+        font-size: 0.8rem;
         color: #4b5563;
         cursor: pointer;
-        white-space: nowrap;
-        transition: all 0.2s;
 
         &.active {
-          background-color: #111827;
-          color: #ffffff;
-          border-color: #111827;
+          border-color: #86b670;
+          background-color: rgba(134, 182, 112, 0.08);
+          color: #111827;
+          font-weight: 500;
         }
 
         &:hover:not(.active) {
@@ -274,7 +270,7 @@
           border-radius: 8px;
           background-color: #ffffff;
           border: 1px solid #e5e7eb;
-          
+
           .p-select-label {
             font-size: 0.875rem;
             padding: 0.5rem 1rem;
@@ -286,7 +282,7 @@
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
           }
-          
+
           .p-select-list {
             padding: 0.5rem 0;
           }
@@ -297,11 +293,12 @@
             color: #374151;
             transition: background-color 0.2s;
 
-            &:hover, &.p-select-option-selected {
+            &:hover,
+            &.p-select-option-selected {
               background-color: #f3f4f6;
               color: #111827;
             }
-            
+
             &.p-select-option-selected {
               background-color: rgba(134, 182, 112, 0.1);
               color: #86b670;
@@ -352,7 +349,7 @@
     .comm-icons {
       display: flex;
       gap: 0.75rem;
-      
+
       .pi {
         font-size: 1rem;
         color: #d1d5db;
@@ -384,4 +381,200 @@
       font-size: 0.875rem;
     }
   }
+}
+
+@media (max-width: 992px) {
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .header-left {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .header-tabs {
+    width: 100%;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .header-right {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .filters-row {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  /* ── HEADER ── */
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .header-left {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .header-tabs {
+    width: 100%;
+    display: flex;
+  }
+
+  .tab-btn {
+    flex: 1;
+    text-align: center;
+    padding: 0.4rem 0.5rem;
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+
+  .header-right {
+    width: 100%;
+    display: flex;
+  }
+
+  .manifest-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.78rem;
+  }
+
+  /* ── FILTERS ── */
+
+  .filters-form {
+    width: 100%;
+  }
+
+  .filters-row {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .filter-field {
+    width: 100%;
+  }
+
+  .filter-field select,
+  .filter-field input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .filter-date-range {
+    width: 100%;
+  }
+
+  /* Filter Actions */
+  .filter-actions {
+    display: flex;
+    gap: 0.6rem;
+    width: 100%;
+  }
+
+  .btn-primary,
+  .btn-ghost {
+    flex: 1;
+    justify-content: center;
+    padding: 0.45rem 0.75rem;
+    font-size: 0.78rem;
+  }
+
+  /* ── STATUS TABS ── */
+
+  .status-tabs-section {
+    overflow-x: auto;
+  }
+
+  .status-tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 0.4rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .status-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .status-tab-btn {
+    white-space: nowrap;
+    padding: 0.35rem 0.6rem;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  /* ── TABLE HEADER ── */
+
+  .table-header-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .table-right-actions {
+    width: 100%;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .export-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 0.4rem 0.75rem;
+    font-size: 0.78rem;
+  }
+
+  .process-dropdown {
+    flex: 1;
+  }
+
+}
+
+@media (max-width: 400px) {
+
+  .tab-btn {
+    font-size: 0.7rem;
+    padding: 0.35rem 0.25rem;
+  }
+
+  .manifest-btn {
+    font-size: 0.72rem;
+    padding: 0.35rem 0.5rem;
+  }
+
+  .status-tab-btn {
+    font-size: 0.7rem;
+  }
+
+  .btn-primary,
+  .btn-ghost {
+    font-size: 0.75rem;
+  }
+
+  .filter-field label {
+    font-size: 0.72rem;
+  }
+
 }
