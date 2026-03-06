@@ -1,10 +1,7 @@
 <div class="wallet-page">
   <!-- Tabs -->
   <div class="wallet-tabs">
-    <button 
-      *ngFor="let tab of tabs" 
-      class="tab-btn" 
-      [class.active]="activeTab.id === tab.id"
+    <button *ngFor="let tab of tabs" class="tab-btn" [class.active]="activeTab.id === tab.id"
       (click)="onTabChange(tab)">
       {{ tab.label }}
     </button>
@@ -14,22 +11,14 @@
   <div class="filters-section">
     <div class="filter-group">
       <label>Date Type</label>
-      <p-select 
-        [options]="dateTypes" 
-        [(ngModel)]="selectedDateType" 
-        optionLabel="label" 
-        optionValue="value"
+      <p-select [options]="dateTypes" [(ngModel)]="selectedDateType" optionLabel="label" optionValue="value"
         placeholder="Select Date Type">
       </p-select>
     </div>
 
     <div class="filter-group">
       <label>Select Date</label>
-      <p-datepicker 
-        [(ngModel)]="dateRange" 
-        selectionMode="range" 
-        [readonlyInput]="true" 
-        showIcon="true"
+      <p-datepicker [(ngModel)]="dateRange" selectionMode="range" [readonlyInput]="true" showIcon="true"
         placeholder="19 Feb, 2026 01:04 am - 26 Feb, 2026 01:04 am">
       </p-datepicker>
     </div>
@@ -37,11 +26,7 @@
     <div class="filter-group">
       <label>Search Type</label>
       <div class="search-input-group">
-        <p-select 
-          [options]="searchTypes" 
-          [(ngModel)]="selectedSearchType" 
-          optionLabel="label" 
-          optionValue="value"
+        <p-select [options]="searchTypes" [(ngModel)]="selectedSearchType" optionLabel="label" optionValue="value"
           placeholder="Select Search Type">
         </p-select>
         <input type="text" pInputText [(ngModel)]="searchValue" placeholder="XXXXXXXXXXXX" />
@@ -64,140 +49,256 @@
 
   <!-- Content Section -->
   <div class="content-section">
-    <div class="section-header">
-      <div class="header-left">
-        <h2>View Wallet Deduction</h2>
-        <span class="subtitle">Showing 6 Orders</span>
-      </div>
-      <div class="header-right">
-        <button pButton label="Export Charges" icon="pi pi-upload" class="export-btn p-button-outlined"></button>
-        <button pButton label="Export Ledger" icon="pi pi-upload" class="export-btn"></button>
-      </div>
-    </div>
 
-    <!-- Table -->
-    <div class="table-container">
-      <div class="items-per-page">
-        <span>Item Per Page: 50</span>
-        <i class="pi pi-chevron-down"></i>
-      </div>
+    <section class="wallet-table-card">
 
-      <p-table 
-        [value]="walletData" 
-        [(selection)]="selectedRows" 
-        dataKey="id"
-        [tableStyle]="{ 'min-width': '100%' }">
-        <ng-template pTemplate="header">
-          <tr>
-            <th rowspan="2" style="width: 3rem">
-              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th>
-            <th rowspan="2">Order Details</th>
-            <th rowspan="2">Tracking Details</th>
-            <th rowspan="2">Transaction Details</th>
-            <th colspan="3" class="text-center">Transaction Details <i class="pi pi-chevron-down"></i></th>
-            <th rowspan="2">Amount Details</th>
-            <th rowspan="2">Billing Weight</th>
-            <th rowspan="2">Zone</th>
-            <th colspan="4" class="text-center">Charges</th>
-          </tr>
-          <tr>
-            <th class="sub-header">OPN.</th>
-            <th class="sub-header">CLS.</th>
-            <th class="sub-header">AMT.</th>
-            <th class="sub-header">Forward</th>
-            <th class="sub-header">RTO</th>
-            <th class="sub-header">Cancel</th>
-            <th class="sub-header">Weight</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-item>
-          <tr>
-            <td>
-              <p-tableCheckbox [value]="item"></p-tableCheckbox>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="primary-text" *ngIf="item.orderDate !== '-'">{{ item.orderDate }}</div>
-                <div class="secondary-text" *ngIf="item.orderId !== '-'">{{ item.orderId }}</div>
-                <div class="status-text cancelled" *ngIf="item.status === 'Cancelled'">{{ item.status }}</div>
-                <div class="status-text delivered" *ngIf="item.status === 'Delivered'">{{ item.status }}</div>
-                <div class="status-text in-transit" *ngIf="item.status === 'In Transit'">{{ item.status }}</div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="primary-text courier-name" *ngIf="item.trackingCourier !== '-'">
-                  {{ item.trackingCourier }} <i class="pi pi-box"></i>
+      <!-- ═══ HEADER ═══ -->
+      <header class="wallet-table-header">
+        <div class="wallet-table-header-left">
+          <div class="wallet-table-title-row">
+            <h3 class="wallet-table-title">{{ title }}</h3>
+            <span class="wallet-table-subtitle" *ngIf="subtitle">{{ subtitle }}</span>
+          </div>
+        </div>
+
+        <div class="wallet-table-header-right">
+          <div class="page-size">
+            <select [value]="pageSize" (change)="onPageSizeChange($event)">
+              <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</option>
+            </select>
+          </div>
+
+          <button type="button" class="header-icon-button">
+            <span class="pi pi-upload"></span>
+            <span class="btn-label">Export</span>
+          </button>
+          <button type="button" class="header-icon-button">
+            <span class="pi pi-list"></span>
+            <span class="btn-label">Product Picklist</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- ═══ TABLE ═══ -->
+      <div class="wallet-table-wrapper">
+        <table class="wallet-table" [class.loading]="loading">
+          <thead>
+            <tr class="thead-main">
+              <th class="select-col" rowspan="2">
+                <input type="checkbox" (change)="onSelectAll($event)" />
+              </th>
+              <th rowspan="2">Order Details</th>
+              <th rowspan="2">Tracking Details</th>
+              <th rowspan="2">Transaction Details</th>
+              <th colspan="3" class="group-header">Transaction Details
+                <span class="pi pi-chevron-down"></span>
+              </th>
+              <th rowspan="2">Amount Details</th>
+              <th rowspan="2">Billing Weight</th>
+              <th rowspan="2">Zone</th>
+              <th colspan="4" class="group-header">Charges</th>
+            </tr>
+            <tr class="thead-sub">
+              <th class="sub-header">OPN.</th>
+              <th class="sub-header">CLS.</th>
+              <th class="sub-header">AMT.</th>
+              <th class="sub-header">Forward</th>
+              <th class="sub-header">RTO</th>
+              <th class="sub-header">Cancel</th>
+              <th class="sub-header">Weight</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <!-- Empty state -->
+            <tr *ngIf="!items.length && !loading">
+              <td class="empty-cell" colspan="15">No wallet transactions</td>
+            </tr>
+
+            <!-- Data rows -->
+            <tr *ngFor="let item of items">
+              <td class="select-col">
+                <input type="checkbox" />
+              </td>
+
+              <!-- Order Details -->
+              <td>
+                <div class="cell-order">
+                  <div class="order-date">{{ item.orderDate }}</div>
+                  <div class="order-id">{{ item.orderId }}</div>
+                  <span class="status-pill" [class.cancelled]="item.status === 'Cancelled'"
+                    [class.delivered]="item.status === 'Delivered'" [class.in-transit]="item.status === 'In Transit'">
+                    {{ item.status }}
+                  </span>
                 </div>
-                <div class="highlight-text" *ngIf="item.trackingAwb !== '-'">{{ item.trackingAwb }}</div>
-                <div class="status-text cancelled" *ngIf="item.trackingStatus === 'Cancelled'">{{ item.trackingStatus }}</div>
-                <div class="status-text delivered" *ngIf="item.trackingStatus === 'Delivered'">{{ item.trackingStatus }}</div>
-                <div class="status-text in-transit" *ngIf="item.trackingStatus === 'In Transit'">{{ item.trackingStatus }}</div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="secondary-text">{{ item.transactionId }}</div>
-                <div class="secondary-text">{{ item.transactionDate }}</div>
-                <div class="dropdown-text">
-                  {{ item.transactionType }} <i class="pi pi-chevron-down"></i>
-                </div>
-              </div>
-            </td>
-            <!-- Transaction Details Values -->
-            <td>
-              <div class="value-box">₹ {{ item.opn }}</div>
-            </td>
-            <td>
-               <div class="value-box">₹ {{ item.cls }}</div>
-               <div class="transaction-note">{{ item.transactionNote }}</div>
-            </td>
-            <td>
-               <div class="value-box">₹ {{ item.amt }}</div>
-            </td>
-            
-            <td>
-              <div class="cell-content" *ngIf="item.amount">
-                <div class="primary-text">₹ {{ item.amount }}</div>
-                <div class="tag-ppd">{{ item.paymentMode }}</div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="primary-text">{{ item.billingWeight }}</div>
-              </div>
-            </td>
-            <td>
-              <div class="cell-content">
-                <div class="primary-text">{{ item.zone }}</div>
-              </div>
-            </td>
-            
-            <!-- Charges Values -->
-            <td>
-                <div class="charge-val">{{ item.charges.forward ? (item.charges.forward | number:'1.2-2') : '-' }} <i *ngIf="item.charges.forward" class="pi pi-info-circle"></i></div>
-            </td>
-            <td>
-                <div class="charge-val">{{ item.charges.rto ? (item.charges.rto | number:'1.2-2') : '-' }}</div>
-            </td>
-            <td>
-                <div class="charge-val">{{ item.charges.cancel ? (item.charges.cancel | number:'1.2-2') : '-' }}</div>
-            </td>
-            <td>
-                <div class="charge-val">{{ item.charges.weight ? (item.charges.weight | number:'1.2-2') : '-' }}</div>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
+              </td>
 
-      <div class="pagination-container">
-        <div class="page-controls">
-          <button class="page-btn"><i class="pi pi-chevron-left"></i></button>
-          <button class="page-btn active">1</button>
-          <button class="page-btn"><i class="pi pi-chevron-right"></i></button>
+              <!-- Tracking Details -->
+              <td>
+                <div class="cell-tracking">
+                  <span class="carrier">
+                    {{ item.trackingCourier || 'Delivery' }}
+                    <span class="pi pi-box"></span>
+                  </span>
+                  <span class="tracking-number">{{ item.trackingAwb }}</span>
+                  <span class="status-pill" *ngIf="item.trackingStatus"
+                    [class.cancelled]="item.trackingStatus === 'Cancelled'"
+                    [class.delivered]="item.trackingStatus === 'Delivered'"
+                    [class.in-transit]="item.trackingStatus === 'In Transit'">
+                    {{ item.trackingStatus }}
+                  </span>
+                </div>
+              </td>
+
+              <!-- Transaction Details -->
+              <td>
+                <div class="cell-transaction">
+                  <span class="text-secondary">{{ item.transactionId }}</span>
+                  <span class="text-secondary">{{ item.transactionDate }}</span>
+                  <span class="dropdown-pill">
+                    {{ item.transactionType }}
+                    <span class="pi pi-chevron-down"></span>
+                  </span>
+                </div>
+              </td>
+
+              <!-- OPN -->
+              <td class="value-col">
+                <span class="value-text">₹ {{ item.opn }}</span>
+              </td>
+
+              <!-- CLS -->
+              <td class="value-col">
+                <span class="value-text">₹ {{ item.cls }}</span>
+                <div class="transaction-note" *ngIf="item.transactionNote">{{ item.transactionNote }}</div>
+              </td>
+
+              <!-- AMT -->
+              <td class="value-col">
+                <span class="value-text">₹ {{ item.amt }}</span>
+              </td>
+
+              <!-- Amount Details -->
+              <td>
+                <div class="cell-amount">
+                  <span class="amount-pill">₹ {{ item.amount }}</span>
+                  <span class="tag-pill">{{ item.paymentMode }}</span>
+                </div>
+              </td>
+
+              <!-- Billing Weight -->
+              <td>
+                <span class="text-main">{{ item.billingWeight || '-' }}</span>
+              </td>
+
+              <!-- Zone -->
+              <td>
+                <span class="text-main">{{ item.zone || '-' }}</span>
+              </td>
+
+              <!-- Forward -->
+              <td class="value-col">
+                <span class="charge-val">
+                  {{ item.charges?.forward ? (item.charges.forward | number:'1.2-2') : '-' }}
+                  <span class="pi pi-info-circle" *ngIf="item.charges?.forward"></span>
+                </span>
+              </td>
+
+              <!-- RTO -->
+              <td class="value-col">
+                <span class="charge-val">{{ item.charges?.rto ? (item.charges.rto | number:'1.2-2') : '-' }}</span>
+              </td>
+
+              <!-- Cancel -->
+              <td class="value-col">
+                <span class="charge-val">{{ item.charges?.cancel ? (item.charges.cancel | number:'1.2-2') : '-'
+                  }}</span>
+              </td>
+
+              <!-- Weight -->
+              <td class="value-col">
+                <span class="charge-val">{{ item.charges?.weight ? (item.charges.weight | number:'1.2-2') : '-'
+                  }}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ═══ MOBILE CARD LIST (hidden on desktop via CSS) ═══ -->
+      <div class="mobile-card-list">
+        <div class="mobile-wallet-card" *ngFor="let item of items">
+
+          <!-- Top: Order ID + Status -->
+          <div class="card-top-row">
+            <div>
+              <div class="card-order-id">Order #{{ item.orderId }}</div>
+              <div class="card-order-date">{{ item.orderDate }}</div>
+            </div>
+            <span *ngIf="item.status" class="status-pill" [class.cancelled]="item.status === 'Cancelled'"
+              [class.delivered]="item.status === 'Delivered'" [class.in-transit]="item.status === 'In Transit'">
+              {{ item.status }}
+            </span>
+          </div>
+
+          <!-- Mid: Tracking + Amount -->
+          <div class="card-mid-row">
+            <div>
+              <div class="card-carrier">{{ item.trackingCourier !== '-' ? item.trackingCourier : 'Delivery' }}</div>
+              <div class="card-tracking">{{ item.trackingAwb !== '-' ? item.trackingAwb : '-' }}</div>
+            </div>
+            <span class="card-amount" *ngIf="item.amount; else noAmt">
+              ₹ {{ item.amount | number:'1.2-2' }}
+            </span>
+            <ng-template #noAmt>
+              <span class="card-amount">-</span>
+            </ng-template>
+          </div>
+
+          <!-- Info row: Transaction type + AMT charge -->
+          <div class="card-info-row">
+            <span class="card-transaction-type">{{ item.transactionType }}</span>
+            <span class="card-amt-badge">AMT: ₹ {{ item.amt | number:'1.2-2' }}</span>
+          </div>
+
+          <!-- Bottom: Transaction note + Zone + Actions -->
+          <div class="card-bottom-row">
+            <div class="card-meta">
+              <span class="card-note" *ngIf="item.transactionNote">{{ item.transactionNote }}</span>
+              <span class="card-zone" *ngIf="item.zone !== '-'">Zone {{ item.zone }}</span>
+            </div>
+            <div class="card-actions">
+              <button type="button" class="card-action-btn">
+                <span class="pi pi-eye"></span>
+              </button>
+              <button type="button" class="card-action-btn">
+                <span class="pi pi-download"></span>
+              </button>
+              <button type="button" class="card-action-btn">
+                <span class="pi pi-ellipsis-h"></span>
+              </button>
+            </div>
+          </div>
+
         </div>
       </div>
-    </div>
+
+      <!-- ═══ FOOTER / PAGINATION ═══ -->
+      <footer class="wallet-table-footer">
+        <div class="page-info">
+          Showing: {{ items.length }} of {{ total }} transactions
+        </div>
+        <div class="pagination">
+          <button type="button" class="pager-btn" (click)="onPrev()" [disabled]="page === 0">
+            <span class="pi pi-angle-left"></span>
+          </button>
+          <span class="pager-page">{{ page + 1 }}</span>
+          <button type="button" class="pager-btn" (click)="onNext()" [disabled]="(page + 1) * pageSize >= total">
+            <span class="pi pi-angle-right"></span>
+          </button>
+        </div>
+      </footer>
+
+    </section>
   </div>
 </div>
