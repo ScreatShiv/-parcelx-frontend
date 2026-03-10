@@ -27,6 +27,7 @@ import { TagModule } from 'primeng/tag';
   styleUrls: ['./wallet.component.scss']
 })
 export class WalletComponent {
+  // ── Tabs ──────────────────────────────────────────────
   tabs = [
     { label: 'Wallet Deduction', id: 'deduction' },
     { label: 'Recharge History', id: 'recharge' },
@@ -34,6 +35,7 @@ export class WalletComponent {
   ];
   activeTab = this.tabs[0];
 
+  // ── Filters ───────────────────────────────────────────
   dateTypes = [
     { label: 'Transaction Date', value: 'transaction_date' },
     { label: 'Order Date', value: 'order_date' }
@@ -53,8 +55,20 @@ export class WalletComponent {
   amountMin: number | null = null;
   amountMax: number | null = null;
 
-  // Mock Data for Table
-  walletData = [
+  // ── Table state ───────────────────────────────────────
+  title = 'Wallet Transactions';
+  subtitle = 'All wallet deductions and recharges';
+  loading = false;
+
+  pageSizeOptions = [10, 25, 50, 100];
+  pageSize = 10;
+  page = 0;
+
+  selectedRows: any[] = [];
+  allSelected = false;
+
+  // ── Raw data ──────────────────────────────────────────
+  private allData = [
     {
       id: 1,
       orderDate: '23 Feb 26 | 10:54 am',
@@ -74,12 +88,7 @@ export class WalletComponent {
       paymentMode: 'PPD',
       billingWeight: '5.00Kg(s)',
       zone: 'D',
-      charges: {
-        forward: 0,
-        rto: 0,
-        cancel: 188.80,
-        weight: 0
-      }
+      charges: { forward: 0, rto: 0, cancel: 188.80, weight: 0 }
     },
     {
       id: 2,
@@ -100,12 +109,7 @@ export class WalletComponent {
       paymentMode: 'PPD',
       billingWeight: '5.00Kg(s)',
       zone: 'E',
-      charges: {
-        forward: 188.80,
-        rto: 0,
-        cancel: 0,
-        weight: 0
-      }
+      charges: { forward: 188.80, rto: 0, cancel: 0, weight: 0 }
     },
     {
       id: 3,
@@ -126,12 +130,7 @@ export class WalletComponent {
       paymentMode: 'PPD',
       billingWeight: '5.00Kg(s)',
       zone: 'D',
-      charges: {
-        forward: 188.80,
-        rto: 0,
-        cancel: 0,
-        weight: 0
-      }
+      charges: { forward: 188.80, rto: 0, cancel: 0, weight: 0 }
     },
     {
       id: 4,
@@ -152,12 +151,7 @@ export class WalletComponent {
       paymentMode: 'PPD',
       billingWeight: '10.00Kg(s)',
       zone: 'E',
-      charges: {
-        forward: 306.80,
-        rto: 0,
-        cancel: 0,
-        weight: 0
-      }
+      charges: { forward: 306.80, rto: 0, cancel: 0, weight: 0 }
     },
     {
       id: 5,
@@ -178,12 +172,7 @@ export class WalletComponent {
       paymentMode: '',
       billingWeight: '-',
       zone: '-',
-      charges: {
-        forward: 0,
-        rto: 0,
-        cancel: 0,
-        weight: 0
-      }
+      charges: { forward: 0, rto: 0, cancel: 0, weight: 0 }
     },
     {
       id: 6,
@@ -204,18 +193,123 @@ export class WalletComponent {
       paymentMode: 'PPD',
       billingWeight: '6.00Kg(s)',
       zone: 'F',
-      charges: {
-        forward: 0,
-        rto: 0,
-        cancel: 0,
-        weight: 23.60
-      }
+      charges: { forward: 0, rto: 0, cancel: 0, weight: 23.60 }
     }
   ];
 
-  selectedRows: any[] = [];
+  // ── Derived ───────────────────────────────────────────
 
-  onTabChange(tab: any) {
+  /** Total count (use filteredData.length when you add filtering) */
+  get total(): number {
+    return this.allData.length;
+  }
+
+  /** Slice of data for the current page */
+  get items(): any[] {
+    const start = this.page * this.pageSize;
+    return this.allData.slice(start, start + this.pageSize);
+  }
+
+  /** Total number of pages */
+  get totalPages(): number {
+    return Math.ceil(this.total / this.pageSize);
+  }
+
+  get hasPrev(): boolean {
+    return this.page > 0;
+  }
+
+  get hasNext(): boolean {
+    return this.page < this.totalPages - 1;
+  }
+
+  // ── Lifecycle ─────────────────────────────────────────
+  ngOnInit(): void { }
+
+  // ── Tab ───────────────────────────────────────────────
+  onTabChange(tab: any): void {
     this.activeTab = tab;
+    this.page = 0;
+    this.selectedRows = [];
+    this.allSelected = false;
+  }
+
+  // ── Pagination ────────────────────────────────────────
+  onPageSizeChange(event: Event): void {
+    this.pageSize = Number((event.target as HTMLSelectElement).value);
+    this.page = 0;
+    this.selectedRows = [];
+    this.allSelected = false;
+  }
+
+  onPrev(): void {
+    if (this.hasPrev) {
+      this.page--;
+      this.selectedRows = [];
+      this.allSelected = false;
+    }
+  }
+
+  onNext(): void {
+    if (this.hasNext) {
+      this.page++;
+      this.selectedRows = [];
+      this.allSelected = false;
+    }
+  }
+
+  goToPage(p: number): void {
+    if (p >= 0 && p < this.totalPages) {
+      this.page = p;
+      this.selectedRows = [];
+      this.allSelected = false;
+    }
+  }
+
+  // ── Selection ─────────────────────────────────────────
+  onSelectAll(event: Event): void {
+    const checked = (event.target as HTMLInputElement).checked;
+    this.allSelected = checked;
+    this.selectedRows = checked ? [...this.items] : [];
+  }
+
+  onRowSelect(event: Event, row: any): void {
+    const checked = (event.target as HTMLInputElement).checked;
+    if (checked) {
+      this.selectedRows = [...this.selectedRows, row];
+    } else {
+      this.selectedRows = this.selectedRows.filter(r => r.id !== row.id);
+      this.allSelected = false;
+    }
+  }
+
+  isSelected(row: any): boolean {
+    return this.selectedRows.some(r => r.id === row.id);
+  }
+
+  // ── Filters ───────────────────────────────────────────
+  onSearch(): void {
+    // Wire up your API call / filter logic here
+    this.page = 0;
+    this.selectedRows = [];
+    this.allSelected = false;
+  }
+
+  onReset(): void {
+    this.searchValue = '';
+    this.selectedSearchType = 'tracking_id';
+    this.selectedDateType = 'transaction_date';
+    this.dateRange = undefined;
+    this.amountMin = null;
+    this.amountMax = null;
+    this.page = 0;
+    this.selectedRows = [];
+    this.allSelected = false;
+  }
+
+  // ── Export ────────────────────────────────────────────
+  onExport(): void {
+    // Wire up export logic here
+    console.log('Exporting', this.selectedRows.length ? this.selectedRows : this.items);
   }
 }

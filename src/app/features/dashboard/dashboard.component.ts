@@ -5,7 +5,14 @@ import { ButtonModule } from 'primeng/button';
 import { DatePickerModule } from 'primeng/datepicker';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
+import { DateRangeComponent } from '../../shared/date-range/date-range.component';
+export interface DateRangeValue {
+  from: Date | null;
+  to: Date | null;
+  dateType: DateType;
+}
 
+export type DateType = 'PLACED_DATE' | 'DELIVERED_DATE';
 @Component({
   standalone: true,
   selector: 'app-dashboard',
@@ -13,11 +20,12 @@ import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
   styleUrl: './dashboard.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule, 
-    FormsModule, 
-    ButtonModule, 
+    CommonModule,
+    FormsModule,
+    ButtonModule,
     DatePickerModule,
-    BaseChartDirective
+    BaseChartDirective,
+    DateRangeComponent
   ]
 })
 export class DashboardComponent {
@@ -42,6 +50,9 @@ export class DashboardComponent {
     { label: 'Failed', count: 3, icon: 'pi pi-exclamation-triangle', color: 'orange' }
   ];
 
+  fromDate: string | null = null;
+  toDate: string | null = null;
+
   // Doughnut Chart
   public doughnutChartOptions: ChartConfiguration<'doughnut'>['options'] = {
     responsive: true,
@@ -56,7 +67,7 @@ export class DashboardComponent {
   public doughnutChartData: ChartData<'doughnut'> = {
     labels: this.doughnutChartLabels,
     datasets: [
-      { 
+      {
         data: [7, 2, 1],
         backgroundColor: ['#16a34a', '#fcd34d', '#ef4444'],
         hoverBackgroundColor: ['#15803d', '#fbbf24', '#dc2626'],
@@ -128,7 +139,7 @@ export class DashboardComponent {
   public shipmentTypeChartData: ChartData<'doughnut'> = {
     labels: ['Prepaid', 'COD', 'Reverse'],
     datasets: [
-      { 
+      {
         data: [10, 0, 0],
         backgroundColor: ['#0f2e5d', '#3b82f6', '#93c5fd'],
         hoverBackgroundColor: ['#0f2e5d', '#3b82f6', '#93c5fd'],
@@ -152,7 +163,7 @@ export class DashboardComponent {
   public tatChartData: ChartData<'doughnut'> = {
     labels: ['Within TAT', 'Outside TAT'],
     datasets: [
-      { 
+      {
         data: [6, 1],
         backgroundColor: ['#22c55e', '#e5e7eb'],
         hoverBackgroundColor: ['#16a34a', '#d1d5db'],
@@ -229,7 +240,7 @@ export class DashboardComponent {
             const zoneShare = value === 3 ? '75%' : '25%';
             const ppd = value === 3 ? '3 (100%)' : '1 (100%)';
             const courier = value === 3 ? 'Delhivery: 3' : 'Delhivery: 1';
-            
+
             return [
               `Total Shipments: ${value}`,
               `Zone Share: ${zoneShare}`,
@@ -413,5 +424,10 @@ export class DashboardComponent {
 
   onTabChange(tab: any) {
     this.activeTab = tab;
+  }
+
+  onDateRangeApply(range: DateRangeValue): void {
+    this.fromDate = range.from ? range.from.toISOString() : null;
+    this.toDate = range.to ? range.to.toISOString() : null;
   }
 }

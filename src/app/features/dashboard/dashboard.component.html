@@ -19,13 +19,7 @@
     
     <div class="header-actions">
       <div class="date-picker-wrapper">
-        <p-datepicker 
-          [(ngModel)]="dateRange" 
-          selectionMode="range" 
-          [readonlyInput]="true" 
-          showIcon="true"
-          placeholder="28-Jan-2026 12:00 am - 28-Feb-2026 11:59 pm">
-        </p-datepicker>
+        <app-date-range (apply)="onDateRangeApply($event)"></app-date-range>
       </div>
       <button class="action-btn"><i class="pi pi-filter"></i> Filters</button>
       <button class="action-btn"><i class="pi pi-upload"></i> Export</button>
