@@ -1,6 +1,10 @@
 export interface AuthUser {
-  id: string;
+  id: number;
+  firstName: string;
+  lastName: string;
   email: string;
-  name?: string;
-  roles: string[];
+  roleId: number;
+  isActive: boolean;
+  name?: string; // Optional for backward compatibility or computed property
+  roles?: string[]; // Optional for backward compatibility
 }

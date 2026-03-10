@@ -34,6 +34,7 @@
     "@ngrx/effects": "^21.0.1",
     "@ngrx/store": "^21.0.1",
     "@ngrx/store-devtools": "^21.0.1",
+    "@primeng/themes": "^21.0.4",
     "chart.js": "^4.5.1",
     "jwt-decode": "^4.0.0",
     "ng2-charts": "^8.0.0",
