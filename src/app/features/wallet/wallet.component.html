@@ -7,50 +7,52 @@
     </button>
   </div>
 
-  <!-- Filters -->
-  <div class="filters-section">
-    <div class="filter-group">
-      <label>Date Type</label>
-      <p-select [options]="dateTypes" [(ngModel)]="selectedDateType" optionLabel="label" optionValue="value"
-        placeholder="Select Date Type">
-      </p-select>
-    </div>
+  <app-recharge-history *ngIf="activeTab.id === 'recharge'"></app-recharge-history>
 
-    <div class="filter-group">
-      <label>Select Date</label>
-      <p-datepicker [(ngModel)]="dateRange" selectionMode="range" [readonlyInput]="true" showIcon="true"
-        placeholder="19 Feb, 2026 01:04 am - 26 Feb, 2026 01:04 am">
-      </p-datepicker>
-    </div>
+  <app-add-money *ngIf="activeTab.id === 'add_money'"></app-add-money>
 
-    <div class="filter-group">
-      <label>Search Type</label>
-      <div class="search-input-group">
-        <p-select [options]="searchTypes" [(ngModel)]="selectedSearchType" optionLabel="label" optionValue="value"
-          placeholder="Select Search Type">
+  <ng-container *ngIf="activeTab.id === 'deduction'">
+    <div class="filters-section">
+      <div class="filter-group">
+        <label>Date Type</label>
+        <p-select [options]="dateTypes" [(ngModel)]="selectedDateType" optionLabel="label" optionValue="value"
+          placeholder="Select Date Type">
         </p-select>
-        <input type="text" pInputText [(ngModel)]="searchValue" placeholder="XXXXXXXXXXXX" />
+      </div>
+
+      <div class="filter-group">
+        <label>Select Date</label>
+        <p-datepicker [(ngModel)]="dateRange" selectionMode="range" [readonlyInput]="true" showIcon="true"
+          placeholder="19 Feb, 2026 01:04 am - 26 Feb, 2026 01:04 am">
+        </p-datepicker>
+      </div>
+
+      <div class="filter-group">
+        <label>Search Type</label>
+        <div class="search-input-group">
+          <p-select [options]="searchTypes" [(ngModel)]="selectedSearchType" optionLabel="label" optionValue="value"
+            placeholder="Select Search Type">
+          </p-select>
+          <input type="text" pInputText [(ngModel)]="searchValue" placeholder="XXXXXXXXXXXX" />
+        </div>
+      </div>
+
+      <div class="filter-group amount-filter">
+        <label>Amount</label>
+        <div class="amount-inputs">
+          <input type="number" pInputText [(ngModel)]="amountMin" placeholder="Min" />
+          <input type="number" pInputText [(ngModel)]="amountMax" placeholder="Max" />
+        </div>
+      </div>
+
+      <div class="filter-actions">
+        <button pButton label="Search" icon="pi pi-search" class="search-btn"></button>
+        <button pButton label="Reset" icon="pi pi-refresh" class="reset-btn p-button-outlined"></button>
       </div>
     </div>
 
-    <div class="filter-group amount-filter">
-      <label>Amount</label>
-      <div class="amount-inputs">
-        <input type="number" pInputText [(ngModel)]="amountMin" placeholder="Min" />
-        <input type="number" pInputText [(ngModel)]="amountMax" placeholder="Max" />
-      </div>
-    </div>
-
-    <div class="filter-actions">
-      <button pButton label="Search" icon="pi pi-search" class="search-btn"></button>
-      <button pButton label="Reset" icon="pi pi-refresh" class="reset-btn p-button-outlined"></button>
-    </div>
-  </div>
-
-  <!-- Content Section -->
-  <div class="content-section">
-
-    <section class="wallet-table-card">
+    <div class="content-section">
+      <section class="wallet-table-card">
 
       <!-- ═══ HEADER ═══ -->
       <header class="wallet-table-header">
@@ -300,5 +302,6 @@
       </footer>
 
     </section>
-  </div>
+    </div>
+  </ng-container>
 </div>

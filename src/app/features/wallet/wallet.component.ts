@@ -8,6 +8,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TableModule } from 'primeng/table';
 import { CheckboxModule } from 'primeng/checkbox';
 import { TagModule } from 'primeng/tag';
+import { RechargeHistoryComponent } from './recharge-history/recharge-history.component';
+import { AddMoneyComponent } from './add-money/add-money.component';
 
 @Component({
   selector: 'app-wallet',
@@ -21,7 +23,9 @@ import { TagModule } from 'primeng/tag';
     InputTextModule,
     TableModule,
     CheckboxModule,
-    TagModule
+    TagModule,
+    RechargeHistoryComponent,
+    AddMoneyComponent
   ],
   templateUrl: './wallet.component.html',
   styleUrls: ['./wallet.component.scss']

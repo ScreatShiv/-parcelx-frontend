@@ -1,0 +1,128 @@
+<div class="recharge-history-page">
+  <div class="filters-section">
+    <div class="filter-group">
+      <label>Select Date</label>
+      <p-datepicker
+        [(ngModel)]="dateRange"
+        selectionMode="range"
+        [readonlyInput]="true"
+        showIcon="true"
+        placeholder="12 Mar, 2026 11:23 pm - 19 Mar, 2026 11:23 pm"
+      ></p-datepicker>
+    </div>
+
+    <div class="filter-group">
+      <label>Search Type</label>
+      <div class="search-input-group">
+        <p-select
+          [options]="searchTypes"
+          [(ngModel)]="selectedSearchType"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Reference #"
+        ></p-select>
+        <input type="text" pInputText [(ngModel)]="searchValue" placeholder="XXXXXXXXXXXX" />
+      </div>
+    </div>
+
+    <div class="filter-group amount-filter">
+      <label>Amount</label>
+      <div class="amount-inputs">
+        <input type="number" pInputText [(ngModel)]="amountMin" placeholder="Min" />
+        <input type="number" pInputText [(ngModel)]="amountMax" placeholder="Max" />
+      </div>
+    </div>
+
+    <div class="filter-actions">
+      <button pButton label="Search" icon="pi pi-search" class="search-btn" (click)="onSearch()"></button>
+      <button
+        pButton
+        label="Reset"
+        icon="pi pi-refresh"
+        class="reset-btn p-button-outlined"
+        (click)="onReset()"
+      ></button>
+    </div>
+  </div>
+
+  <section class="table-card">
+    <header class="table-header">
+      <div class="header-left">
+        <div class="title-row">
+          <h3 class="title">View Recharge History</h3>
+          <span class="subtitle">showing {{ total }} Orders</span>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="page-size">
+          <span class="label">Item Per Page:</span>
+          <select [value]="pageSize" (change)="onPageSizeChange($event)">
+            <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</option>
+          </select>
+        </div>
+
+        <button pButton class="export-btn" icon="pi pi-upload" label="Export" (click)="onExport()"></button>
+      </div>
+    </header>
+
+    <div class="table-wrapper">
+      <p-table [value]="items" [tableStyle]="{ 'min-width': '1100px' }">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>#</th>
+            <th>Transaction Date</th>
+            <th>Reference #</th>
+            <th>Payment Id</th>
+            <th>Transaction Type</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Source</th>
+            <th>Added By</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-row>
+          <tr>
+            <td>{{ row.id }}</td>
+            <td>{{ row.transactionDate }}</td>
+            <td>{{ row.reference }}</td>
+            <td>{{ row.paymentId }}</td>
+            <td>{{ row.transactionType }}</td>
+            <td>{{ row.amount | number: '1.2-2' }}</td>
+            <td>
+              <p-tag [value]="row.status" [severity]="getStatusSeverity(row.status)"></p-tag>
+            </td>
+            <td>
+              <span class="source-pill">
+                <span class="pi pi-eye"></span>
+                {{ row.source }}
+              </span>
+            </td>
+            <td>{{ row.addedBy }}</td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="9" class="empty-cell">No recharge history</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <footer class="table-footer">
+      <div class="page-info">Showing: {{ items.length }} of {{ total }} orders</div>
+      <div class="pagination">
+        <button type="button" class="pager-btn" (click)="onPrev()" [disabled]="page === 0">
+          <span class="pi pi-angle-left"></span>
+        </button>
+        <span class="pager-page">{{ page + 1 }}</span>
+        <button type="button" class="pager-btn" (click)="onNext()" [disabled]="(page + 1) * pageSize >= total">
+          <span class="pi pi-angle-right"></span>
+        </button>
+      </div>
+    </footer>
+  </section>
+</div>
+

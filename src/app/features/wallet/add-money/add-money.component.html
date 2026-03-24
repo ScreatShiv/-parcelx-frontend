@@ -1,0 +1,77 @@
+<section class="add-money-card">
+  <header class="card-header">
+    <h3 class="title">Recharge Your Wallet</h3>
+  </header>
+
+  <div class="card-body">
+    <div class="top-grid">
+      <div class="amount-block">
+        <label class="label">Enter your amount</label>
+        <input
+          type="number"
+          pInputText
+          class="amount-input"
+          placeholder="Enter Amount"
+          [(ngModel)]="amount"
+          (ngModelChange)="onAmountChange()"
+        />
+
+        <div class="preset-row">
+          <button
+            type="button"
+            class="preset-btn"
+            *ngFor="let p of presets"
+            (click)="setPreset(p)"
+            [class.active]="amount === p"
+          >
+            ₹ {{ p }}
+          </button>
+        </div>
+      </div>
+
+      <div class="promo-block">
+        <label class="label">Promo Code</label>
+        <div class="promo-row">
+          <input type="text" pInputText placeholder="Enter Promo Code" [(ngModel)]="promoCode" />
+          <button pButton type="button" class="apply-btn" label="Apply" (click)="applyPromo()"></button>
+        </div>
+        <div class="promo-hint" *ngIf="appliedPromoCode">
+          <span class="promo-chip">
+            {{ appliedPromoCode }}
+          </span>
+          <button type="button" class="promo-remove" (click)="removePromo()">Remove</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="pay-method-row">
+      <label class="radio">
+        <input type="radio" name="paymentMethod" [(ngModel)]="paymentMethod" value="phonepe" />
+      </label>
+      <div class="pay-pill">
+        <span class="pi pi-bolt"></span>
+        <span>PhonePe</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="summary-card">
+  <div class="summary-row">
+    <span class="summary-label">Recharge Amount</span>
+    <span class="summary-value">₹ {{ amount ?? 0 }}</span>
+  </div>
+  <div class="summary-row">
+    <span class="summary-label">Total Amount to be credited</span>
+    <span class="summary-value">₹ {{ totalToBeCredited }}</span>
+  </div>
+  <button
+    pButton
+    type="button"
+    class="continue-btn"
+    label="Continue to Payment"
+    [disabled]="!canContinue"
+    (click)="continueToPayment()"
+  ></button>
+</section>
+

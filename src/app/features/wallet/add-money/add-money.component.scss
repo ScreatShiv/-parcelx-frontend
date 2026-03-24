@@ -1,0 +1,168 @@
+.add-money-card,
+.summary-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.add-money-card {
+  margin-bottom: 1rem;
+}
+
+.card-header {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #f3f4f6;
+
+  .title {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #111827;
+  }
+}
+
+.card-body {
+  padding: 1rem 1.25rem;
+}
+
+.top-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.amount-input {
+  width: 100%;
+}
+
+.preset-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.9rem;
+}
+
+.preset-btn {
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  padding: 0.55rem 0.85rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  color: #111827;
+  cursor: pointer;
+
+  &.active {
+    border-color: #111827;
+    box-shadow: 0 0 0 2px rgba(17, 24, 39, 0.08);
+  }
+}
+
+.promo-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.75rem;
+}
+
+.apply-btn {
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  color: #111827;
+}
+
+.promo-hint {
+  margin-top: 0.65rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.promo-chip {
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 9999px;
+  padding: 0.25rem 0.6rem;
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: #111827;
+}
+
+.promo-remove {
+  border: none;
+  background: transparent;
+  color: #2563eb;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.pay-method-row {
+  margin-top: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.radio {
+  display: inline-flex;
+  align-items: center;
+}
+
+.pay-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 8px;
+  background: #5b21b6;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.summary-card {
+  padding: 1rem 1.25rem;
+}
+
+.summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.35rem 0;
+
+  .summary-label {
+    font-size: 0.9rem;
+    color: #111827;
+    font-weight: 600;
+  }
+
+  .summary-value {
+    font-size: 0.9rem;
+    color: #111827;
+    font-weight: 700;
+  }
+}
+
+.continue-btn {
+  width: 100%;
+  margin-top: 0.9rem;
+  background: #f9c8a7;
+  border: none;
+  color: #ffffff;
+}
+
+@media (max-width: 900px) {
+  .top-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
