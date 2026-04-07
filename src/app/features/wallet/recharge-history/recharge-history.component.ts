@@ -6,7 +6,6 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { TagModule } from 'primeng/tag';
-import { TableModule } from 'primeng/table';
 
 interface RechargeHistoryRow {
   id: number;
@@ -30,7 +29,6 @@ interface RechargeHistoryRow {
     DatePickerModule,
     InputTextModule,
     SelectModule,
-    TableModule,
     TagModule,
   ],
   templateUrl: './recharge-history.component.html',

@@ -52,6 +52,8 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
+      min-width: 180px;
+      flex: 1 1 200px;
 
       label {
         font-size: 0.75rem;
@@ -62,7 +64,8 @@
       }
 
       ::ng-deep .p-select {
-        min-width: 180px;
+        width: 100%;
+        min-width: 0;
         border-radius: 6px;
         border: 1px solid #d1d5db;
         background-color: #ffffff;
@@ -109,21 +112,30 @@
         }
       }
 
+      ::ng-deep .p-datepicker {
+        width: 100%;
+      }
+
       .search-input-group {
-        display: flex;
-        gap: 1rem;
+        display: grid;
+        grid-template-columns: minmax(150px, 190px) minmax(0, 1fr);
+        gap: 0.75rem;
+        align-items: center;
 
         input {
-          min-width: 250px;
+          min-width: 0;
+          width: 100%;
         }
       }
 
       .amount-inputs {
-        display: flex;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
         gap: 0.5rem;
+        align-items: center;
 
         input {
-          width: 80px;
+          width: 100%;
           text-align: center;
         }
       }
@@ -133,6 +145,7 @@
       display: flex;
       gap: 0.75rem;
       margin-left: 0;
+      flex-wrap: wrap;
 
       button {
         padding: 0.6rem 1.5rem;
@@ -1302,5 +1315,88 @@
   .card-amt-badge,
   .card-transaction-type {
     font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .wallet-page {
+    .wallet-tabs {
+      width: 100%;
+      display: flex;
+      gap: 0;
+      padding: 0;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid #d1d5db;
+      background-color: transparent;
+
+      .tab-btn {
+        flex: 1;
+        width: auto;
+        padding: 0.4rem 0.5rem;
+        text-align: center;
+        font-size: 0.75rem;
+        white-space: nowrap;
+        border-radius: 0;
+
+        &:not(:last-child) {
+          border-right: 1px solid #d1d5db;
+        }
+      }
+    }
+
+    .filters-section {
+      padding: 1rem;
+      gap: 1rem;
+      align-items: stretch;
+
+      .filter-group {
+        min-width: 100%;
+        flex: 1 1 100%;
+      }
+
+      .search-input-group {
+        grid-template-columns: 1fr;
+      }
+
+      .amount-inputs {
+        grid-template-columns: 1fr;
+      }
+
+      .separator {
+        display: none;
+      }
+
+      .filter-actions {
+        width: 100%;
+
+        button {
+          flex: 1 1 160px;
+          justify-content: center;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .wallet-page {
+    .wallet-tabs {
+      border-radius: 999px;
+
+      .tab-btn {
+        font-size: 0.7rem;
+        padding: 0.35rem 0.25rem;
+      }
+    }
+
+    .filters-section {
+      padding: 0.85rem;
+
+      .filter-actions button {
+        width: 100%;
+        flex-basis: 100%;
+      }
+    }
   }
 }

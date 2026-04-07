@@ -1,0 +1,883 @@
+/**
+ * Wallet Components - Shared SCSS
+ * Styles for filters, tables, and input boxes used across wallet features
+ */
+
+// ─────────────────────────────────────────────────────────────
+// FILTER SECTION STYLES
+// ─────────────────────────────────────────────────────────────
+
+.filters-section {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: flex-end;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 200px;
+
+    label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.025em;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    // ─────────────────────────────────────────────────────────
+    // INPUT FIELD STYLES
+    // ─────────────────────────────────────────────────────────
+
+    input[type='text'],
+    input[type='number'],
+    input[type='email'],
+    input[type='date'] {
+      padding: 0.6rem 0.875rem;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-family: inherit;
+      transition: all 0.2s ease;
+      background-color: #ffffff;
+      color: #374151;
+
+      &::placeholder {
+        color: #9ca3af;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: #f97316;
+        box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+      }
+
+      &:hover {
+        border-color: #9ca3af;
+      }
+
+      &:disabled {
+        background-color: #f3f4f6;
+        color: #9ca3af;
+        cursor: not-allowed;
+      }
+
+      // Min/Max input styles
+      &[type='number'] {
+        text-align: center;
+
+        &::-webkit-outer-spin-button,
+        &::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+
+        &[type='number'] {
+          -moz-appearance: textfield;
+        }
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────
+    // SEARCH INPUT GROUP
+    // ─────────────────────────────────────────────────────────
+
+    .search-input-group {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+
+      p-select {
+        flex: 0 0 auto;
+        min-width: 140px;
+
+        ::ng-deep {
+          .p-select-label {
+            padding: 0.6rem 0.875rem;
+          }
+        }
+      }
+
+      input {
+        flex: 1;
+        min-width: 200px;
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────
+    // AMOUNT FILTER STYLES
+    // ─────────────────────────────────────────────────────────
+
+    &.amount-filter {
+      min-width: auto;
+
+      .amount-inputs {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+
+        input {
+          width: 80px;
+          flex: 0 0 auto;
+          min-width: auto;
+          text-align: center;
+        }
+
+        .separator {
+          color: #d1d5db;
+          font-weight: 500;
+          padding: 0 0.25rem;
+        }
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────
+    // SELECT/DROPDOWN STYLES
+    // ─────────────────────────────────────────────────────────
+
+    p-select {
+      width: 100%;
+
+      ::ng-deep {
+        .p-select {
+          width: 100%;
+          padding: 0;
+
+          .p-select-trigger {
+            padding: 0.6rem 0.875rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            background-color: #ffffff;
+            transition: all 0.2s ease;
+
+            &:hover {
+              border-color: #9ca3af;
+            }
+          }
+
+          &.p-focus .p-select-trigger {
+            border-color: #f97316;
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+          }
+        }
+
+        .p-select-label {
+          color: #374151;
+          font-size: 0.875rem;
+        }
+
+        .p-select-trigger .pi {
+          color: #6b7280;
+        }
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────
+    // DATE PICKER STYLES
+    // ─────────────────────────────────────────────────────────
+
+    p-datepicker {
+      width: 100%;
+
+      ::ng-deep {
+        .p-datepicker-trigger {
+          padding: 0.6rem 0.875rem;
+          border: 1px solid #d1d5db;
+          border-radius: 6px 0 0 6px;
+          background-color: #ffffff;
+          color: #374151;
+          transition: all 0.2s ease;
+
+          &:hover {
+            border-color: #9ca3af;
+          }
+
+          &:focus {
+            outline: none;
+            border-color: #f97316;
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+          }
+        }
+
+        .p-datepicker-input-icon {
+          right: 0.75rem;
+          color: #6b7280;
+          cursor: pointer;
+        }
+
+        .p-datepicker-input {
+          padding: 0.6rem 0.875rem;
+          border: 1px solid #d1d5db;
+          border-radius: 6px;
+          background-color: #ffffff;
+          font-size: 0.875rem;
+          transition: all 0.2s ease;
+
+          &::placeholder {
+            color: #9ca3af;
+          }
+
+          &:focus {
+            outline: none;
+            border-color: #f97316;
+            box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+          }
+        }
+      }
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────
+  // FILTER ACTIONS
+  // ─────────────────────────────────────────────────────────
+
+  .filter-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+
+    button {
+      padding: 0.6rem 1.25rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      // Search Button
+      &.search-btn {
+        background: #f97316;
+        color: #ffffff;
+
+        &:hover:not(:disabled) {
+          background: #ea580c;
+          box-shadow: 0 2px 8px rgba(249, 115, 22, 0.3);
+        }
+
+        &:active:not(:disabled) {
+          transform: translateY(1px);
+        }
+      }
+
+      // Reset Button
+      &.reset-btn {
+        background: #ffffff;
+        color: #f97316;
+        border: 1px solid #f97316;
+
+        &:hover:not(:disabled) {
+          background: #fff7ed;
+        }
+
+        &:active:not(:disabled) {
+          transform: translateY(1px);
+        }
+      }
+
+      // Export Button
+      &.export-btn {
+        background: #f97316;
+        color: #ffffff;
+
+        &:hover:not(:disabled) {
+          background: #ea580c;
+        }
+      }
+
+      // Apply Button
+      &.apply-btn {
+        background: #f97316;
+        color: #ffffff;
+
+        &:hover:not(:disabled) {
+          background: #ea580c;
+        }
+      }
+    }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
+// TABLE CARD STYLES
+// ─────────────────────────────────────────────────────────────
+
+.table-card {
+  border-radius: 1rem;
+  border: 1px solid #e5e7eb;
+  background-color: #ffffff;
+  padding: 1rem 1rem 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+
+  // ─────────────────────────────────────────────────────────
+  // TABLE HEADER
+  // ─────────────────────────────────────────────────────────
+
+  .table-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #f3f4f6;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    .header-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      flex: 1;
+
+      .title-row {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+
+      .title {
+        margin: 0;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #111827;
+        letter-spacing: -0.01em;
+      }
+
+      .subtitle {
+        font-size: 0.72rem;
+        color: #9ca3af;
+        font-weight: 400;
+        margin: 0;
+      }
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+
+      .page-size {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+
+        .label {
+          font-size: 0.75rem;
+          color: #6b7280;
+          font-weight: 500;
+        }
+
+        select {
+          border-radius: 999px;
+          border: 1px solid #e5e7eb;
+          background-color: #f9fafb;
+          font-size: 0.75rem;
+          color: #374151;
+          cursor: pointer;
+          outline: none;
+          padding: 0.35rem 0.75rem;
+          transition: all 0.15s;
+          padding-right: 1.5rem;
+          -webkit-appearance: none;
+          appearance: none;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 0.5rem center;
+
+          &:hover {
+            border-color: #d1d5db;
+            background-color: #f3f4f6;
+          }
+
+          &:focus {
+            border-color: #6f9b5a;
+            background-color: #f9fafb;
+          }
+        }
+      }
+
+      .export-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.35rem 0.85rem;
+        border-radius: 999px;
+        border: 1px solid #e5e7eb;
+        background-color: #f9fafb;
+        font-size: 0.75rem;
+        color: #374151;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.15s;
+
+        &:hover {
+          background-color: #f3f4f6;
+          border-color: #d1d5db;
+        }
+
+        .pi {
+          font-size: 0.8rem;
+          color: #6b7280;
+        }
+      }
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────
+  // TABLE WRAPPER
+  // ─────────────────────────────────────────────────────────
+
+  .table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 0.75rem;
+    border: 1px solid #f3f4f6;
+    -webkit-overflow-scrolling: touch;
+
+    /* ── PrimeNG Table Override ── */
+    ::ng-deep {
+      .p-datatable {
+        border: none;
+        background: transparent;
+
+        .p-datatable-thead > tr > th {
+          padding: 0.65rem 0.85rem;
+          font-weight: 600;
+          font-size: 0.72rem;
+          color: #6b7280;
+          background-color: #f9fafb;
+          border: none;
+          border-bottom: 1px solid #e5e7eb;
+          white-space: nowrap;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
+          vertical-align: middle;
+          text-align: left;
+        }
+
+        .p-datatable-tbody > tr {
+          transition: background-color 0.12s;
+          border: none;
+
+          > td {
+            padding: 0.7rem 0.85rem;
+            vertical-align: top;
+            text-align: left;
+            border: none;
+            border-bottom: 1px solid #f3f4f6;
+            color: #111827;
+            font-size: 0.875rem;
+          }
+
+          &:hover {
+            background-color: #fafafa;
+          }
+
+          &:last-child > td {
+            border-bottom: none;
+          }
+        }
+
+        .p-datatable-emptymessage > tr > td {
+          padding: 3rem 0.75rem;
+          text-align: center;
+          color: #9ca3af;
+          font-size: 0.85rem;
+          border: none;
+        }
+      }
+
+      .p-tag {
+        font-weight: 600;
+        border-radius: 999px;
+        padding: 0.35rem 0.75rem;
+        font-size: 0.7rem;
+
+        &.p-tag-success {
+          background-color: #ecfdf5;
+          color: #065f46;
+          border: 1px solid #a7f3d0;
+        }
+
+        &.p-tag-danger {
+          background-color: #fef2f2;
+          color: #dc2626;
+          border: 1px solid #fecaca;
+        }
+
+        &.p-tag-warning {
+          background-color: #fffbeb;
+          color: #92400e;
+          border: 1px solid #fcd34d;
+        }
+
+        &.p-tag-info {
+          background-color: #eff6ff;
+          color: #1d4ed8;
+          border: 1px solid #bfdbfe;
+        }
+      }
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────
+  // EMPTY STATE
+  // ─────────────────────────────────────────────────────────
+
+  .empty-cell {
+    text-align: center;
+    padding: 3rem 0.75rem;
+    color: #9ca3af;
+    font-size: 0.85rem;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 3rem 1.25rem;
+
+    .empty-icon {
+      font-size: 3rem;
+      color: #d1d5db;
+      margin-bottom: 1rem;
+    }
+
+    .empty-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 0.5rem;
+    }
+
+    .empty-message {
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────
+  // TABLE FOOTER / PAGINATION
+  // ─────────────────────────────────────────────────────────
+
+  .table-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.85rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #f3f4f6;
+    font-size: 0.75rem;
+    color: #9ca3af;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    .page-info {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      font-weight: 500;
+
+      .current-page {
+        color: #111827;
+        font-weight: 600;
+      }
+
+      .total-pages {
+        color: #6b7280;
+      }
+    }
+
+    .pagination {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+
+      .pager-btn {
+        width: 28px;
+        height: 28px;
+        border-radius: 999px;
+        border: 1px solid #e5e7eb;
+        background-color: #ffffff;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #6b7280;
+        font-size: 0.8rem;
+        transition: all 0.15s;
+
+        .pi {
+          font-size: 0.8rem;
+        }
+
+        &:hover:not(:disabled) {
+          background-color: #f3f4f6;
+          border-color: #d1d5db;
+          color: #111827;
+        }
+
+        &:disabled {
+          opacity: 0.4;
+          cursor: not-allowed;
+        }
+
+        &:active:not(:disabled) {
+          transform: translateY(1px);
+        }
+      }
+
+      .pager-page {
+        min-width: 28px;
+        height: 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        background-color: #6f9b5a;
+        color: #ffffff;
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 0 0.35rem;
+      }
+
+      .pager-ellipsis {
+        width: 28px;
+        text-align: center;
+        color: #6b7280;
+        font-weight: 500;
+      }
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────
+  // SOURCE PILL STYLES
+  // ─────────────────────────────────────────────────────────
+
+  .source-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    background: #5b21b6;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.78rem;
+
+    .pi {
+      font-size: 0.7rem;
+    }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────
+// RESPONSIVE STYLES
+// ─────────────────────────────────────────────────────────────
+
+@media (max-width: 1024px) {
+  .filters-section {
+    flex-direction: column;
+    align-items: stretch;
+
+    .filter-group {
+      width: 100%;
+
+      .search-input-group {
+        flex-direction: column;
+
+        p-select {
+          width: 100%;
+        }
+
+        input {
+          width: 100%;
+        }
+      }
+
+      .amount-inputs {
+        input {
+          flex: 0 0 auto;
+          width: 100%;
+        }
+      }
+    }
+
+    .filter-actions {
+      width: 100%;
+
+      button {
+        flex: 1;
+      }
+    }
+  }
+
+  .table-card {
+    .table-header {
+      flex-direction: column;
+      align-items: flex-start;
+
+      .header-right {
+        width: 100%;
+      }
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    .table-footer {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .filters-section {
+    padding: 1rem;
+    gap: 1rem;
+
+    .filter-group {
+      min-width: 100%;
+
+      input,
+      p-select,
+      p-datepicker {
+        font-size: 16px; // Prevents zoom on iOS
+      }
+    }
+  }
+
+  .table-card {
+    border-radius: 8px;
+
+    .table-header {
+      padding: 0.75rem;
+
+      .title {
+        font-size: 0.95rem;
+      }
+
+      .header-right {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5rem;
+
+        .page-size,
+        .export-btn {
+          width: 100%;
+
+          select {
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .table-wrapper {
+      padding: 0.5rem;
+
+      table {
+        font-size: 0.8rem;
+
+        th,
+        td {
+          padding: 0.5rem;
+        }
+      }
+    }
+
+    .table-footer {
+      padding: 0.75rem;
+      flex-direction: column;
+      gap: 0.75rem;
+
+      .page-info {
+        width: 100%;
+      }
+
+      .pagination {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .filters-section {
+    padding: 0.75rem;
+    gap: 0.75rem;
+
+    .filter-group {
+      label {
+        font-size: 0.7rem;
+      }
+
+      input {
+        font-size: 16px;
+      }
+    }
+
+    .filter-actions {
+      button {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  .table-card {
+    border-radius: 6px;
+
+    .table-header {
+      padding: 0.5rem;
+
+      .title {
+        font-size: 0.9rem;
+      }
+    }
+
+    .table-wrapper {
+      table {
+        font-size: 0.75rem;
+
+        th,
+        td {
+          padding: 0.35rem;
+        }
+      }
+    }
+
+    .table-footer {
+      padding: 0.5rem;
+
+      .page-info,
+      .pagination {
+        font-size: 0.75rem;
+      }
+    }
+  }
+}

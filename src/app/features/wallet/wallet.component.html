@@ -40,8 +40,19 @@
       <div class="filter-group amount-filter">
         <label>Amount</label>
         <div class="amount-inputs">
-          <input type="number" pInputText [(ngModel)]="amountMin" placeholder="Min" />
-          <input type="number" pInputText [(ngModel)]="amountMax" placeholder="Max" />
+          <input 
+            type="number" 
+            pInputText 
+            [(ngModel)]="amountMin" 
+            placeholder="Min"
+            class="amount-input" />
+          <span class="separator">—</span>
+          <input 
+            type="number" 
+            pInputText 
+            [(ngModel)]="amountMax" 
+            placeholder="Max"
+            class="amount-input" />
         </div>
       </div>
 
